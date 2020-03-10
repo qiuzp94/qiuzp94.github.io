@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="项目," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、什么是LeanCLoud1.1 问题：前端要存储一个数据要怎么操作？没有方法存储，用户刷新或者换一台设备，数据就会没有。存数据只能存储在服务器（server）上，这样才能做到，跨设备数据保存。 1.2 LeanCLoud是什么在请求量低，LeanCloud提供免费数据库API  leancloud 领先的 BaaS 提供商,提供数据存储、文件存储、云引擎、容器、即时通讯、消息推送、短信、游戏云">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【前端项目】简历项目添加LeanCloud留言功能">
+<meta property="og:url" content="https://qiuzp.com/uncategorized/%E3%80%90%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E3%80%91%E7%AE%80%E5%8E%86%E9%A1%B9%E7%9B%AE%E6%B7%BB%E5%8A%A0LeanCloud%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="一、什么是LeanCLoud1.1 问题：前端要存储一个数据要怎么操作？没有方法存储，用户刷新或者换一台设备，数据就会没有。存数据只能存储在服务器（server）上，这样才能做到，跨设备数据保存。 1.2 LeanCLoud是什么在请求量低，LeanCloud提供免费数据库API  leancloud 领先的 BaaS 提供商,提供数据存储、文件存储、云引擎、容器、即时通讯、消息推送、短信、游戏云">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/zOdSJq6pacNbsBR.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/HT4u1AfzwyvIp9W.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/9Dj6MExuNWwBokH.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/uCXmcg7vPp9ODYx.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/dwLfy5OsXMI6Y2t.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/rFOQxntULyaC6Yc.png">
+<meta property="article:published_time" content="2020-03-09T14:55:55.000Z">
+<meta property="article:modified_time" content="2020-03-10T16:20:49.960Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="项目">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/09/zOdSJq6pacNbsBR.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://qiuzp.com/uncategorized/【前端项目】简历项目添加LeanCloud留言功能/"/>
+
+
+
+
+
+  <title>【前端项目】简历项目添加LeanCloud留言功能 | Qiuzp的技术博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Qiuzp的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qiuzp.com/uncategorized/%E3%80%90%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E3%80%91%E7%AE%80%E5%8E%86%E9%A1%B9%E7%9B%AE%E6%B7%BB%E5%8A%A0LeanCloud%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qiuzp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qiuzp的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【前端项目】简历项目添加LeanCloud留言功能</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T22:55:55+08:00">
+                2020-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、什么是LeanCLoud"><a href="#一、什么是LeanCLoud" class="headerlink" title="一、什么是LeanCLoud"></a>一、什么是LeanCLoud</h2><h3 id="1-1-问题：前端要存储一个数据要怎么操作？"><a href="#1-1-问题：前端要存储一个数据要怎么操作？" class="headerlink" title="1.1 问题：前端要存储一个数据要怎么操作？"></a>1.1 问题：前端要存储一个数据要怎么操作？</h3><p>没有方法存储，用户刷新或者换一台设备，数据就会没有。<br>存数据只能存储在服务器（server）上，这样才能做到，跨设备数据保存。</p>
+<h2 id="1-2-LeanCLoud是什么"><a href="#1-2-LeanCLoud是什么" class="headerlink" title="1.2 LeanCLoud是什么"></a>1.2 LeanCLoud是什么</h2><p>在请求量低，LeanCloud提供免费数据库API</p>
+<blockquote>
+<p>leancloud 领先的 BaaS 提供商,提供数据存储、文件存储、云引擎、容器、即时通讯、消息推送、短信、游戏云等多项服务,为移动开发提供强有力的后端支持</p>
+</blockquote>
+<p><a href="https://www.leancloud.cn/" target="_blank" rel="noopener">LeanCloud官网</a></p>
+<ul>
+<li>一个自带数据库和增删改查（CRUD）功能的后台系统<ul>
+<li>登录注册、手机验证码功能（收费）</li>
+<li>存储任意信息</li>
+<li>读取任意信息</li>
+<li>搜索任意信息</li>
+<li>删除任意信息</li>
+<li>更新任意信息</li>
+<li>等等功能</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、前期准备"><a href="#二、前期准备" class="headerlink" title="二、前期准备"></a>二、前期准备</h2><h3 id="1-1-注册一个leadcloud"><a href="#1-1-注册一个leadcloud" class="headerlink" title="1.1 注册一个leadcloud"></a>1.1 注册一个leadcloud</h3><h3 id="1-2-选择节点"><a href="#1-2-选择节点" class="headerlink" title="1.2 选择节点"></a>1.2 选择节点</h3><p>  如果域名在国内备案了，选择华北或者华东节点，反之选国际版</p>
+<p><img src="https://i.loli.net/2020/03/09/zOdSJq6pacNbsBR.png" alt="leadcloud01-min.png"></p>
+<h3 id="1-3-创建一个应用"><a href="#1-3-创建一个应用" class="headerlink" title="1.3 创建一个应用"></a>1.3 创建一个应用</h3><p><img src="https://i.loli.net/2020/03/09/HT4u1AfzwyvIp9W.png" alt="leadcloud02-min.png"></p>
+<h2 id="三、初始化LeadCloud"><a href="#三、初始化LeadCloud" class="headerlink" title="三、初始化LeadCloud"></a>三、初始化LeadCloud</h2><h3 id="3-1-创建一个CLass"><a href="#3-1-创建一个CLass" class="headerlink" title="3.1 创建一个CLass"></a>3.1 创建一个CLass</h3><p><img src="https://i.loli.net/2020/03/09/9Dj6MExuNWwBokH.png" alt="leadCloud03-min.png"></p>
+<h3 id="3-2-绑定自定义域名"><a href="#3-2-绑定自定义域名" class="headerlink" title="3.2 绑定自定义域名"></a>3.2 绑定自定义域名</h3><p><img src="https://i.loli.net/2020/03/09/uCXmcg7vPp9ODYx.png" alt="uCXmcg7vPp9ODYx.png"></p>
+<h3 id="3-3-引入leadcloud数据库"><a href="#3-3-引入leadcloud数据库" class="headerlink" title="3.3 引入leadcloud数据库"></a>3.3 引入leadcloud数据库</h3><p>具体操作<a href="https://tab.leancloud.cn/docs/start.html" target="_blank" rel="noopener">可以查看LeanCloud 文档</a></p>
+<h4 id="3-3-1-cdn引入leadcloud"><a href="#3-3-1-cdn引入leadcloud" class="headerlink" title="3.3.1 cdn引入leadcloud"></a>3.3.1 cdn引入leadcloud</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 存储服务 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//cdn.jsdelivr.net/npm/leancloud-storage@4.2.0/dist/av-min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>引入成功，可以在chrome的控制台打印出<code>AV</code>的全局变量</p>
+</blockquote>
+<h4 id="3-3-2-添加个人的leadCloud信息到js上"><a href="#3-3-2-添加个人的leadCloud信息到js上" class="headerlink" title="3.3.2 添加个人的leadCloud信息到js上"></a>3.3.2 添加个人的leadCloud信息到js上</h4><p><img src="https://i.loli.net/2020/03/09/dwLfy5OsXMI6Y2t.png" alt="leadCloud05-min.png"></p>
+<h2 id="四、测试LeadCloud"><a href="#四、测试LeadCloud" class="headerlink" title="四、测试LeadCloud"></a>四、测试LeadCloud</h2><h3 id="4-1-ping-自己设置的自定义域名-有响应就成功"><a href="#4-1-ping-自己设置的自定义域名-有响应就成功" class="headerlink" title="4.1 ping 自己设置的自定义域名 有响应就成功"></a>4.1 ping 自己设置的自定义域名 有响应就成功</h3><p>具体可以看看leadCloud文档的<code>验证</code>部分</p>
+<p><a href="https://tab.leancloud.cn/docs/start.html" target="_blank" rel="noopener">SDK 安装指南 - LeanCloud 文档</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试代码</span></span><br><span class="line"><span class="keyword">var</span> TestObject = AV.Object.extend(<span class="string">'TestObject'</span>);</span><br><span class="line"><span class="keyword">var</span> testObject = <span class="keyword">new</span> TestObject();</span><br><span class="line">testObject.set(<span class="string">'words'</span>, <span class="string">'Hello world!'</span>);</span><br><span class="line">testObject.save().then(<span class="function"><span class="keyword">function</span> (<span class="params">testObject</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'保存成功。'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-提高数据库安全性"><a href="#4-2-提高数据库安全性" class="headerlink" title="4.2 提高数据库安全性"></a>4.2 提高数据库安全性</h3><ol>
+<li>在<code>设置</code>-&gt;<code>风险监测</code>中，把不要的Class能删除就删除，不能删除的就改为更高级别的权限。</li>
+<li>在<code>设置</code>-&gt;<code>安全中心</code>-&gt;<code>服务开关</code>,把不需要的服务统统关闭。</li>
+<li>在<code>设置</code>-&gt;<code>安全中心</code>-&gt;<code>Web安全域名域名</code>添加自己数据库自定义域名上去</li>
+</ol>
+<h2 id="五、添加留言表单"><a href="#五、添加留言表单" class="headerlink" title="五、添加留言表单"></a>五、添加留言表单</h2><h3 id="5-1-添加留言表单的HTMl"><a href="#5-1-添加留言表单的HTMl" class="headerlink" title="5.1 添加留言表单的HTMl"></a>5.1 添加留言表单的HTMl</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">id</span>=<span class="string">"postMessageForm"</span> <span class="attr">class</span>=<span class="string">"postMessageForm"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"name"</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">autocomplete</span>=<span class="string">"off"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"content"</span>&gt;</span>评论内容<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"content"</span> <span class="attr">autocomplete</span>=<span class="string">"off"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="5-2-添加留言表单的CSS"><a href="#5-2-添加留言表单的CSS" class="headerlink" title="5.2 添加留言表单的CSS"></a>5.2 添加留言表单的CSS</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.postMessageForm</span>&#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">1px</span> <span class="number">1px</span> <span class="number">7px</span> <span class="number">0px</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.7</span>); <span class="attribute">box-sizing</span>:border-box; <span class="attribute">border</span>:<span class="number">20px</span> solid white; <span class="attribute">background-color</span>:<span class="number">#fff</span>; &#125;</span><br><span class="line"><span class="selector-class">.postMessageForm</span> &gt; <span class="selector-tag">input</span><span class="selector-attr">[type=text]</span>&#123; <span class="attribute">width</span>:<span class="number">300px</span>; <span class="attribute">height</span>:<span class="number">30px</span>; &#125;</span><br><span class="line"><span class="selector-class">.postMessageForm</span> &gt; <span class="selector-tag">input</span><span class="selector-attr">[name=name]</span>,</span><br><span class="line"><span class="selector-class">.postMessageForm</span> &gt; <span class="selector-tag">input</span><span class="selector-attr">[name=content]</span>&#123; <span class="attribute">margin-right</span>: <span class="number">30px</span>; &#125;</span><br><span class="line"><span class="selector-class">.postMessageForm</span> &gt; <span class="selector-tag">input</span><span class="selector-attr">[type=text]</span><span class="selector-pseudo">:focus</span>&#123; <span class="attribute">outline</span>: none; &#125;</span><br><span class="line"><span class="selector-class">.postMessageForm</span> &gt; <span class="selector-tag">label</span>&#123; <span class="attribute">line-height</span>: <span class="number">30px</span>; <span class="attribute">font-size</span>:<span class="number">18px</span>; &#125;</span><br><span class="line"><span class="selector-class">.postMessageForm</span> &gt; <span class="selector-tag">input</span><span class="selector-attr">[type=submit]</span>&#123; <span class="attribute">background-color</span>:<span class="number">#e4696c</span>; <span class="attribute">opacity</span>: <span class="number">0.6</span>; <span class="attribute">color</span>:<span class="number">#efefef</span>; <span class="attribute">width</span>: <span class="number">100px</span>; <span class="attribute">text-align</span>: center; <span class="attribute">line-height</span>: <span class="number">32px</span>; &#125;</span><br><span class="line"><span class="selector-class">.postMessageForm</span> &gt; <span class="selector-tag">input</span><span class="selector-attr">[type=submit]</span><span class="selector-pseudo">:focus</span>&#123; <span class="attribute">outline</span>: none; &#125;</span><br><span class="line"><span class="selector-class">.postMessageForm</span> &gt; <span class="selector-tag">input</span><span class="selector-attr">[type=submit]</span><span class="selector-pseudo">:hover</span>&#123; <span class="attribute">opacity</span>: <span class="number">1</span>; <span class="attribute">transition</span>: all <span class="number">0.4s</span>; <span class="attribute">cursor</span>: pointer; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-添加留言表单的JS"><a href="#5-3-添加留言表单的JS" class="headerlink" title="5.3 添加留言表单的JS"></a>5.3 添加留言表单的JS</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myForm = <span class="built_in">document</span>.querySelector(<span class="string">'#postMessageForm'</span>)</span><br><span class="line">myForm.addEventListener(<span class="string">'submit'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    e.preventDefault()<span class="comment">//阻止默认事件，否则会有默认跳转</span></span><br><span class="line">    <span class="keyword">let</span> content = myForm.querySelector(<span class="string">'input[name=content]'</span>).value</span><br><span class="line">    <span class="keyword">let</span> name = myForm.querySelector(<span class="string">'input[name=name]'</span>).value</span><br><span class="line">    <span class="keyword">var</span> Message = AV.Object.extend(<span class="string">'Message'</span>);</span><br><span class="line">    <span class="keyword">var</span> message = <span class="keyword">new</span> Message();</span><br><span class="line">    message.set(&#123;</span><br><span class="line">        <span class="string">'content'</span>: content,</span><br><span class="line">        <span class="string">'name'</span>: name,</span><br><span class="line">    &#125;)</span><br><span class="line">    message.save().then(<span class="function"><span class="keyword">function</span> (<span class="params">Object</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> li = <span class="built_in">document</span>.createElement(<span class="string">'li'</span>)</span><br><span class="line">        li.innerText = <span class="string">`<span class="subst">$&#123;object.attributes.name&#125;</span>: <span class="subst">$&#123;object.attributes.content&#125;</span>`</span></span><br><span class="line">        <span class="keyword">let</span> messageList = <span class="built_in">document</span>.querySelector(<span class="string">'#messageList'</span>)</span><br><span class="line">        messageList.appendChild(li)</span><br><span class="line">        location.reload(<span class="literal">true</span>);<span class="comment">//刷新页面</span></span><br><span class="line">    &#125;)</span><br><span class="line">    alert(<span class="string">'留言成功啦'</span>)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="六、添加留言板代码"><a href="#六、添加留言板代码" class="headerlink" title="六、添加留言板代码"></a>六、添加留言板代码</h2><h3 id="6-1-添加留言板html"><a href="#6-1-添加留言板html" class="headerlink" title="6.1 添加留言板html"></a>6.1 添加留言板html</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ol</span> <span class="attr">id</span>=<span class="string">"messageList"</span> <span class="attr">class</span>=<span class="string">"messageList"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-添加留言板css"><a href="#6-2-添加留言板css" class="headerlink" title="6.2 添加留言板css"></a>6.2 添加留言板css</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.messageList</span> &gt; <span class="selector-tag">li</span>&#123; <span class="attribute">font-size</span>: <span class="number">18px</span>; <span class="attribute">line-height</span>: <span class="number">40px</span>; <span class="attribute">background-color</span>:<span class="number">#eee</span>; <span class="attribute">padding</span>:<span class="number">0px</span> <span class="number">20px</span>; &#125;</span><br><span class="line"><span class="selector-class">.messageList</span> &gt; <span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span>&#123; <span class="attribute">border-top-left-radius</span>: <span class="number">10px</span>; <span class="attribute">border-top-right-radius</span>: <span class="number">10px</span>; &#125;</span><br><span class="line"><span class="selector-class">.messageList</span> &gt; <span class="selector-tag">li</span><span class="selector-pseudo">:last-child</span>&#123; <span class="attribute">border-bottom-left-radius</span>: <span class="number">10px</span>; <span class="attribute">border-bottom-right-radius</span>: <span class="number">10px</span>; &#125;</span><br><span class="line"><span class="selector-class">.messageList</span> &gt; <span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(2n+1)</span>&#123; <span class="attribute">background-color</span>:<span class="number">#fff</span>; &#125; </span><br><span class="line"><span class="selector-class">.messageList</span> &gt; <span class="selector-tag">li</span><span class="selector-pseudo">:hover</span>&#123; <span class="attribute">background-color</span>:<span class="number">#e4696c</span>; <span class="attribute">color</span>:<span class="number">#fff</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-3-添加留言板JS"><a href="#6-3-添加留言板JS" class="headerlink" title="6.3 添加留言板JS"></a>6.3 添加留言板JS</h3><p>打开项目就会读取leadCloud上的留言数据，然后存放在ol的li中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> query = <span class="keyword">new</span> AV.Query(<span class="string">'Message'</span>);</span><br><span class="line">query.find()</span><br><span class="line">    .then(</span><br><span class="line">        <span class="function"><span class="keyword">function</span> (<span class="params">messages</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> array = messages.map(<span class="function">(<span class="params">item</span>) =&gt;</span> item.attributes)</span><br><span class="line">            array.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> li = <span class="built_in">document</span>.createElement(<span class="string">'li'</span>)</span><br><span class="line">                li.innerText = <span class="string">`<span class="subst">$&#123;item.name&#125;</span>:<span class="subst">$&#123;item.content&#125;</span>`</span></span><br><span class="line">                <span class="keyword">let</span> messageList = <span class="built_in">document</span>.querySelector(<span class="string">'#messageList'</span>)</span><br><span class="line">                messageList.appendChild(li)</span><br><span class="line">                myForm.querySelector(<span class="string">'input[name=content]'</span>).value = <span class="string">''</span></span><br><span class="line">                myForm.querySelector(<span class="string">'input[name=name]'</span>).value = <span class="string">''</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; </span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h2><h3 id="7-1效果如下"><a href="#7-1效果如下" class="headerlink" title="7.1效果如下"></a>7.1效果如下</h3><p><img src="https://i.loli.net/2020/03/09/rFOQxntULyaC6Yc.png" alt="leancloud06.png"></p>
+<h3 id="7-2-问：为什么要监听form，而不是button？"><a href="#7-2-问：为什么要监听form，而不是button？" class="headerlink" title="7.2 问：为什么要监听form，而不是button？"></a>7.2 问：为什么要监听form，而不是button？</h3><p>假设用户在文本框输入了文字，但不点提交按钮，直接点回车，怎么办？用户回车要不要提交表单？ 要</p>
+<p>所以要监听提按钮也要监听回车</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下面是错误示范</span></span><br><span class="line"><span class="keyword">let</span> button = myForm.querySelector(<span class="string">'input[type=submit]'</span>)</span><br><span class="line">button.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br><span class="line"><span class="keyword">let</span> input = myForm.querySelector(<span class="string">'input[name=content]'</span>)</span><br><span class="line">input.addEventListener(<span class="string">'keypress'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(e.keyCode === <span class="number">13</span>)&#123;</span><br><span class="line">  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//但是上面代码也可以等于下面,比较简单</span></span><br><span class="line">myForm.addEventListener(<span class="string">'submit'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>sumblit 包含提交，在任意的input打回车</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E9%A1%B9%E7%9B%AE/" rel="tag"># 项目</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/uncategorized/%E3%80%90JavaScript%E3%80%91MVC%E7%9F%A5%E8%AF%86%E6%A6%82%E6%8B%AC/" rel="next" title="【JavaScript】MVC知识概括">
+                <i class="fa fa-chevron-left"></i> 【JavaScript】MVC知识概括
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Qiuzp" />
+            
+              <p class="site-author-name" itemprop="name">Qiuzp</p>
+              <p class="site-description motion-element" itemprop="description">学习前端,热爱生活</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/qiuzp94" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是LeanCLoud"><span class="nav-number">1.</span> <span class="nav-text">一、什么是LeanCLoud</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-问题：前端要存储一个数据要怎么操作？"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 问题：前端要存储一个数据要怎么操作？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-LeanCLoud是什么"><span class="nav-number">2.</span> <span class="nav-text">1.2 LeanCLoud是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、前期准备"><span class="nav-number">3.</span> <span class="nav-text">二、前期准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-注册一个leadcloud"><span class="nav-number">3.1.</span> <span class="nav-text">1.1 注册一个leadcloud</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-选择节点"><span class="nav-number">3.2.</span> <span class="nav-text">1.2 选择节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-创建一个应用"><span class="nav-number">3.3.</span> <span class="nav-text">1.3 创建一个应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、初始化LeadCloud"><span class="nav-number">4.</span> <span class="nav-text">三、初始化LeadCloud</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-创建一个CLass"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 创建一个CLass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-绑定自定义域名"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 绑定自定义域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-引入leadcloud数据库"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 引入leadcloud数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-cdn引入leadcloud"><span class="nav-number">4.3.1.</span> <span class="nav-text">3.3.1 cdn引入leadcloud</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-添加个人的leadCloud信息到js上"><span class="nav-number">4.3.2.</span> <span class="nav-text">3.3.2 添加个人的leadCloud信息到js上</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、测试LeadCloud"><span class="nav-number">5.</span> <span class="nav-text">四、测试LeadCloud</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-ping-自己设置的自定义域名-有响应就成功"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 ping 自己设置的自定义域名 有响应就成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-提高数据库安全性"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 提高数据库安全性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、添加留言表单"><span class="nav-number">6.</span> <span class="nav-text">五、添加留言表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-添加留言表单的HTMl"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 添加留言表单的HTMl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-添加留言表单的CSS"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 添加留言表单的CSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-添加留言表单的JS"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 添加留言表单的JS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、添加留言板代码"><span class="nav-number">7.</span> <span class="nav-text">六、添加留言板代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-添加留言板html"><span class="nav-number">7.1.</span> <span class="nav-text">6.1 添加留言板html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-添加留言板css"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 添加留言板css</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-添加留言板JS"><span class="nav-number">7.3.</span> <span class="nav-text">6.3 添加留言板JS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、总结"><span class="nav-number">8.</span> <span class="nav-text">七、总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1效果如下"><span class="nav-number">8.1.</span> <span class="nav-text">7.1效果如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-问：为什么要监听form，而不是button？"><span class="nav-number">8.2.</span> <span class="nav-text">7.2 问：为什么要监听form，而不是button？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qiuzp</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
