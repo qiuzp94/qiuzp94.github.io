@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -79,13 +79,16 @@
 
 
 
-<meta name="description" content="学习前端,热爱生活">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Qiuzp的技术博客">
-<meta property="og:url" content="https://qiuzp.com/tags/JavaScript/index.html">
+<meta name="description" content="本文章是归纳复习本人在学习JavaScript中运用过得DOM api，将不定时的更新补充，完善。 DOM 是 JavaScript 操作网页的接口，全称为“文档对象模型”（Document Object Model）。它的作用是将网页转为一个 JavaScript 对象，从而可以用脚本进行各种操作（比如增删内容）。 一、Element类型Element.attributes返回一个与该元素相关的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中常用的DOMAPI">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/JavaScript%20%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84DOM%20API/index.html">
 <meta property="og:site_name" content="Qiuzp的技术博客">
-<meta property="og:description" content="学习前端,热爱生活">
+<meta property="og:description" content="本文章是归纳复习本人在学习JavaScript中运用过得DOM api，将不定时的更新补充，完善。 DOM 是 JavaScript 操作网页的接口，全称为“文档对象模型”（Document Object Model）。它的作用是将网页转为一个 JavaScript 对象，从而可以用脚本进行各种操作（比如增删内容）。 一、Element类型Element.attributes返回一个与该元素相关的">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T05:05:27.470Z">
 <meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
 
 
@@ -116,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://qiuzp.com/tags/JavaScript/"/>
+  <link rel="canonical" href="https://qiuzp.com/2020/04/03/JavaScript 中常用的DOM API/"/>
 
 
 
 
 
-  <title>标签: JavaScript | Qiuzp的技术博客</title>
+  <title>JavaScript中常用的DOMAPI | Qiuzp的技术博客</title>
   
 
 
@@ -141,7 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -259,310 +262,194 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>JavaScript<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qiuzp.com/2020/04/03/JavaScript%20%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84DOM%20API/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qiuzp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qiuzp的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91JavaScript%E6%93%8D%E4%BD%9C%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】JavaScript操作请求与响应</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">JavaScript中常用的DOMAPI</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T14:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T11:57:20+08:00">
+                2020-04-03
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91MVC%E7%9F%A5%E8%AF%86%E6%A6%82%E6%8B%AC/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】MVC知识概括</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T13:19:10+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <p>本文章是归纳复习本人在学习JavaScript中运用过得DOM api，将不定时的更新补充，完善。</p>
+<p>DOM 是 JavaScript 操作网页的接口，全称为“文档对象模型”（Document Object Model）。它的作用是将网页转为一个 JavaScript 对象，从而可以用脚本进行各种操作（比如增删内容）。</p>
+<h2 id="一、Element类型"><a href="#一、Element类型" class="headerlink" title="一、Element类型"></a>一、Element类型</h2><h3 id="Element-attributes"><a href="#Element-attributes" class="headerlink" title="Element.attributes"></a>Element.attributes</h3><p>返回一个与该元素相关的所有属性集合</p>
+<h3 id="Element-classList"><a href="#Element-classList" class="headerlink" title="Element.classList"></a>Element.classList</h3><p>返回该元素包含的 class 属性,通常用来添加/移除对应的CSS样式</p>
+<h3 id="Element-className"><a href="#Element-className" class="headerlink" title="Element.className"></a>Element.className</h3><p>className属性用来读写当前元素节点的class属性</p>
+<h3 id="Element-innerHTML"><a href="#Element-innerHTML" class="headerlink" title="Element.innerHTML"></a>Element.innerHTML</h3><p>返回一个字符串，等同于该元素包含的所有 HTML 代码,常用来设置某个节点的内容。它能改写所有元素节点的内容</p>
+<a id="more"></a>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91%E8%87%AA%E5%B7%B1%E5%B0%81%E8%A3%85AJXA%20/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】自己封装AJXA</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T13:19:10+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
+<h3 id="Element-getAttribute"><a href="#Element-getAttribute" class="headerlink" title="Element.getAttribute()"></a>Element.getAttribute()</h3><p>Element.getAttribute()方法接受一个字符串作为参数，返回同名属性的值。如果没有该属性，则返回null。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var mydiv &#x3D; document.getElementById(&#39;mydiv&#39;);</span><br><span class="line">var id &#x3D; mydiv.getAttribute(&#39;id&#39;);</span><br><span class="line">上面代码读取mydiv的id的值。</span><br></pre></td></tr></table></figure>
 
 
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-%E5%85%A8%E5%B1%80%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4&&new%E6%98%AF%E4%BB%80%E4%B9%88/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】面向对象编程-全局命名空间&&new是什么</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T13:11:11+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
 
 
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/%20%E3%80%90JavaScript%E3%80%91Promise/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】Promise</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/Cookie%E4%B8%8E%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C/" itemprop="url">
-              
-                <span itemprop="name">Cookie与登录注册</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/JS%20%E9%87%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" itemprop="url">
-              
-                <span itemprop="name">JS 里的数据类型转换</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/JS%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url">
-              
-                <span itemprop="name">JS的数据类型</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/JavaScript%20Array%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" itemprop="url">
-              
-                <span itemprop="name">JavaScript Array对象类型</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/JavaScript%20%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84DOM%20API/" itemprop="url">
-              
-                <span itemprop="name">JavaScript中常用的DOMAPI</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<h2 id="二、document类型"><a href="#二、document类型" class="headerlink" title="二、document类型"></a>二、document类型</h2><h3 id="document-querySelector"><a href="#document-querySelector" class="headerlink" title="document.querySelector"></a>document.querySelector</h3><p>接受一个 CSS 选择器作为参数，返回匹配该选择器的元素节点。</p>
+<h3 id="document-querySelectorAll"><a href="#document-querySelectorAll" class="headerlink" title="document.querySelectorAll"></a>document.querySelectorAll</h3><p>document.querySelectorAll() 是 HTML5中引入的新方法，返回文档中匹配的CSS选择器的所有元素节点列表</p>
+<h3 id="document-getElementById"><a href="#document-getElementById" class="headerlink" title="document.getElementById"></a>document.getElementById</h3><p>getElementById()返回一个匹配特定 ID的元素</p>
+<h3 id="document-getElementsByClassName"><a href="#document-getElementsByClassName" class="headerlink" title="document.getElementsByClassName"></a>document.getElementsByClassName</h3><p>方法返回一个类似数组的对象，</p>
+<h3 id="document-getElementsByTagName"><a href="#document-getElementsByTagName" class="headerlink" title="document.getElementsByTagName"></a>document.getElementsByTagName</h3><p>getElementsByClassName() 方法返回文档中所有指定类名的元素集合，作为 NodeList 对象。</p>
+<h3 id="document-createElement"><a href="#document-createElement" class="headerlink" title="document.createElement()"></a>document.createElement()</h3><p>创建元素节点。</p>
+<h2 id="三、Node类型"><a href="#三、Node类型" class="headerlink" title="三、Node类型"></a>三、Node类型</h2><h3 id="Node-appenChild"><a href="#Node-appenChild" class="headerlink" title="Node.appenChild()"></a>Node.appenChild()</h3><p>方法将一个节点添加到指定父节点的子节点列表末尾。</p>
+<h3 id="Node-childNodes"><a href="#Node-childNodes" class="headerlink" title="Node.childNodes"></a>Node.childNodes</h3><p>返回一个包含了该节点所有子节点的实时的NodeList。</p>
+<h3 id="Node-nextSibling"><a href="#Node-nextSibling" class="headerlink" title="Node.nextSibling"></a>Node.nextSibling</h3><p>返回与该节点同级的下一个节点 Node，如果没有返回null。</p>
+<h3 id="Node-nodeType"><a href="#Node-nodeType" class="headerlink" title="Node.nodeType"></a>Node.nodeType</h3><p>只读属性 Node.nodeType 表示的是该节点的类型。nodeType 属性可用来区分不同类型的节点，比如 元素, 文本 和 注释。</p>
+<ul>
+<li>Node.ELEMENT_NODE        节点是一个元素节点，nodeType 属性返回 1</li>
+<li>Node.TEXT_NODE        节点是一个文本节点，nodeType 属性返回 3</li>
+<li>Node.COMMENT_NODE        节点是一个注释节点，nodeType 属性返回 8</li>
+<li>Node.DOCUMENT_NODE        一个 Document 节点。 9</li>
+</ul>
+<p><a href="https://www.runoob.com/jsref/prop-node-nodetype.html" target="_blank" rel="noopener">查看nodeType 属性其它返回节点类型</a></p>
+<h3 id="Node-textContent"><a href="#Node-textContent" class="headerlink" title="Node.textContent"></a>Node.textContent</h3><p>textContent属性返回当前节点和它的所有后代节点的文本内容。</p>
+<h3 id="Node-parentNode"><a href="#Node-parentNode" class="headerlink" title="Node.parentNode"></a>Node.parentNode</h3><p>返回某节点的父节点</p>
+<h2 id="四、DOM事件-鼠标事件"><a href="#四、DOM事件-鼠标事件" class="headerlink" title="四、DOM事件-鼠标事件"></a>四、DOM事件-鼠标事件</h2><h3 id="onclick"><a href="#onclick" class="headerlink" title="onclick"></a>onclick</h3><p>当用户点击某个对象时调用的事件句柄。</p>
+<h3 id="onmousedown"><a href="#onmousedown" class="headerlink" title="onmousedown"></a>onmousedown</h3><p>鼠标按钮被按下。</p>
+<h3 id="onmouseenter"><a href="#onmouseenter" class="headerlink" title="onmouseenter"></a>onmouseenter</h3><p>当鼠标指针移动到元素上时触发。</p>
+<h3 id="onmouseleave"><a href="#onmouseleave" class="headerlink" title="onmouseleave"></a>onmouseleave</h3><p>当鼠标指针移出元素时触发</p>
+<h3 id="onmouseup"><a href="#onmouseup" class="headerlink" title="onmouseup"></a>onmouseup</h3><p>鼠标按键被松开。</p>
+<h2 id="五、DOM事件-键盘事件"><a href="#五、DOM事件-键盘事件" class="headerlink" title="五、DOM事件-键盘事件"></a>五、DOM事件-键盘事件</h2><h3 id="onkeydown"><a href="#onkeydown" class="headerlink" title="onkeydown"></a>onkeydown</h3><p>某个键盘按键被按下。    </p>
+<h3 id="onkeypress"><a href="#onkeypress" class="headerlink" title="onkeypress"></a>onkeypress</h3><p>某个键盘按键被按下并松开。</p>
+<h3 id="onkeyup"><a href="#onkeyup" class="headerlink" title="onkeyup"></a>onkeyup</h3><p>某个键盘按键被松开。</p>
+<h2 id="六、Console-对象"><a href="#六、Console-对象" class="headerlink" title="六、Console 对象"></a>六、Console 对象</h2><h3 id="console-log"><a href="#console-log" class="headerlink" title="console.log()"></a>console.log()</h3><p>控制台输出一条信息</p>
+<h3 id="console-time"><a href="#console-time" class="headerlink" title="console.time()"></a>console.time()</h3><p>计时器，开始计时间，与 timeEnd() 联合使用，用于算出一个操作所花费的准确时间。</p>
+<h3 id="console-timeEnd"><a href="#console-timeEnd" class="headerlink" title="console.timeEnd()"></a>console.timeEnd()</h3><p>计时结束</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/03/Linux%E5%85%A5%E9%97%A8%E4%B9%8B%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95%E8%A7%A3%E6%9E%90/" rel="next" title="Linux入门之常用命令用法解析">
+                <i class="fa fa-chevron-left"></i> Linux入门之常用命令用法解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/03/JavaScript%20Array%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" rel="prev" title="JavaScript Array对象类型">
+                JavaScript Array对象类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/JavaScript/page/2/">2</a><a class="extend next" rel="next" href="/tags/JavaScript/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
-  </nav>
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -570,6 +457,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -592,8 +483,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -658,6 +558,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Element类型"><span class="nav-text">一、Element类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Element-attributes"><span class="nav-text">Element.attributes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Element-classList"><span class="nav-text">Element.classList</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Element-className"><span class="nav-text">Element.className</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Element-innerHTML"><span class="nav-text">Element.innerHTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Element-getAttribute"><span class="nav-text">Element.getAttribute()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、document类型"><span class="nav-text">二、document类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#document-querySelector"><span class="nav-text">document.querySelector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-querySelectorAll"><span class="nav-text">document.querySelectorAll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-getElementById"><span class="nav-text">document.getElementById</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-getElementsByClassName"><span class="nav-text">document.getElementsByClassName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-getElementsByTagName"><span class="nav-text">document.getElementsByTagName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-createElement"><span class="nav-text">document.createElement()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Node类型"><span class="nav-text">三、Node类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-appenChild"><span class="nav-text">Node.appenChild()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-childNodes"><span class="nav-text">Node.childNodes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-nextSibling"><span class="nav-text">Node.nextSibling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-nodeType"><span class="nav-text">Node.nodeType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-textContent"><span class="nav-text">Node.textContent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-parentNode"><span class="nav-text">Node.parentNode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、DOM事件-鼠标事件"><span class="nav-text">四、DOM事件-鼠标事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#onclick"><span class="nav-text">onclick</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onmousedown"><span class="nav-text">onmousedown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onmouseenter"><span class="nav-text">onmouseenter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onmouseleave"><span class="nav-text">onmouseleave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onmouseup"><span class="nav-text">onmouseup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、DOM事件-键盘事件"><span class="nav-text">五、DOM事件-键盘事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#onkeydown"><span class="nav-text">onkeydown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onkeypress"><span class="nav-text">onkeypress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onkeyup"><span class="nav-text">onkeyup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Console-对象"><span class="nav-text">六、Console 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#console-log"><span class="nav-text">console.log()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#console-time"><span class="nav-text">console.time()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#console-timeEnd"><span class="nav-text">console.timeEnd()</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -798,6 +714,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

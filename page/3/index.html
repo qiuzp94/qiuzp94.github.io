@@ -82,7 +82,7 @@
 <meta name="description" content="学习前端,热爱生活">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Qiuzp的技术博客">
-<meta property="og:url" content="https://qiuzp.com/tags/JavaScript/index.html">
+<meta property="og:url" content="https://qiuzp.com/page/3/index.html">
 <meta property="og:site_name" content="Qiuzp的技术博客">
 <meta property="og:description" content="学习前端,热爱生活">
 <meta property="article:author" content="Qiuzp">
@@ -116,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="https://qiuzp.com/tags/JavaScript/"/>
+  <link rel="canonical" href="https://qiuzp.com/page/3/"/>
 
 
 
 
 
-  <title>标签: JavaScript | Qiuzp的技术博客</title>
+  <title>Qiuzp的技术博客</title>
   
 
 
@@ -141,7 +141,8 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,309 +259,530 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
 
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>JavaScript<small>标签</small>
-        </h1>
-      </div>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qiuzp.com/2020/04/03/%E7%90%86%E8%A7%A3HTML%E4%B9%8Ba%E6%A0%87%E7%AD%BE%E3%80%81input%E6%A0%87%E7%AD%BE%E3%80%81form%E6%A0%87%E7%AD%BE%E3%80%81table%E6%A0%87%E7%AD%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qiuzp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qiuzp的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/%E7%90%86%E8%A7%A3HTML%E4%B9%8Ba%E6%A0%87%E7%AD%BE%E3%80%81input%E6%A0%87%E7%AD%BE%E3%80%81form%E6%A0%87%E7%AD%BE%E3%80%81table%E6%A0%87%E7%AD%BE/" itemprop="url">理解HTML之a标签、input标签、form标签、table标签</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T11:57:20+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
 
       
         
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91JavaScript%E6%93%8D%E4%BD%9C%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】JavaScript操作请求与响应</span>
-              
+          <h2 id="一、a标签"><a href="#一、a标签" class="headerlink" title="一、a标签"></a>一、a标签</h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1 定义"></a>1.1 定义</h3><p>a标签定义超链接，用于从一张页面链接到另一张页面。</p>
+<h3 id="1-2-属性"><a href="#1-2-属性" class="headerlink" title="1.2 属性"></a>1.2 属性</h3><h4 id="1-2-1-download"><a href="#1-2-1-download" class="headerlink" title="1.2.1 download"></a>1.2.1 download</h4><p>该属性提示用户将其保存为本地文件</p>
+<p>例子：<br><code>&lt;a href=&quot;/images/baiduimage.jpg&quot; download=&quot;baidulogo&quot;&gt;</code></p>
+<h4 id="1-2-2-href"><a href="#1-2-2-href" class="headerlink" title="1.2.2 href"></a>1.2.2 href</h4><p>该属性指示链接的目标。</p>
+<p>例子：<br><code>&lt;a href=&quot;http://www.baidu.com&quot;&gt;baidu&lt;/a&gt;</code></p>
+<h5 id="javascript-伪协议"><a href="#javascript-伪协议" class="headerlink" title="javascript 伪协议"></a>javascript 伪协议</h5><p>例子：<code>&lt;a href=&quot;javascript:;&quot;&gt;&lt;/a&gt;</code></p>
+<p>为什么要有 javascript 伪协议：</p>
+<ul>
+<li>可以在用户点击 a 时执行一段 javascript 代码</li>
+<li>在地址栏输入<code>javascript:alert(1)</code> 可以在当前页面执行一段代码</li>
+<li>伪协议可以实现「点击之后没有任何动作的 a 标签」，满足一些奇葩需求</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/03/%E7%90%86%E8%A7%A3HTML%E4%B9%8Ba%E6%A0%87%E7%AD%BE%E3%80%81input%E6%A0%87%E7%AD%BE%E3%80%81form%E6%A0%87%E7%AD%BE%E3%80%81table%E6%A0%87%E7%AD%BE/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
+          </div>
+          <!--/noindex-->
         
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T14:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91MVC%E7%9F%A5%E8%AF%86%E6%A6%82%E6%8B%AC/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】MVC知识概括</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T13:19:10+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91%E8%87%AA%E5%B7%B1%E5%B0%81%E8%A3%85AJXA%20/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】自己封装AJXA</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T13:19:10+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B-%E5%85%A8%E5%B1%80%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4&&new%E6%98%AF%E4%BB%80%E4%B9%88/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】面向对象编程-全局命名空间&&new是什么</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T13:11:11+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/%20%E3%80%90JavaScript%E3%80%91Promise/" itemprop="url">
-              
-                <span itemprop="name">【JavaScript】Promise</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/Cookie%E4%B8%8E%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C/" itemprop="url">
-              
-                <span itemprop="name">Cookie与登录注册</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/JS%20%E9%87%8C%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" itemprop="url">
-              
-                <span itemprop="name">JS 里的数据类型转换</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/JS%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url">
-              
-                <span itemprop="name">JS的数据类型</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/JavaScript%20Array%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" itemprop="url">
-              
-                <span itemprop="name">JavaScript Array对象类型</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/03/JavaScript%20%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84DOM%20API/" itemprop="url">
-              
-                <span itemprop="name">JavaScript中常用的DOMAPI</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-03T11:57:20+08:00"
-              content="2020-04-03" >
-          04-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
   
   
   
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qiuzp.com/2020/04/03/%E7%90%86%E8%A7%A3HTML%E4%B9%8B%E7%A9%BA%E6%A0%87%E7%AD%BE%E3%80%81%E5%8F%AF%E6%9B%BF%E6%8D%A2%E6%A0%87%E7%AD%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qiuzp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qiuzp的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/%E7%90%86%E8%A7%A3HTML%E4%B9%8B%E7%A9%BA%E6%A0%87%E7%AD%BE%E3%80%81%E5%8F%AF%E6%9B%BF%E6%8D%A2%E6%A0%87%E7%AD%BE/" itemprop="url">理解HTML之空标签、可替换标签</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T11:57:20+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一、W3C-简介"><a href="#一、W3C-简介" class="headerlink" title="一、W3C 简介"></a>一、W3C 简介</h2><p>万维网联盟（英语：World Wide Web Consortium，缩写W3C），又称W3C理事会，是万维网的主要国际标准组织。</p>
+<p>万维网联盟（W3C）由蒂姆·伯纳斯-李于1994年10月离开欧洲核子研究中心（CERN）后成立，在欧盟委员会和国防高等研究计划署（DARPA）的支持下成立于麻省理工学院MIT计算机科学与人工智能实验室（MIT／LCS）[2]，DARPA推出了ARPANET，是互联网前身之一。</p>
+<h2 id="二、什么是空标签"><a href="#二、什么是空标签" class="headerlink" title="二、什么是空标签"></a>二、什么是空标签</h2><h3 id="2-1-含义"><a href="#2-1-含义" class="headerlink" title="2.1 含义"></a>2.1 含义</h3><p>没有闭合的标签称为空标签，如：<br/>和<img/>等。他们不存在成对的情况,通常在一个空元素上使用一个闭标签是无效的。例如， <code>&lt;input type=&quot;text&quot;&gt;&lt;/input&gt;</code>的闭标签是无效的 HTML。</p>
+<h3 id="2-2-HTML-中有以下这些空元素："><a href="#2-2-HTML-中有以下这些空元素：" class="headerlink" title="2.2 HTML 中有以下这些空元素："></a>2.2 HTML 中有以下这些空元素：</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">area</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">base</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">col</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">colgroup</span>&gt;</span> when the span is present</span><br><span class="line"><span class="tag">&lt;<span class="name">command</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">embed</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">keygen</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">track</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">wbr</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/03/%E7%90%86%E8%A7%A3HTML%E4%B9%8B%E7%A9%BA%E6%A0%87%E7%AD%BE%E3%80%81%E5%8F%AF%E6%9B%BF%E6%8D%A2%E6%A0%87%E7%AD%BE/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qiuzp.com/2020/04/03/%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3HTTP%E4%B9%8B%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qiuzp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qiuzp的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3HTTP%E4%B9%8B%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/" itemprop="url">简单理解HTTP之请求与响应</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T11:57:20+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>超文本传输协议（英语：HyperText Transfer Protocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层协议。HTTP是万维网的数据通信的基础。</p>
+<p>HTTP 的作用就是指导浏览器和服务器如何进行沟通。</p>
+<h2 id="curl命令"><a href="#curl命令" class="headerlink" title="curl命令"></a>curl命令</h2><p>在Linux中curl是一个利用URL规则在命令行下工作的文件传输工具，可以说是一款很强大的http命令行工具。它支持文件的上传和下载，是综合传输工具，但按传统，习惯称url为下载工具。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p><code>curl [option] [url]</code></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/03/%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3HTTP%E4%B9%8B%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qiuzp.com/2020/04/03/%E8%AF%B4%E8%AF%B4CSS%E5%B8%83%E5%B1%80%E9%82%A3%E4%BA%9B%E4%BA%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qiuzp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qiuzp的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/03/%E8%AF%B4%E8%AF%B4CSS%E5%B8%83%E5%B1%80%E9%82%A3%E4%BA%9B%E4%BA%8B/" itemprop="url">说说CSS布局那些事</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T11:57:20+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一、左右布局"><a href="#一、左右布局" class="headerlink" title="一、左右布局"></a>一、左右布局</h2><h3 id="1-1方法一：margin宽度等于固定宽那栏的宽度"><a href="#1-1方法一：margin宽度等于固定宽那栏的宽度" class="headerlink" title="1.1方法一：margin宽度等于固定宽那栏的宽度"></a>1.1方法一：margin宽度等于固定宽那栏的宽度</h3><h4 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h4><p>HTML部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container clearfix"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"sideBar"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">h2</span>&gt;</span>我是侧边栏，我是固定宽<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"main"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">h2</span>&gt;</span>我是主体部分，我是自适应的<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>CSS部分</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">  *&#123;</span><br><span class="line">   <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.sideBar</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: <span class="number">#FF6200</span>;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">	<span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.main</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>:<span class="number">#00A480</span>;</span><br><span class="line">	<span class="attribute">margin-left</span>: <span class="number">200px</span>;<span class="comment">/*减去固定宽的侧边栏的宽度*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.claerfix</span>&#123;</span><br><span class="line">	<span class="attribute">display</span>: inline-block;</span><br><span class="line">	<span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">	<span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span>,<span class="selector-tag">body</span>,<span class="selector-tag">div</span>&#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">	<span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;<span class="comment">/*这是让高度铺满页面*/</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/04/03/%E8%AF%B4%E8%AF%B4CSS%E5%B8%83%E5%B1%80%E9%82%A3%E4%BA%9B%E4%BA%8B/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/JavaScript/page/2/">2</a><a class="extend next" rel="next" href="/tags/JavaScript/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
   </nav>
 
 
