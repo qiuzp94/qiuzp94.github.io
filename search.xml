@@ -1,98 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>【JavaScript】JavaScript操作请求与响应</title>
-    <url>/uncategorized/%E3%80%90JavaScript%E3%80%91JavaScript%E6%93%8D%E4%BD%9C%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/</url>
-    <content><![CDATA[<h2 id="一、请求的组成部分"><a href="#一、请求的组成部分" class="headerlink" title="一、请求的组成部分"></a>一、请求的组成部分</h2><ul>
-<li>第一部分 GET /xxx HTTP/1.1</li>
-<li>第二部分 HOST:examlp.com:8002</li>
-<li>第二部分 Content-Type:appliction/x-www-url-encoded</li>
-<li>第三部分 </li>
-<li>第四部分 要下载的内容<h2 id="二、JavaScript操作请求"><a href="#二、JavaScript操作请求" class="headerlink" title="二、JavaScript操作请求"></a>二、JavaScript操作请求</h2><h3 id="2-1-请求的第一部分-用XMLHttpRequest-open-设置"><a href="#2-1-请求的第一部分-用XMLHttpRequest-open-设置" class="headerlink" title="2.1 请求的第一部分 用XMLHttpRequest.open()设置"></a>2.1 请求的第一部分 用XMLHttpRequest.open()设置</h3><blockquote>
-<p>XMLHttpRequest.open() 方法初始化一个请求。该方法要从JavaScript代码使用；从原生代码初始化一个请求，使用openRequest()替代。</p>
-</blockquote>
-</li>
-</ul>
-<p>例子</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'get'</span>,<span class="string">'http:examlp.com:8002/xxx'</span>)</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/open" target="_blank" rel="noopener">XMLHttpRequest.open()</a></p>
-<h3 id="2-2-请求的第二部分-用XMLHttpRequest-setRequestHeader-设置"><a href="#2-2-请求的第二部分-用XMLHttpRequest-setRequestHeader-设置" class="headerlink" title="2.2 请求的第二部分 用XMLHttpRequest.setRequestHeader()设置"></a>2.2 请求的第二部分 用XMLHttpRequest.setRequestHeader()设置</h3><h4 id="JS可以设置任意的请求header吗？"><a href="#JS可以设置任意的请求header吗？" class="headerlink" title="JS可以设置任意的请求header吗？"></a>JS可以设置任意的请求header吗？</h4><blockquote>
-<p>mdn :XMLHttpRequest.setRequestHeader() 是设置HTTP请求头部的方法。此方法必须在  open() 方法和 send()   之间调用。如果多次对同一个请求头赋值，只会生成一个合并了多个值的请求头。</p>
-</blockquote>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/setRequestHeader" target="_blank" rel="noopener">XMLHttpRequest.setRequestHeader()</a></p>
-<p>在server.js设置setRequestHeader，然后运行js打开chrome就看到自己设置的请求头，如下</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'get'</span>,<span class="string">'/xxx'</span>) </span><br><span class="line">request.setRequestHeader(<span class="string">'frank'</span>,<span class="string">'18'</span>)</span><br><span class="line">request.send()</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2020/03/02/JNxeyfQVrzOAwFM.png" alt="setrequestheader01.png"></p>
-<h3 id="2-3-请求的第三部分-回车-不需要设置"><a href="#2-3-请求的第三部分-回车-不需要设置" class="headerlink" title="2.3 请求的第三部分 回车 不需要设置"></a>2.3 请求的第三部分 回车 不需要设置</h3><h3 id="2-4-请求的第四部分-用XMLHttpRequest-send-设置"><a href="#2-4-请求的第四部分-用XMLHttpRequest-send-设置" class="headerlink" title="2.4 请求的第四部分 用XMLHttpRequest.send()设置"></a>2.4 请求的第四部分 用XMLHttpRequest.send()设置</h3><p>js set  request body</p>
-<blockquote>
-<p>mdn: XMLHttpRequest.send() 方法用于发送 HTTP 请求。如果是异步请求（默认为异步请求），则此方法会在请求发送后立即返回；如果是同步请求，则此方法直到响应到达后才会返回。XMLHttpRequest.send() 方法接受一个可选的参数，其作为请求主体；如果请求方法是 GET 或者 HEAD，则应将请求主体设置为 null。</p>
-</blockquote>
-<blockquote>
-<p> XMLHttpRequest.send(body)</p>
-</blockquote>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/send" target="_blank" rel="noopener">XMLHttpRequest.send()</a></p>
-<p>例子如下</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'get'</span>,<span class="string">'/xxx'</span>) </span><br><span class="line">request.setRequestHeader(<span class="string">'frank'</span>,<span class="string">'18'</span>)</span><br><span class="line">request.send(<span class="string">'我偏要设置request第四部分'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>在Chrome没有展示，是因为Chrome认为get请求理论上是没有Request.body,但是这个只是一个约定俗成而已，没有明令禁止，如果要看到请求的第四部分，不要用get请求</p>
-<p>例子如下</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'POST'</span>,<span class="string">'/xxx'</span>) </span><br><span class="line">request.setRequestHeader(<span class="string">'frank'</span>,<span class="string">'18'</span>)</span><br><span class="line">request.send(<span class="string">'我偏要设置request第四部分'</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2020/03/02/jEflIY7crzdyN1h.jpg" alt="setrequestbody01.jpeg"></p>
-<p>Request payload就是请求体的意思</p>
-<h4 id="2-4-1-不允许设置USer-Agent"><a href="#2-4-1-不允许设置USer-Agent" class="headerlink" title="2.4.1 不允许设置USer-Agent"></a>2.4.1 不允许设置USer-Agent</h4><p>因为浏览器安全问题，不给与设置<br>consloe报错代码 <code>Refused to set unsafe header &quot;User-Agent&quot;</code></p>
-<h4 id="2-4-2-设置Content-Type"><a href="#2-4-2-设置Content-Type" class="headerlink" title="2.4.2 设置Content-Type"></a>2.4.2 设置Content-Type</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'POST'</span>,<span class="string">'/xxx'</span>) </span><br><span class="line">request.setRequestHeader(<span class="string">'frank'</span>,<span class="string">'18'</span>)</span><br><span class="line">request.setRequestHeader(<span class="string">'Content-Type'</span>,<span class="string">'x-www-form-urlencoded'</span>)</span><br><span class="line">request.send(<span class="string">'我偏要设置request第四部分'</span>)</span><br></pre></td></tr></table></figure>
-
-
-<p> <img src="https://i.loli.net/2020/03/02/rJiGWvuhjg1faxX.png" alt="setcontentType01.png"></p>
-<h2 id="三、-响应的组成部分"><a href="#三、-响应的组成部分" class="headerlink" title="三、 响应的组成部分"></a>三、 响应的组成部分</h2><ul>
-<li>第一部分 协议/版本号状态码状态解释</li>
-<li>第二部分 Key1: value1</li>
-<li>第二部分 Key2: value2</li>
-<li>第二部分 Content-Length: 17931</li>
-<li>第二部分 Content-Type: text/html</li>
-<li>第三部分</li>
-<li>第四部分 要下载的内容</li>
-</ul>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> HTTP&#x2F;1.1 200 OK</span><br><span class="line"> Content-Type:text&#x2F;html</span><br><span class="line"> </span><br><span class="line">&lt;!DOCTYPE html&gt;&lt;html&gt;.....&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="四、-获取响应的方法"><a href="#四、-获取响应的方法" class="headerlink" title="四、 获取响应的方法"></a>四、 获取响应的方法</h2><p> js get response header</p>
-<blockquote>
-<p>XMLHttpRequest.getAllResponseHeaders() 方法返回所有的响应头，以 CRLF 分割的字符串，或者 null 如果没有收到任何响应。 注意： 对于复合请求 （ multipart requests ），这个方法返回当前请求的头部，而不是最初的请求的头部。</p>
-</blockquote>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/getAllResponseHeaders" target="_blank" rel="noopener"><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/getAllResponseHeaders" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/getAllResponseHeaders</a></a></p>
-<p>例子如下</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(request.status &gt;= <span class="number">200</span> &amp;&amp; request.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">consloe.log(request.getAllResponseHeaders())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2020/03/02/82hoXQ1dqUHAmYG.png" alt="response01.png"></p>
-<h3 id="4-1-响应的第一部分-可以用XMLHttpRequest-statusText来获取"><a href="#4-1-响应的第一部分-可以用XMLHttpRequest-statusText来获取" class="headerlink" title="4.1 响应的第一部分 可以用XMLHttpRequest.statusText来获取"></a>4.1 响应的第一部分 可以用XMLHttpRequest.statusText来获取</h3><p> js get response message</p>
-<blockquote>
-<p>只读属性 XMLHttpRequest.statusText 返回了XMLHttpRequest 请求中由服务器返回的一个DOMString 类型的文本信息，这则信息中也包含了响应的数字状态码。不同于使用一个数字来指示的状态码XMLHTTPRequest.status，这个属性包含了返回状态对应的文本信息，例如”OK”或是”Not Found”。如果请求的状态readyState的值为”UNSENT”或者”OPENED”，则这个属性的值将会是一个空字符串。</p>
-</blockquote>
-<p> 如果服务器未明确指定一个状态文本信息，则statusText的值将会被自动赋值为”OK”。<br>例子</p>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/statusText" target="_blank" rel="noopener">XMLHttpRequest.statusText</a></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(request.readState === <span class="number">4</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(request.status)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p> chrome浏览器consloe打印出<br> ok</p>
-<h3 id="4-2-响应头的第二部分-可以用-XMLHttpRequest-getResponseHeader-获取"><a href="#4-2-响应头的第二部分-可以用-XMLHttpRequest-getResponseHeader-获取" class="headerlink" title="4.2 响应头的第二部分 可以用 XMLHttpRequest.getResponseHeader() 获取"></a>4.2 响应头的第二部分 可以用 XMLHttpRequest.getResponseHeader() 获取</h3><h4 id="4-2-1-获取响应头的Content-Type"><a href="#4-2-1-获取响应头的Content-Type" class="headerlink" title="4.2.1 获取响应头的Content-Type"></a>4.2.1 获取响应头的Content-Type</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(request.status &gt;= <span class="number">200</span> &amp;&amp; request.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">  consloe.log(request.getResponseHeaders(<span class="string">'Content-Type'</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="https://i.loli.net/2020/03/02/ONIV8lsEDXTfrwH.png" alt="response-content-type-01.png"></p>
-<h3 id="4-3-响应头的第三部分-是空格-不用获取"><a href="#4-3-响应头的第三部分-是空格-不用获取" class="headerlink" title="4.3 响应头的第三部分 是空格 不用获取"></a>4.3 响应头的第三部分 是空格 不用获取</h3><h2 id="4-4-响应头的第四部分-用XMLHttpRequest-responseText获取"><a href="#4-4-响应头的第四部分-用XMLHttpRequest-responseText获取" class="headerlink" title="4.4 响应头的第四部分 用XMLHttpRequest.responseText获取"></a>4.4 响应头的第四部分 用XMLHttpRequest.responseText获取</h2><p> XMLHttpRequest.responseText 在一个请求被发送后，从服务器端返回文本。</p>
-<p>例子：<br> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(request.status &gt;= <span class="number">200</span> &amp;&amp; request.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(request.responseText)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="五、代码如下"><a href="#五、代码如下" class="headerlink" title="五、代码如下"></a>五、代码如下</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">myButton.addEventListener(<span class="string">'click'</span>,(e)=&gt;&#123;</span><br><span class="line"><span class="keyword">let</span> request = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">  request.open(<span class="string">'get'</span>,<span class="string">'http:examlp.com:8002/xxx'</span>) <span class="comment">//配置request</span></span><br><span class="line">  request.send()</span><br><span class="line">  request.onreadstatechange = <span class="function"><span class="params">()</span> =&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(request.readyState === <span class="number">4</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'请求响应都完毕了'</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(request.status)</span><br><span class="line">    <span class="keyword">if</span>(request.status &gt;= <span class="number">200</span> &amp;&amp; request.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'说明请求成功'</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> request.responseText)</span><br><span class="line">    <span class="built_in">console</span>.log(request.responseText)</span><br><span class="line">    <span class="keyword">let</span> string = request.responseText</span><br><span class="line">    <span class="comment">//把符号JSON语法的字符串转换成JS对应的值</span></span><br><span class="line">    <span class="keyword">let</span> object = <span class="built_in">window</span>.JSON.pares(string)</span><br><span class="line">    <span class="comment">//JSON.parse 是浏览器提高的</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> object)</span><br><span class="line">    <span class="built_in">console</span>.log(object)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'object.note'</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(object.note)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(request.status &gt;= <span class="number">400</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'说明请求失败'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>通过AJXA，除了部分因为安全原因不给用设置完，我们可以任意设置请求与响应的四部分的所有数据。</p>
-<p>这就是AJAX的厉害之处</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【JavaScript】MVC知识概括</title>
     <url>/uncategorized/%E3%80%90JavaScript%E3%80%91MVC%E7%9F%A5%E8%AF%86%E6%A6%82%E6%8B%AC/</url>
     <content><![CDATA[<p>CRM-使用别人的东西</p>
@@ -565,5 +473,97 @@
 <li>AJAX</li>
 </ol>
 ]]></content>
+  </entry>
+  <entry>
+    <title>【JavaScript】JavaScript操作请求与响应</title>
+    <url>/uncategorized/%E3%80%90JavaScript%E3%80%91JavaScript%E6%93%8D%E4%BD%9C%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/</url>
+    <content><![CDATA[<h2 id="一、请求的组成部分"><a href="#一、请求的组成部分" class="headerlink" title="一、请求的组成部分"></a>一、请求的组成部分</h2><ul>
+<li>第一部分 GET /xxx HTTP/1.1</li>
+<li>第二部分 HOST:examlp.com:8002</li>
+<li>第二部分 Content-Type:appliction/x-www-url-encoded</li>
+<li>第三部分 </li>
+<li>第四部分 要下载的内容<h2 id="二、JavaScript操作请求"><a href="#二、JavaScript操作请求" class="headerlink" title="二、JavaScript操作请求"></a>二、JavaScript操作请求</h2><h3 id="2-1-请求的第一部分-用XMLHttpRequest-open-设置"><a href="#2-1-请求的第一部分-用XMLHttpRequest-open-设置" class="headerlink" title="2.1 请求的第一部分 用XMLHttpRequest.open()设置"></a>2.1 请求的第一部分 用XMLHttpRequest.open()设置</h3><blockquote>
+<p>XMLHttpRequest.open() 方法初始化一个请求。该方法要从JavaScript代码使用；从原生代码初始化一个请求，使用openRequest()替代。</p>
+</blockquote>
+</li>
+</ul>
+<p>例子</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'get'</span>,<span class="string">'http:examlp.com:8002/xxx'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/open" target="_blank" rel="noopener">XMLHttpRequest.open()</a></p>
+<h3 id="2-2-请求的第二部分-用XMLHttpRequest-setRequestHeader-设置"><a href="#2-2-请求的第二部分-用XMLHttpRequest-setRequestHeader-设置" class="headerlink" title="2.2 请求的第二部分 用XMLHttpRequest.setRequestHeader()设置"></a>2.2 请求的第二部分 用XMLHttpRequest.setRequestHeader()设置</h3><h4 id="JS可以设置任意的请求header吗？"><a href="#JS可以设置任意的请求header吗？" class="headerlink" title="JS可以设置任意的请求header吗？"></a>JS可以设置任意的请求header吗？</h4><blockquote>
+<p>mdn :XMLHttpRequest.setRequestHeader() 是设置HTTP请求头部的方法。此方法必须在  open() 方法和 send()   之间调用。如果多次对同一个请求头赋值，只会生成一个合并了多个值的请求头。</p>
+</blockquote>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/setRequestHeader" target="_blank" rel="noopener">XMLHttpRequest.setRequestHeader()</a></p>
+<p>在server.js设置setRequestHeader，然后运行js打开chrome就看到自己设置的请求头，如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'get'</span>,<span class="string">'/xxx'</span>) </span><br><span class="line">request.setRequestHeader(<span class="string">'frank'</span>,<span class="string">'18'</span>)</span><br><span class="line">request.send()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/02/JNxeyfQVrzOAwFM.png" alt="setrequestheader01.png"></p>
+<h3 id="2-3-请求的第三部分-回车-不需要设置"><a href="#2-3-请求的第三部分-回车-不需要设置" class="headerlink" title="2.3 请求的第三部分 回车 不需要设置"></a>2.3 请求的第三部分 回车 不需要设置</h3><h3 id="2-4-请求的第四部分-用XMLHttpRequest-send-设置"><a href="#2-4-请求的第四部分-用XMLHttpRequest-send-设置" class="headerlink" title="2.4 请求的第四部分 用XMLHttpRequest.send()设置"></a>2.4 请求的第四部分 用XMLHttpRequest.send()设置</h3><p>js set  request body</p>
+<blockquote>
+<p>mdn: XMLHttpRequest.send() 方法用于发送 HTTP 请求。如果是异步请求（默认为异步请求），则此方法会在请求发送后立即返回；如果是同步请求，则此方法直到响应到达后才会返回。XMLHttpRequest.send() 方法接受一个可选的参数，其作为请求主体；如果请求方法是 GET 或者 HEAD，则应将请求主体设置为 null。</p>
+</blockquote>
+<blockquote>
+<p> XMLHttpRequest.send(body)</p>
+</blockquote>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/send" target="_blank" rel="noopener">XMLHttpRequest.send()</a></p>
+<p>例子如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'get'</span>,<span class="string">'/xxx'</span>) </span><br><span class="line">request.setRequestHeader(<span class="string">'frank'</span>,<span class="string">'18'</span>)</span><br><span class="line">request.send(<span class="string">'我偏要设置request第四部分'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在Chrome没有展示，是因为Chrome认为get请求理论上是没有Request.body,但是这个只是一个约定俗成而已，没有明令禁止，如果要看到请求的第四部分，不要用get请求</p>
+<p>例子如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'POST'</span>,<span class="string">'/xxx'</span>) </span><br><span class="line">request.setRequestHeader(<span class="string">'frank'</span>,<span class="string">'18'</span>)</span><br><span class="line">request.send(<span class="string">'我偏要设置request第四部分'</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/02/jEflIY7crzdyN1h.jpg" alt="setrequestbody01.jpeg"></p>
+<p>Request payload就是请求体的意思</p>
+<h4 id="2-4-1-不允许设置USer-Agent"><a href="#2-4-1-不允许设置USer-Agent" class="headerlink" title="2.4.1 不允许设置USer-Agent"></a>2.4.1 不允许设置USer-Agent</h4><p>因为浏览器安全问题，不给与设置<br>consloe报错代码 <code>Refused to set unsafe header &quot;User-Agent&quot;</code></p>
+<h4 id="2-4-2-设置Content-Type"><a href="#2-4-2-设置Content-Type" class="headerlink" title="2.4.2 设置Content-Type"></a>2.4.2 设置Content-Type</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">request.open(<span class="string">'POST'</span>,<span class="string">'/xxx'</span>) </span><br><span class="line">request.setRequestHeader(<span class="string">'frank'</span>,<span class="string">'18'</span>)</span><br><span class="line">request.setRequestHeader(<span class="string">'Content-Type'</span>,<span class="string">'x-www-form-urlencoded'</span>)</span><br><span class="line">request.send(<span class="string">'我偏要设置request第四部分'</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p> <img src="https://i.loli.net/2020/03/02/rJiGWvuhjg1faxX.png" alt="setcontentType01.png"></p>
+<h2 id="三、-响应的组成部分"><a href="#三、-响应的组成部分" class="headerlink" title="三、 响应的组成部分"></a>三、 响应的组成部分</h2><ul>
+<li>第一部分 协议/版本号状态码状态解释</li>
+<li>第二部分 Key1: value1</li>
+<li>第二部分 Key2: value2</li>
+<li>第二部分 Content-Length: 17931</li>
+<li>第二部分 Content-Type: text/html</li>
+<li>第三部分</li>
+<li>第四部分 要下载的内容</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> HTTP&#x2F;1.1 200 OK</span><br><span class="line"> Content-Type:text&#x2F;html</span><br><span class="line"> </span><br><span class="line">&lt;!DOCTYPE html&gt;&lt;html&gt;.....&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="四、-获取响应的方法"><a href="#四、-获取响应的方法" class="headerlink" title="四、 获取响应的方法"></a>四、 获取响应的方法</h2><p> js get response header</p>
+<blockquote>
+<p>XMLHttpRequest.getAllResponseHeaders() 方法返回所有的响应头，以 CRLF 分割的字符串，或者 null 如果没有收到任何响应。 注意： 对于复合请求 （ multipart requests ），这个方法返回当前请求的头部，而不是最初的请求的头部。</p>
+</blockquote>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/getAllResponseHeaders" target="_blank" rel="noopener"><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/getAllResponseHeaders" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/getAllResponseHeaders</a></a></p>
+<p>例子如下</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(request.status &gt;= <span class="number">200</span> &amp;&amp; request.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">consloe.log(request.getAllResponseHeaders())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2020/03/02/82hoXQ1dqUHAmYG.png" alt="response01.png"></p>
+<h3 id="4-1-响应的第一部分-可以用XMLHttpRequest-statusText来获取"><a href="#4-1-响应的第一部分-可以用XMLHttpRequest-statusText来获取" class="headerlink" title="4.1 响应的第一部分 可以用XMLHttpRequest.statusText来获取"></a>4.1 响应的第一部分 可以用XMLHttpRequest.statusText来获取</h3><p> js get response message</p>
+<blockquote>
+<p>只读属性 XMLHttpRequest.statusText 返回了XMLHttpRequest 请求中由服务器返回的一个DOMString 类型的文本信息，这则信息中也包含了响应的数字状态码。不同于使用一个数字来指示的状态码XMLHTTPRequest.status，这个属性包含了返回状态对应的文本信息，例如”OK”或是”Not Found”。如果请求的状态readyState的值为”UNSENT”或者”OPENED”，则这个属性的值将会是一个空字符串。</p>
+</blockquote>
+<p> 如果服务器未明确指定一个状态文本信息，则statusText的值将会被自动赋值为”OK”。<br>例子</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/statusText" target="_blank" rel="noopener">XMLHttpRequest.statusText</a></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(request.readState === <span class="number">4</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(request.status)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> chrome浏览器consloe打印出<br> ok</p>
+<h3 id="4-2-响应头的第二部分-可以用-XMLHttpRequest-getResponseHeader-获取"><a href="#4-2-响应头的第二部分-可以用-XMLHttpRequest-getResponseHeader-获取" class="headerlink" title="4.2 响应头的第二部分 可以用 XMLHttpRequest.getResponseHeader() 获取"></a>4.2 响应头的第二部分 可以用 XMLHttpRequest.getResponseHeader() 获取</h3><h4 id="4-2-1-获取响应头的Content-Type"><a href="#4-2-1-获取响应头的Content-Type" class="headerlink" title="4.2.1 获取响应头的Content-Type"></a>4.2.1 获取响应头的Content-Type</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(request.status &gt;= <span class="number">200</span> &amp;&amp; request.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">  consloe.log(request.getResponseHeaders(<span class="string">'Content-Type'</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://i.loli.net/2020/03/02/ONIV8lsEDXTfrwH.png" alt="response-content-type-01.png"></p>
+<h3 id="4-3-响应头的第三部分-是空格-不用获取"><a href="#4-3-响应头的第三部分-是空格-不用获取" class="headerlink" title="4.3 响应头的第三部分 是空格 不用获取"></a>4.3 响应头的第三部分 是空格 不用获取</h3><h2 id="4-4-响应头的第四部分-用XMLHttpRequest-responseText获取"><a href="#4-4-响应头的第四部分-用XMLHttpRequest-responseText获取" class="headerlink" title="4.4 响应头的第四部分 用XMLHttpRequest.responseText获取"></a>4.4 响应头的第四部分 用XMLHttpRequest.responseText获取</h2><p> XMLHttpRequest.responseText 在一个请求被发送后，从服务器端返回文本。</p>
+<p>例子：<br> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(request.status &gt;= <span class="number">200</span> &amp;&amp; request.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(request.responseText)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="五、代码如下"><a href="#五、代码如下" class="headerlink" title="五、代码如下"></a>五、代码如下</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">myButton.addEventListener(<span class="string">'click'</span>,(e)=&gt;&#123;</span><br><span class="line"><span class="keyword">let</span> request = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">  request.open(<span class="string">'get'</span>,<span class="string">'http:examlp.com:8002/xxx'</span>) <span class="comment">//配置request</span></span><br><span class="line">  request.send()</span><br><span class="line">  request.onreadstatechange = <span class="function"><span class="params">()</span> =&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(request.readyState === <span class="number">4</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'请求响应都完毕了'</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(request.status)</span><br><span class="line">    <span class="keyword">if</span>(request.status &gt;= <span class="number">200</span> &amp;&amp; request.status &lt; <span class="number">300</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'说明请求成功'</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> request.responseText)</span><br><span class="line">    <span class="built_in">console</span>.log(request.responseText)</span><br><span class="line">    <span class="keyword">let</span> string = request.responseText</span><br><span class="line">    <span class="comment">//把符号JSON语法的字符串转换成JS对应的值</span></span><br><span class="line">    <span class="keyword">let</span> object = <span class="built_in">window</span>.JSON.pares(string)</span><br><span class="line">    <span class="comment">//JSON.parse 是浏览器提高的</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> object)</span><br><span class="line">    <span class="built_in">console</span>.log(object)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'object.note'</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(object.note)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(request.status &gt;= <span class="number">400</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'说明请求失败'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>通过AJXA，除了部分因为安全原因不给用设置完，我们可以任意设置请求与响应的四部分的所有数据。</p>
+<p>这就是AJAX的厉害之处</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
   </entry>
 </search>
