@@ -1,0 +1,498 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="算法效率的度量方法                     一、问：如何来度量一个算法的执行时间？                           运行后统计方法       主要是通过设计好的测试程序和数据，利用计算机计时器对不同算法编制的程序的运行时间进行比较，从而确定算法效率的高低。  当时这种方法有缺陷。需要提前编制好测试程序，花费大量时间与精力。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据结构】 3.时间复杂度和空间复杂度">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%203.%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="算法效率的度量方法                     一、问：如何来度量一个算法的执行时间？                           运行后统计方法       主要是通过设计好的测试程序和数据，利用计算机计时器对不同算法编制的程序的运行时间进行比较，从而确定算法效率的高低。  当时这种方法有缺陷。需要提前编制好测试程序，花费大量时间与精力。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/CGShJTntI7vMalH.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/09/ETS4NmjCOWvsfJi.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:12:19.989Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/09/CGShJTntI7vMalH.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【数据结构】 3.时间复杂度和空间复杂度</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%203.%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【数据结构】 3.时间复杂度和空间复杂度</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><p>算法效率的度量方法</p>
+
+        <h2 id="一、问：如何来度量一个算法的执行时间？"   >
+          <a href="#一、问：如何来度量一个算法的执行时间？" class="heading-link"><i class="fas fa-link"></i></a>一、问：如何来度量一个算法的执行时间？</h2>
+      
+        <h3 id="运行后统计方法"   >
+          <a href="#运行后统计方法" class="heading-link"><i class="fas fa-link"></i></a>运行后统计方法</h3>
+      <p>主要是通过设计好的测试程序和数据，利用计算机计时器对不同算法编制的程序的运行时间进行比较，从而确定算法效率的高低。</p>
+<blockquote>
+<p>当时这种方法有缺陷。需要提前编制好测试程序，花费大量时间与精力。</p>
+</blockquote>
+
+        <h3 id="事前分析估算方法"   >
+          <a href="#事前分析估算方法" class="heading-link"><i class="fas fa-link"></i></a>事前分析估算方法</h3>
+      <p>在计算机程序编写前，依据统计方法对算法进行估算。</p>
+<p>经过总结，我们发现一个高级程序编写的程序在计算机上<strong>运行时所消耗的时间取决于下列因素</strong></p>
+<ol>
+<li>算法采用的策略、方案</li>
+<li>编译产生的代码质量</li>
+<li>问题的输入规模</li>
+<li>机器执行指令的速度</li>
+</ol>
+<p>所以，抛开与计算机硬软件因素，一个程序的运行时间依赖于算法的好坏和问题的输入规模。<code>(所谓的问题输入规模就是指输入量的多少)</code></p>
+<a id="more"></a>
+
+
+        <h4 id="例子1-2-100-？"   >
+          <a href="#例子1-2-100-？" class="heading-link"><i class="fas fa-link"></i></a>例子1+2+..+100 = ？</h4>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种算法</span></span><br><span class="line"><span class="keyword">int</span> i ,sum = <span class="number">0</span>;n = <span class="number">100</span>;<span class="comment">//执行1次</span></span><br><span class="line"><span class="keyword">for</span>（i=<span class="number">1</span>;i&lt;=n;i++）<span class="comment">//执行了n+1次</span></span><br><span class="line">&#123;</span><br><span class="line">    sum = sum + i <span class="comment">//执行n次 </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种算法</span></span><br><span class="line"><span class="keyword">int</span> sum = <span class="number">0</span>;n = <span class="number">100</span><span class="comment">//执行1次</span></span><br><span class="line">sum = （<span class="number">1</span>+n）*<span class="number">2</span>/<span class="number">2</span> <span class="comment">//执行1次</span></span><br></pre></td></tr></table></div></figure>
+
+<p>第一种算法执行了1+（n+1）+n = 2n +2次<br>第二种算法，是1+1=2次</p>
+<p>如果把循环看成一个整体，忽略头尾判断开销，那么两个算法其实就是n和1的差距。</p>
+
+        <h4 id="问：循环判断在算法1里面执行了n-1次，看起来是个不小的数量，为什么可以忽略？"   >
+          <a href="#问：循环判断在算法1里面执行了n-1次，看起来是个不小的数量，为什么可以忽略？" class="heading-link"><i class="fas fa-link"></i></a>问：循环判断在算法1里面执行了n+1次，看起来是个不小的数量，为什么可以忽略？</h4>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i , j ,x = <span class="number">0</span>, sum = <span class="number">0</span>;n = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">1</span>;i&lt;=n;i++) <span class="comment">//外循环每次增1，内循环就要循环100次</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=n; j++)&#123;</span><br><span class="line">        x++;</span><br><span class="line">        sum = sum + x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">因为循环条件i从1到100，每次都要让j循环100次，如果要非常较真的研究总执行次数，是非常累的。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="二、研究算法的复杂度的侧重点"   >
+          <a href="#二、研究算法的复杂度的侧重点" class="heading-link"><i class="fas fa-link"></i></a>二、研究算法的复杂度的侧重点</h2>
+      <p>研究算法的复杂度，侧重点是研究算法随着输入规模扩大增长量的一个抽象，而不是精确地定位需要执行多少次。</p>
+<p>不计那些循环索引的递增和循环终止条件、变量声明、打印结构等操作。</p>
+<p>最终，在分析程序的运行时间时，最重要的是把程序看成是独立于程序设计语言的算法或一系列步骤。</p>
+<p>在分析一个算法的运行时间时，重要的是把基本操作的数量和输入模式关联起来。</p>
+
+        <h2 id="三、函数的渐近增长"   >
+          <a href="#三、函数的渐近增长" class="heading-link"><i class="fas fa-link"></i></a>三、函数的渐近增长</h2>
+      <p>给定两个函数f（n）和g(n)，如果存在一个整数N，使得对于随意的n&gt;N，f（n）总是比g(n)大，那么，我们说f（n）的增长渐近快于g（n）</p>
+<p>最高此项的指数大的，函数随着n的增长，结果也会变得特别快。</p>
+<p>结论：判断一个算法的效率时，函数中的常数和其他次要项常常可以忽略，而更应该关注<strong>主项（最高项）</strong>的阶数。 </p>
+
+        <h2 id="四、算法时间复杂度的定义"   >
+          <a href="#四、算法时间复杂度的定义" class="heading-link"><i class="fas fa-link"></i></a>四、算法时间复杂度的定义</h2>
+      <p>在进行算法分析时，语句总的执行次数T(n)是关于问题规模n的函数进而分析T(n)随n的变化情况并确定T(n)的数量级。</p>
+<p>算法的时间复杂度，也就是算法的时间量，记作：<strong>T(n) =O(f(n))</strong>。</p>
+<p>它表示随问题规模n的增大，算法执行时间的增长率和f(n)的增长率相同，<br>称作算法的渐近时间复杂度，简称为时间复杂度。其中f(n)是问题规模n的某个函数。</p>
+<p>关系需要知道执行次数 == 时间</p>
+<p>用大写O()来体现算法时间复制度的记法，称之为大O记法</p>
+<p>一般情况下，随着输入规模n的增大，T(n)增长最慢的算法为最优算法。</p>
+
+        <h2 id="五、如何分析一个算法的时间复杂度？"   >
+          <a href="#五、如何分析一个算法的时间复杂度？" class="heading-link"><i class="fas fa-link"></i></a>五、如何分析一个算法的时间复杂度？</h2>
+      <ol>
+<li>用常数1取代运行时间中的所有加法常数</li>
+<li>在修改后的运行次数函数中，只保留最高阶项</li>
+<li>如果最高阶项存在且不是1，则去除与这个项相乘的常数</li>
+<li>得到的最后结果就是大O阶</li>
+</ol>
+
+        <h2 id="六、时间复杂度例子"   >
+          <a href="#六、时间复杂度例子" class="heading-link"><i class="fas fa-link"></i></a>六、时间复杂度例子</h2>
+      
+        <h3 id="常数阶"   >
+          <a href="#常数阶" class="heading-link"><i class="fas fa-link"></i></a>常数阶</h3>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sum = <span class="number">0</span> ,n = <span class="number">100</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"hello world!\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"hello world!\n"</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"hello world!\n"</span>);</span><br><span class="line">sum = (<span class="number">1</span>+n)*n/<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//大O是O(1)</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="线性阶"   >
+          <a href="#线性阶" class="heading-link"><i class="fas fa-link"></i></a>线性阶</h3>
+      <p>一般含有非嵌套循环涉及线性阶，线性阶就是随着问题规模n的扩大，对应计算次数呈直线增长。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i,n = <span class="number">100</span>,sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">&#123;</span><br><span class="line">    sum = sum + i </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//上面代码，它的循环的时间复杂度为O(n),因为循环体重的代码需要执行n次。</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="平方阶"   >
+          <a href="#平方阶" class="heading-link"><i class="fas fa-link"></i></a>平方阶</h3>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i, j,n = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;n; j++)&#123;</span><br><span class="line">        printf('hello world!\n');</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>n等于100，也就是说外层循环每执行一次，内层循环就执行100次，那总共程序想要从这两个循环出来，需要执行100*100次，也就是n的平方。所以这段代码的时间复杂度为O（n^2）。</p>
+<p>如果有三个嵌套就是n^3.</p>
+<p>总结：循环的时间复杂度等于循环体的复杂度乘以该循环运行的次数。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i , j , n = <span class="number">100</span></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(j=i; j&lt;n; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        printf('hello world!\n');</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>上面代码分析：<br>    由于当i = 0 时，内循环执行了n次，当i=1时，内循环则执行n-1次…当i = n -1 时，内循环执行1次，所以总的执行次数应该是：</p>
+<p><code>-n+(n-1)+(n-2)+...+1 = n(n+1)/2</code><br>===<code>n(n+1)/2 = n^2/2+n/2</code></p>
+<p>所以得O(n^2)</p>
+
+        <h3 id="对数阶"   >
+          <a href="#对数阶" class="heading-link"><i class="fas fa-link"></i></a>对数阶</h3>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>, n = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">while</span>(i&lt;n)</span><br><span class="line">&#123;</span><br><span class="line">    i = i * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>由于每次i*2之后，就距离n更近一步，假设有x个2相乘大于或等于n，则会退出循环。</p>
+<p>于是有2^x = n得到x = log(2)n，所以这个循环时间复杂度为O(logn)</p>
+
+        <h2 id="七、函数调用的时间复杂度分析"   >
+          <a href="#七、函数调用的时间复杂度分析" class="heading-link"><i class="fas fa-link"></i></a>七、函数调用的时间复杂度分析</h2>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i , j;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    function(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">function</span><span class="params">(<span class="keyword">int</span> count)</span></span>&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"%d"</span>,count);</span><br></pre></td></tr></table></div></figure>
+
+<p>函数体是打印这个参数，function函数的时间复杂度是O(1),所以整体的时间赋值度是循环的次数O(n)。</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">function</span><span class="params">(<span class="keyword">int</span> count)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">    <span class="keyword">for</span>(j=count; j&lt;n; j++)&#123;</span><br><span class="line">        printf('%d',j)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>function内部的循环次数随count的增加（接近n）而减少，所以算法的时间复杂度为O(n^2)</p>
+
+        <h3 id="问：下面代码的时间复杂度是什么？"   >
+          <a href="#问：下面代码的时间复杂度是什么？" class="heading-link"><i class="fas fa-link"></i></a>问：下面代码的时间复杂度是什么？</h3>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">n++;   <span class="comment">//执行1次</span></span><br><span class="line">function(n);    <span class="comment">//执行n^2次</span></span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)&#123;   <span class="comment">//执行n^2次</span></span><br><span class="line">    function(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)&#123;   <span class="comment">//执行n^2次</span></span><br><span class="line">    <span class="keyword">for</span>(j=i; j&lt;n; j++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>,j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//因为代码是并列关系，所以3n^2+1 === O(n^2)</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="八、常见的时间复杂度"   >
+          <a href="#八、常见的时间复杂度" class="heading-link"><i class="fas fa-link"></i></a>八、常见的时间复杂度</h2>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">例子</th>
+<th align="center">时间复杂度</th>
+<th align="center">术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">202013413124</td>
+<td align="center">O(1)</td>
+<td align="center">常数阶</td>
+</tr>
+<tr>
+<td align="center">3n+4</td>
+<td align="center">O(n)</td>
+<td align="center">线性阶</td>
+</tr>
+<tr>
+<td align="center"><code>3n^2+4n+5</code></td>
+<td align="center">O(n^2)</td>
+<td align="center">平方阶</td>
+</tr>
+<tr>
+<td align="center"><code>3log(2)n+4</code></td>
+<td align="center">O(logn)</td>
+<td align="center">对数阶</td>
+</tr>
+<tr>
+<td align="center"><code>2n+3nlog(2)n+14</code></td>
+<td align="center">O(nlogn)</td>
+<td align="center">nlogn阶</td>
+</tr>
+<tr>
+<td align="center"><code>n^3+2n^2+4n+6</code></td>
+<td align="center">O(n^3)</td>
+<td align="center">立方阶</td>
+</tr>
+<tr>
+<td align="center">2^n</td>
+<td align="center">O(2^n)</td>
+<td align="center">指数阶</td>
+</tr>
+</tbody></table></div>
+<p><img src="https://i.loli.net/2020/03/09/CGShJTntI7vMalH.png" alt="timeO01.png"></p>
+<p><img src="https://i.loli.net/2020/03/09/ETS4NmjCOWvsfJi.png" alt="timeO02-min.png"></p>
+<p>常用的时间复杂度所耗费的时间从小到大依次是：<br><code>O(1)&lt;O(logn)&lt;(n)&lt;O(nlogn)&lt;O(n^2)&lt;O(n^3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)</code></p>
+
+        <h2 id="九、最坏情况与平均情况"   >
+          <a href="#九、最坏情况与平均情况" class="heading-link"><i class="fas fa-link"></i></a>九、最坏情况与平均情况</h2>
+      <ul>
+<li>查找一个有n个随机数字数组中的某个数字，最好的情况是第一个数字就是，那么算法的时间复杂度为O(1),但也有可能这个数字就在最后一个位置，那么时间复杂度为O(n)。</li>
+<li>平均运行时间是期望的运行时间。</li>
+<li>最坏运行时间是一种保证。在应用中，这是一种最重要的需求，通常除非特别指定，提到的<strong>运行时间都是最坏情况的运行时间。</strong></li>
+</ul>
+
+        <h2 id="十、算法的空间复杂度"   >
+          <a href="#十、算法的空间复杂度" class="heading-link"><i class="fas fa-link"></i></a>十、算法的空间复杂度</h2>
+      <p>算法的空间复杂度通过计算机算法所需的存储空间实现，算法的空间复杂度的计算公式记作<br><code>S(n)=O(f(n))</code><br>其中，n为问题的规模，f(n)为语句关于n所占存储空间的函数。</p>
+<p>通常上，我们用“时间复杂度”来指运行时间的需求，是用“空间复杂度”指空间需求。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【数据库系统原理】第五章 数据库编程</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E5%9B%9B%E7%AB%A0%20SQL%E4%B8%8E%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"><span class="paginator-prev__text">【数据库系统原理】第四章 SQL与关系数据库基本操作</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、问：如何来度量一个算法的执行时间？"><span class="toc-text">
+          一、问：如何来度量一个算法的执行时间？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#运行后统计方法"><span class="toc-text">
+          运行后统计方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事前分析估算方法"><span class="toc-text">
+          事前分析估算方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#例子1-2-100-？"><span class="toc-text">
+          例子1+2+..+100 &#x3D; ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问：循环判断在算法1里面执行了n-1次，看起来是个不小的数量，为什么可以忽略？"><span class="toc-text">
+          问：循环判断在算法1里面执行了n+1次，看起来是个不小的数量，为什么可以忽略？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、研究算法的复杂度的侧重点"><span class="toc-text">
+          二、研究算法的复杂度的侧重点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、函数的渐近增长"><span class="toc-text">
+          三、函数的渐近增长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、算法时间复杂度的定义"><span class="toc-text">
+          四、算法时间复杂度的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、如何分析一个算法的时间复杂度？"><span class="toc-text">
+          五、如何分析一个算法的时间复杂度？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、时间复杂度例子"><span class="toc-text">
+          六、时间复杂度例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常数阶"><span class="toc-text">
+          常数阶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性阶"><span class="toc-text">
+          线性阶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#平方阶"><span class="toc-text">
+          平方阶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对数阶"><span class="toc-text">
+          对数阶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、函数调用的时间复杂度分析"><span class="toc-text">
+          七、函数调用的时间复杂度分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问：下面代码的时间复杂度是什么？"><span class="toc-text">
+          问：下面代码的时间复杂度是什么？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八、常见的时间复杂度"><span class="toc-text">
+          八、常见的时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#九、最坏情况与平均情况"><span class="toc-text">
+          九、最坏情况与平均情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十、算法的空间复杂度"><span class="toc-text">
+          十、算法的空间复杂度</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

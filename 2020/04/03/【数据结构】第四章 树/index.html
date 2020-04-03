@@ -1,0 +1,878 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="学习目的与要求       树形结构用于表示具有分支和层次结构，有着广泛的应用背景。数和二叉树是重要的树形结构。                     本章总的要求        理解树形结构的基本概念和术语； 深刻领会二叉树的定义及其存储结构，理解二叉树的遍历的概念并掌握二叉树的遍历算法； 掌握树和森林的定义、树的存储结构以及树、森林与二叉树之间的相互">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据结构】第四章 树">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E6%A0%91/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="学习目的与要求       树形结构用于表示具有分支和层次结构，有着广泛的应用背景。数和二叉树是重要的树形结构。                     本章总的要求        理解树形结构的基本概念和术语； 深刻领会二叉树的定义及其存储结构，理解二叉树的遍历的概念并掌握二叉树的遍历算法； 掌握树和森林的定义、树的存储结构以及树、森林与二叉树之间的相互">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/xlMsdZEH2jFo8UQ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/22/ZJyXxA6ets5rg9j.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/22/bZTX6Lhowysmda4.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/22/SjrYNGKsJ3fXkD1.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/njRHNiUuAkSZY5q.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/cfDkpwq3ul6PyIe.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/OVhkoIsxSp9ZzW3.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/CbT5awR6gDpAyOJ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/Ps6vhkBqWybJERI.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/f6tuJRnQcBqlVMH.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/eDLxsyKzwAHmUbn.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/9TvLEiGdCIwnOtK.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/6NflEmA47CBFOqg.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/tBFVrpumalc4iv8.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/53OGpj1RqneCJzl.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/FVSICKwPDTMpxi6.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/aNuHeW5pnPxqYdA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/1qo5JUQhNSiWGyA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/1qo5JUQhNSiWGyA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/aNuHeW5pnPxqYdA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/aNuHeW5pnPxqYdA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/28RjXZaBQGOV3rh.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/vF9NrSIpkPDb7Zn.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/kU4CbTqXPv8cWzj.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/MgR97KWFowDLVaX.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/MAhKGNUPqRS89Xo.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:24:42.829Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/25/xlMsdZEH2jFo8UQ.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【数据结构】第四章 树</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E6%A0%91/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【数据结构】第四章 树</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><p><img src="https://i.loli.net/2020/03/25/xlMsdZEH2jFo8UQ.png" alt="数据结构-第四章树-脑图-min.png"></p>
+
+        <h2 id="学习目的与要求"   >
+          <a href="#学习目的与要求" class="heading-link"><i class="fas fa-link"></i></a>学习目的与要求</h2>
+      <p>树形结构用于表示具有分支和层次结构，有着广泛的应用背景。数和二叉树是重要的树形结构。</p>
+
+        <h3 id="本章总的要求"   >
+          <a href="#本章总的要求" class="heading-link"><i class="fas fa-link"></i></a>本章总的要求</h3>
+      <ul>
+<li>理解树形结构的基本概念和术语；</li>
+<li>深刻领会二叉树的定义及其存储结构，理解二叉树的遍历的概念并掌握二叉树的遍历算法；</li>
+<li>掌握树和森林的定义、树的存储结构以及树、森林与二叉树之间的相互转换方法；</li>
+<li>熟练掌握构造哈夫曼树和设计哈夫曼编码的方法。</li>
+</ul>
+<a id="more"></a>
+
+
+        <h2 id="一、树的基本概念"   >
+          <a href="#一、树的基本概念" class="heading-link"><i class="fas fa-link"></i></a>一、树的基本概念</h2>
+      
+        <h3 id="1-1-树的概念"   >
+          <a href="#1-1-树的概念" class="heading-link"><i class="fas fa-link"></i></a>1.1 树的概念</h3>
+      <p>线性结构中的一个结点至多只有一个直接后继，而树形结构中一个结点可以有一个或多个直接后继。</p>
+
+        <h3 id="1-2-树的定义"   >
+          <a href="#1-2-树的定义" class="heading-link"><i class="fas fa-link"></i></a>1.2 树的定义</h3>
+      <p>树（Tree）是一类重要的数据结构，其定义如下：</p>
+<p>树的n（n&gt;=0）个结点的有限集合，一颗树满足以下两个条件</p>
+<ul>
+<li>当n=0时,称为空树；</li>
+<li>当n&gt;0时，有且仅有一个称为根的结点，除根结点外其他结点分为m（m&gt;=0）个互不相交的非空集合T<sub>1</sub>,T<sub>2</sub>,…,T<sub>m</sub>,这些集合中的每一个都是一棵树，称为根的子树。</li>
+</ul>
+
+        <h3 id="1-3-树的相关术语"   >
+          <a href="#1-3-树的相关术语" class="heading-link"><i class="fas fa-link"></i></a>1.3 树的相关术语</h3>
+      
+        <h4 id="结点的度"   >
+          <a href="#结点的度" class="heading-link"><i class="fas fa-link"></i></a>结点的度</h4>
+      <p>树上的任一结点所拥有的子树的数目称为该结点的度。</p>
+
+        <h4 id="叶子："   >
+          <a href="#叶子：" class="heading-link"><i class="fas fa-link"></i></a>叶子：</h4>
+      <p>度为0的结点称为叶子或终端结点。</p>
+
+        <h4 id="树的度："   >
+          <a href="#树的度：" class="heading-link"><i class="fas fa-link"></i></a>树的度：</h4>
+      <p>一棵树中所有结点的度的最大值称为该树的度。</p>
+<p>一个结点的子树的根称为该结点的孩子（或称子节点）。相应地该结点称为孩子的双亲（也称父节点）</p>
+
+        <h4 id="结点的层次："   >
+          <a href="#结点的层次：" class="heading-link"><i class="fas fa-link"></i></a>结点的层次：</h4>
+      <p>从根开始算起，根的层次为1，其余结点的层次为其双亲的层次加1。</p>
+
+        <h4 id="树的高度"   >
+          <a href="#树的高度" class="heading-link"><i class="fas fa-link"></i></a>树的高度</h4>
+      <p>一棵树中的所有结点层次树的最大值称为该树的高度或深度。</p>
+
+        <h4 id="有序树："   >
+          <a href="#有序树：" class="heading-link"><i class="fas fa-link"></i></a>有序树：</h4>
+      <p>若树中各结点的子树从左到右是有次序的。不能互换，称为有序树。有序树中最左子树的根称为第1个孩子，左边第i个子树的根称为第i个孩子。</p>
+
+        <h4 id="无序树："   >
+          <a href="#无序树：" class="heading-link"><i class="fas fa-link"></i></a>无序树：</h4>
+      <p>若树中各结点的子树是无次序的，可以互换，则称为无序树。</p>
+
+        <h3 id="1-4-树的基本运算有"   >
+          <a href="#1-4-树的基本运算有" class="heading-link"><i class="fas fa-link"></i></a>1.4 树的基本运算有</h3>
+      <ul>
+<li>求根</li>
+<li>求双亲</li>
+<li>求孩子</li>
+<li>建树</li>
+<li>剪枝</li>
+<li>遍历</li>
+</ul>
+
+        <h2 id="二、二叉树的基本概念"   >
+          <a href="#二、二叉树的基本概念" class="heading-link"><i class="fas fa-link"></i></a>二、二叉树的基本概念</h2>
+      <p>二叉树（Binary Tree）是n（n&gt;=0）个元素的有限集合，该集合或者为空，或者由一个根及两棵<code>互不相交</code>的左子树和右子树组成，其中左子树和右子树也均为二叉树。</p>
+<p>二叉树的任一结点都有两棵子树（它们中任何一个都可以是空子树）,并且这两棵子树之间有次序关系。 </p>
+
+        <h3 id="2-1-二叉树的基本运算"   >
+          <a href="#2-1-二叉树的基本运算" class="heading-link"><i class="fas fa-link"></i></a>2.1 二叉树的基本运算</h3>
+      <ul>
+<li>初始化<code>(建立一个空二叉树)</code></li>
+<li>求双亲</li>
+<li>求左孩子</li>
+<li>建立二叉树</li>
+<li>先序遍历</li>
+<li>中序遍历</li>
+<li>后序遍历</li>
+<li>层序遍历</li>
+</ul>
+
+        <h3 id="2-2-二叉树的性质"   >
+          <a href="#2-2-二叉树的性质" class="heading-link"><i class="fas fa-link"></i></a>2.2 二叉树的性质</h3>
+      <p><code>性质1</code>:二叉树第i(i&gt;=1)层上至多有2^i-1个结点。<br><code>性质2</code>:深度为k(k&gt;=1)的二叉树至多有2^k-1个结点。<br><code>性质3</code>:对任何一棵二叉树，若度数为0的结点(叶结点)个数为n<sub>0</sub>,度数为2的结点个数为n<sub>2</sub>，则n<sub>0</sub>=n<sub>2</sub>+1。</p>
+<p><code>满二叉树</code>:深度为k(k&gt;=1)且有2^k -1个结点的二叉树称为满二叉树。</p>
+<p><code>完全二叉树</code>:如果对满二叉树按从上到下，从左到右的顺序编号，并在最下一层删去部分结点（删去最后一层仍有结点）,如果删除的这些结点的编号是连续的且删除的结点中含有最大编号的结点，那么这棵二叉树就是完全二叉树。</p>
+<p>对于完全二叉树，还有以下两个重要性质:<br><code>性质4</code>:含有n个结点的完全二叉树的深度为[log2^n]+1。<br><code>性质5</code>:如果将一棵有n个结点的完全二叉树按层编号，按层编号是指:将一棵二叉树中的所有n个结点按从第一层到最大层，每层从左到右的顺序依次标记为1,2…n。则对任一编号为i(1&lt;=i&lt;=n)的结点A有:<br>    * 若i=1，则结点A是根；若i&gt;1,则A的双亲Parent(A)的编号为[i/2];<br>    *  若2<code>*</code>i&gt;n，则结点A即无左孩子，也无右孩子；否则A的左孩子Lchild(X)的编号为2<code>*</code>i;<br>    *  若2<code>*</code>i+1&gt;n,则结点A无右孩子；否则，A的右孩子Rchild(A)的编号为2<code>*</code>i+1。</p>
+
+        <h3 id="2-3-二叉树的存储结构"   >
+          <a href="#2-3-二叉树的存储结构" class="heading-link"><i class="fas fa-link"></i></a>2.3 二叉树的存储结构</h3>
+      <p><code>二叉树通常有两类存储结构:顺序存储结构和链式存储结构</code></p>
+
+        <h3 id="2-3-1-二叉树的顺序存储结构"   >
+          <a href="#2-3-1-二叉树的顺序存储结构" class="heading-link"><i class="fas fa-link"></i></a>2.3.1 二叉树的顺序存储结构</h3>
+      <p>二叉树的顺序存储结构可以用一维数组来实现，二叉树上的结点按某种次序分别存入该数组的各个单元。  </p>
+<p><img src="https://i.loli.net/2020/03/22/ZJyXxA6ets5rg9j.png" alt="数据结构-树-完全二叉树的顺序存储-min.png"></p>
+<p><img src="https://i.loli.net/2020/03/22/bZTX6Lhowysmda4.png" alt="数据结构-树-非完全二叉树的顺序实现-min.png"></p>
+
+        <h3 id="2-3-2-二叉树的链式存储结构"   >
+          <a href="#2-3-2-二叉树的链式存储结构" class="heading-link"><i class="fas fa-link"></i></a>2.3.2 二叉树的链式存储结构</h3>
+      <p>二叉树有不同的链式存储结构，其中最常用的是二叉链表与三叉链表。</p>
+<p><img src="https://i.loli.net/2020/03/22/SjrYNGKsJ3fXkD1.png" alt="数据结构-树-二叉树的链式存储结构-min.png"> </p>
+
+        <h4 id="二叉链表的类型定义如下"   >
+          <a href="#二叉链表的类型定义如下" class="heading-link"><i class="fas fa-link"></i></a>二叉链表的类型定义如下</h4>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">btnode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    DataType data;</span><br><span class="line">    <span class="comment">//指向左右孩子的指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">btnode</span> *<span class="title">lchild</span>, *<span class="title">rchild</span>;</span></span><br><span class="line">&#125;*BinTree;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="三叉链表的类型定义如下"   >
+          <a href="#三叉链表的类型定义如下" class="heading-link"><i class="fas fa-link"></i></a>三叉链表的类型定义如下</h4>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ttnode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    datatype data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ttnode</span> *<span class="title">lchild</span>, *<span class="title">parent</span>, *<span class="title">rchild</span>;</span></span><br><span class="line">&#125;*TBinTree;</span><br><span class="line">TBinTree root;</span><br></pre></td></tr></table></div></figure>
+
+<p><img src="https://i.loli.net/2020/03/23/njRHNiUuAkSZY5q.png" alt="数据结构-树-二叉树的链式存储结构-min.png"></p>
+
+        <h3 id="2-4-二叉树的遍历（考试重点）"   >
+          <a href="#2-4-二叉树的遍历（考试重点）" class="heading-link"><i class="fas fa-link"></i></a>2.4 二叉树的遍历（考试重点）</h3>
+      
+        <h4 id="2-4-1二叉树遍历的递归实现"   >
+          <a href="#2-4-1二叉树遍历的递归实现" class="heading-link"><i class="fas fa-link"></i></a>2.4.1二叉树遍历的递归实现</h4>
+      <p>二叉树的遍历是指某种次序访问二叉树上的所有结点，使每个结点被访问一次且仅被访问一次。</p>
+
+        <h5 id="先序遍历"   >
+          <a href="#先序遍历" class="heading-link"><i class="fas fa-link"></i></a>先序遍历</h5>
+      <p>若被遍历的二叉树为空，执行空操作；否则，依次执行下来操作</p>
+<ol>
+<li>访问根结点；</li>
+<li>先序遍历左子树</li>
+<li>先序遍历右子树</li>
+</ol>
+
+        <h5 id="中序遍历"   >
+          <a href="#中序遍历" class="heading-link"><i class="fas fa-link"></i></a>中序遍历</h5>
+      <p>若被遍历的二叉树为空，执行空操作；否则，依次执行下列操作</p>
+<ol>
+<li>中序遍历左子树</li>
+<li>访问根结点</li>
+<li>中序遍历右子树</li>
+</ol>
+
+        <h5 id="后序遍历"   >
+          <a href="#后序遍历" class="heading-link"><i class="fas fa-link"></i></a>后序遍历</h5>
+      <p>若被遍历的二叉树为空，执行空操作；否则，依次执行下列操作</p>
+<ol>
+<li>后序遍历左子树</li>
+<li>后序遍历右子树</li>
+<li>访问根结点</li>
+</ol>
+<p><img src="https://i.loli.net/2020/03/23/cfDkpwq3ul6PyIe.png" alt="数据结构-树-后序遍历-min.png"></p>
+
+        <h5 id="测试题"   >
+          <a href="#测试题" class="heading-link"><i class="fas fa-link"></i></a>测试题</h5>
+      <p><img src="https://i.loli.net/2020/03/23/OVhkoIsxSp9ZzW3.png" alt="数据结构-树-三种遍历的测试题-min.png"></p>
+<ul>
+<li>先序遍历: A-B-D-E-G-C-F</li>
+<li>中序遍历: D-B-G-E-A-C-F</li>
+<li>后序遍历: D-G-E-B-F-C-A</li>
+</ul>
+<p>【问题】假设一棵二叉树的中序序列与后序序列分别为BACDEFGH和BCAEDGHF，建立该二叉树。</p>
+<p>【解题思路】</p>
+<ul>
+<li>第一步: 根据后序序列得知F是根结点</li>
+<li>第二步: 结合中序序列与后序序列F的位置，可以得知BACDE是左子树，而GH是右子树</li>
+<li>第三步: 再查看GH在后序序列的位置，可以得知H是G的根结点</li>
+<li>第四步: 查看后序遍历BCAED可以知道D是左子树的根结点</li>
+<li>第五步: 在查看D在中序序列得位置，可以得知E是右子树，BAC是左子树</li>
+<li>第六步:与第四、五类似，先查看C在后序遍历的位置，可以得知B在左，C在右。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/03/23/CbT5awR6gDpAyOJ.png" alt="数据结构-树-用遍历构造回二叉树-min.png"></p>
+
+        <h4 id="2-4-2-三种遍历的递归算法描述"   >
+          <a href="#2-4-2-三种遍历的递归算法描述" class="heading-link"><i class="fas fa-link"></i></a>2.4.2 三种遍历的递归算法描述</h4>
+      
+        <h5 id="先序"   >
+          <a href="#先序" class="heading-link"><i class="fas fa-link"></i></a>先序</h5>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preorder</span><span class="params">(BinTree bt)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(bt!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        visit(bt) <span class="comment">//访问根结点bt</span></span><br><span class="line">        preorder(bt-&gt;lchild)<span class="comment">//先序遍历左子树</span></span><br><span class="line">        preorder(bt-&gt;rchild)<span class="comment">//先序遍历右子树</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+        <h5 id="中序"   >
+          <a href="#中序" class="heading-link"><i class="fas fa-link"></i></a>中序</h5>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inorder</span><span class="params">(BinTree bt)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(bt!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        inorder(bt-&gt;lchild）<span class="comment">//中序遍历左子树</span></span><br><span class="line">        visit(bt)<span class="comment">//访问根节点bt</span></span><br><span class="line">        inorder(bt-&gt;rchild)<span class="comment">//中序遍历右子树</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h5 id="后序"   >
+          <a href="#后序" class="heading-link"><i class="fas fa-link"></i></a>后序</h5>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postorder</span><span class="params">(BinTree bt)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(bt!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        postorder(bt-&gt;lchild）<span class="comment">//后序遍历左子树</span></span><br><span class="line">        postorder(bt-&gt;rchild)<span class="comment">//后序遍历右子树</span></span><br><span class="line">        visit(bt)<span class="comment">//访问根节点bt</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+
+
+
+        <h4 id="2-4-3-二叉树的层次遍历"   >
+          <a href="#2-4-3-二叉树的层次遍历" class="heading-link"><i class="fas fa-link"></i></a>2.4.3 二叉树的层次遍历</h4>
+      <p>所谓二叉树的层次遍历，是指从二叉树的根结点的这一层开始，逐层向下遍历，在每一层上按从左到右的顺序对结点逐个访问。  </p>
+<p><img src="https://i.loli.net/2020/03/23/Ps6vhkBqWybJERI.png" alt="数据结构-树-二叉树的层次遍历.png"></p>
+
+        <h2 id="三、树和森林"   >
+          <a href="#三、树和森林" class="heading-link"><i class="fas fa-link"></i></a>三、树和森林</h2>
+      
+        <h3 id="3-1-树的存储结构"   >
+          <a href="#3-1-树的存储结构" class="heading-link"><i class="fas fa-link"></i></a>3.1 树的存储结构</h3>
+      
+        <h4 id="3-1-1-孩子链表表示法"   >
+          <a href="#3-1-1-孩子链表表示法" class="heading-link"><i class="fas fa-link"></i></a>3.1.1 孩子链表表示法</h4>
+      <ul>
+<li>孩子链表表示法是树的一种<code>链式存储</code>结构。</li>
+<li>它的主体是一个数组元素个数和树中结点个数相同的一维数组。</li>
+<li>树上的一个结点X以及该结点的所有孩子结点组成一个带头结点的单链表，单链表的头结点含有两个域:数据域和指针域。</li>
+<li>其中，数据域用于存储结点X的数据元素，指针域用于存储指向X第一孩子结点的指针。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/03/23/f6tuJRnQcBqlVMH.png" alt="数据结构-树-孩子链表表示法-min.png"></p>
+
+        <h4 id="3-1-2-孩子兄弟链表表示法"   >
+          <a href="#3-1-2-孩子兄弟链表表示法" class="heading-link"><i class="fas fa-link"></i></a>3.1.2 孩子兄弟链表表示法</h4>
+      <p>存储时每个结点除了数据域外，还有指向该结点的第一个孩子和下一个兄弟结点的指针。</p>
+<p><img src="https://i.loli.net/2020/03/23/eDLxsyKzwAHmUbn.png" alt="数据结构-树-孩子兄弟链表结点结构-min.png"></p>
+<p><img src="https://i.loli.net/2020/03/23/9TvLEiGdCIwnOtK.png" alt="数据结构-树-树的孩子兄弟链表表示-min.png"></p>
+
+        <h4 id="3-1-3-双亲表示法"   >
+          <a href="#3-1-3-双亲表示法" class="heading-link"><i class="fas fa-link"></i></a>3.1.3 双亲表示法</h4>
+      <p>双亲表示法由一个一维数组构成。<br>数组的每个分量包含两个域：数据域和双亲域。<br>数据域用于存储树上一个结点中数据元素，双亲域用于存储本结点的双亲在数组中的序号（下标值）。 </p>
+<p><img src="https://i.loli.net/2020/03/24/6NflEmA47CBFOqg.png" alt="数据结构-树-双亲表示法-min.png"></p>
+
+        <h3 id="3-2-树、森林与二叉树的关系"   >
+          <a href="#3-2-树、森林与二叉树的关系" class="heading-link"><i class="fas fa-link"></i></a>3.2 树、森林与二叉树的关系</h3>
+      
+        <h4 id="3-2-1-树转换为二叉树"   >
+          <a href="#3-2-1-树转换为二叉树" class="heading-link"><i class="fas fa-link"></i></a>3.2.1 树转换为二叉树</h4>
+      <p>任何一棵树可唯一地与一棵二叉树对应。<br>相应地，一棵二叉树也唯一地对应一棵树，即树与二叉树可以互相转换。</p>
+<ul>
+<li><p>将树转换成二叉树的方法如下:</p>
+<ul>
+<li>将所有兄弟结点连接起来；</li>
+<li>保留第一个兄弟结点与父节点的连接，断开其他兄弟结点与父节点的连接，然后以根结点为轴心按顺时针的方向旋转45&deg;</li>
+</ul>
+<p><img src="https://i.loli.net/2020/03/24/tBFVrpumalc4iv8.png" alt="数据结构-树与森林-树与二叉树的对应关系图-min.png"></p>
+<p>上图转换思路</p>
+<ul>
+<li>第一步 连接BCD</li>
+<li>第二步 去除AC、AD的连线</li>
+<li>第三步 按顺时针的方向旋转45°，就可以得出右边的二叉树图</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="3-2-2-森林转换为二叉树"   >
+          <a href="#3-2-2-森林转换为二叉树" class="heading-link"><i class="fas fa-link"></i></a>3.2.2 森林转换为二叉树</h4>
+      <ul>
+<li>森林转换成二叉树的方法如下</li>
+<li>（1）将每课树转换成相应的二叉树</li>
+<li>（2）将（1）中得到的各棵 二叉树的根结点看作是兄弟连接起来。</li>
+</ul>
+
+        <h4 id="3-2-3-二叉树转换为森林"   >
+          <a href="#3-2-3-二叉树转换为森林" class="heading-link"><i class="fas fa-link"></i></a>3.2.3 二叉树转换为森林</h4>
+      <ul>
+<li>将二叉树转换成对应的森林的方法如下<ul>
+<li>在待转换得二叉树中，断开根结点与右孩子的连线，得到两棵二叉树，其中一颗是以二叉树B的根结点为根的二叉树，另一颗是以根结点的右孩子E为根结点的二叉树。图a中，断开A与E连线后得到两棵如图b所示两棵的二叉树B1和B2.</li>
+<li>在二叉树B1中，连接A与C,A与D。然后将B和C的连线断开，C和D的连线断开。</li>
+<li>重复第一步与第二步对B2进行转换。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2020/03/24/53OGpj1RqneCJzl.png" alt="数据结构-树-二叉树转换为森林-min.png"></p>
+<p><img src="https://i.loli.net/2020/03/24/FVSICKwPDTMpxi6.png" alt="数据结构-树-二叉树转换为森林1-min.png"></p>
+<p><img src="https://i.loli.net/2020/03/24/aNuHeW5pnPxqYdA.png" alt="数据结构-树-二叉树转换为森林2-min.png"></p>
+
+        <h3 id="3-2-树与森林的遍历"   >
+          <a href="#3-2-树与森林的遍历" class="heading-link"><i class="fas fa-link"></i></a>3.2 树与森林的遍历</h3>
+      
+        <h4 id="3-2-1-树的遍历"   >
+          <a href="#3-2-1-树的遍历" class="heading-link"><i class="fas fa-link"></i></a>3.2.1 树的遍历</h4>
+      <p>与二叉树类似，这里我们定义树的先序遍历、后序遍历和层次遍历</p>
+
+        <h5 id="先序遍历-1"   >
+          <a href="#先序遍历-1" class="heading-link"><i class="fas fa-link"></i></a>先序遍历</h5>
+      <ol>
+<li><p>访问根结点</p>
+</li>
+<li><p>依次先序遍历根的各棵子树T<sub>1</sub> , … , T<sub>m</sub></p>
+<p> <img src="https://i.loli.net/2020/03/24/1qo5JUQhNSiWGyA.png" alt="数据结构-树-树的遍历-min.png"></p>
+</li>
+</ol>
+<p>上图用先序遍历可以得出序列 H、A、B、E、G、F、D、C</p>
+
+        <h5 id="后序遍历-1"   >
+          <a href="#后序遍历-1" class="heading-link"><i class="fas fa-link"></i></a>后序遍历</h5>
+      <ol>
+<li>依次后序遍历根的各棵子树T<sub>1</sub>,…T<sub>m</sub>;</li>
+<li>访问根结点。</li>
+</ol>
+<pre><code>![数据结构-树-树的遍历-min.png](https://i.loli.net/2020/03/24/1qo5JUQhNSiWGyA.png)</code></pre><p> 上图用后序遍历可以得出序列 B、G、F、D、E、A、C、H</p>
+
+        <h6 id="层序遍历"   >
+          <a href="#层序遍历" class="heading-link"><i class="fas fa-link"></i></a>层序遍历</h6>
+      <ol>
+<li><p>若树非空，访问根结点</p>
+</li>
+<li><p>若第i（i&gt;=1）层结点已被访问，第i+1层结点尚未访问，则从左到右依次访问第i+1层结点。</p>
+<p>  <img src="https://i.loli.net/2020/03/24/1qo5JUQhNSiWGyA.png" alt="数据结构-树-树的遍历-min.png"></p>
+</li>
+</ol>
+<p>上图用层次遍历可以得出序列 H、A、C、B、E、G、F、D</p>
+
+        <h4 id="3-2-2-森林的遍历"   >
+          <a href="#3-2-2-森林的遍历" class="heading-link"><i class="fas fa-link"></i></a>3.2.2 森林的遍历</h4>
+      <p>森林有两种遍历方法</p>
+
+        <h5 id="先序遍历森林。若森林非空，则"   >
+          <a href="#先序遍历森林。若森林非空，则" class="heading-link"><i class="fas fa-link"></i></a>先序遍历森林。若森林非空，则</h5>
+      <ol>
+<li>访问森林中第一棵树的根结点</li>
+<li>先序遍历森林第一棵树的根结点的子树组成的森林</li>
+<li>先序遍历除去第一棵树之外其余的树组成的森林。</li>
+</ol>
+<p><img src="https://i.loli.net/2020/03/24/aNuHeW5pnPxqYdA.png" alt="数据结构-树-二叉树转换为森林2-min.png"></p>
+<p>上图森林用先序遍历可以得出先序序列 A、B、C、D、E、F、G、H、J、I</p>
+
+        <h5 id="中序遍历森林。若森林非空，则"   >
+          <a href="#中序遍历森林。若森林非空，则" class="heading-link"><i class="fas fa-link"></i></a>中序遍历森林。若森林非空，则</h5>
+      <ol>
+<li><p>中序遍历森林中第一棵树的根结点的子树组成的森林；</p>
+</li>
+<li><p>访问第一棵树的根结点</p>
+</li>
+<li><p>中序遍历除去第一棵树之外其余的树组成的森林。</p>
+<p><img src="https://i.loli.net/2020/03/24/aNuHeW5pnPxqYdA.png" alt="数据结构-树-二叉树转换为森林2-min.png"></p>
+<p>上图森林用中序遍历可以得出中序序列 B、C、D、A、F、E、J、H、I、G</p>
+</li>
+</ol>
+
+        <h2 id="四、判定树与哈夫曼树"   >
+          <a href="#四、判定树与哈夫曼树" class="heading-link"><i class="fas fa-link"></i></a>四、判定树与哈夫曼树</h2>
+      
+        <h3 id="4-1-判定树"   >
+          <a href="#4-1-判定树" class="heading-link"><i class="fas fa-link"></i></a>4.1 判定树</h3>
+      <p>用于描述分类过程的二叉树称为判定树。<br><img src="https://i.loli.net/2020/03/24/28RjXZaBQGOV3rh.png" alt="数据结构-树-判定树-min.png"></p>
+
+        <h3 id="4-2-哈夫曼树与哈夫曼算法"   >
+          <a href="#4-2-哈夫曼树与哈夫曼算法" class="heading-link"><i class="fas fa-link"></i></a>4.2 哈夫曼树与哈夫曼算法</h3>
+      
+        <h4 id="如何构造一棵哈夫曼树"   >
+          <a href="#如何构造一棵哈夫曼树" class="heading-link"><i class="fas fa-link"></i></a>如何构造一棵哈夫曼树</h4>
+      <ol>
+<li>由给定的值{p<sub>i</sub>,…p<sub>k</sub>}构造森林F={T<sub>i</sub>,…T<sub>k</sub>}，其中每一个Ti为一棵只有根结点且其权威p<sub>i</sub>的二叉树。</li>
+<li>从F中选取根结点的权最小的两棵二叉树T<sub>i</sub>和T<sub>j</sub>为左、右子树的新的二叉树T<sub>h</sub>,置T<sub>h</sub>根结点的权为T<sub>i</sub>、T<sub>j</sub>根结点的权指之和。</li>
+<li>从F中删去T<sub>i</sub>、T<sub>j</sub>,并将T<sub>h</sub>加入F。若F中仍多余一棵二叉树，则返回2.直到F中只含一棵二叉树为止，这棵二叉树就是哈夫曼树。</li>
+</ol>
+<p><img src="https://i.loli.net/2020/03/24/vF9NrSIpkPDb7Zn.png" alt="数据结构-树-构造哈夫曼树-min.png"></p>
+
+        <h4 id="哈夫曼编码"   >
+          <a href="#哈夫曼编码" class="heading-link"><i class="fas fa-link"></i></a>哈夫曼编码</h4>
+      <p><img src="https://i.loli.net/2020/03/24/kU4CbTqXPv8cWzj.png" alt="数据结构-树-哈夫曼编码-min.png"></p>
+<p>【案例】设某通信系统中一个待传输的文本有6个不同字符，它们的出现频率分别是0.5，0.8 1.4，2.2，2.3，2.8，试设计哈夫曼编码。</p>
+<p>【分析】由题意，共有n=6个不同的字符，字符的频率序列为p={0.5,0.8,1.4,2.2,2.3,2.8},以这样频率作为权值，构造一棵哈夫曼树，并对其进行哈夫曼编码</p>
+<p><img src="https://i.loli.net/2020/03/25/MgR97KWFowDLVaX.png" alt="数据结构-树-哈夫曼编码-min.png"></p>
+<ul>
+<li>2.2： 0 0 </li>
+<li>2.3:  0 1</li>
+<li>2.8:  1 1</li>
+<li>1.4:  1 0 1</li>
+<li>0.5:  1 0 0 0 </li>
+<li>0.8:  1 0 0 1</li>
+</ul>
+<p><img src="https://i.loli.net/2020/03/25/MAhKGNUPqRS89Xo.png" alt="数据结构-树-哈夫曼编码-例子结果-min.png"></p>
+
+        <h2 id="五、考核的知识点与考核要求"   >
+          <a href="#五、考核的知识点与考核要求" class="heading-link"><i class="fas fa-link"></i></a>五、考核的知识点与考核要求</h2>
+      
+        <h3 id="5-1-树结构、森林"   >
+          <a href="#5-1-树结构、森林" class="heading-link"><i class="fas fa-link"></i></a>5.1 树结构、森林</h3>
+      <ul>
+<li>识记:<ul>
+<li>树的基本概念；</li>
+<li>术语；</li>
+<li>森林基本概念</li>
+</ul>
+</li>
+<li>领会: 树的基本运算</li>
+<li>简单应用：<ul>
+<li>结点的度计算</li>
+<li>树的度计算</li>
+<li>树的高度计算</li>
+<li>结点的层次树计算</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="5-2-二叉树"   >
+          <a href="#5-2-二叉树" class="heading-link"><i class="fas fa-link"></i></a>5.2 二叉树</h3>
+      <ul>
+<li>识记:<ul>
+<li>二叉树的概念；</li>
+<li>左子树</li>
+<li>右子树</li>
+</ul>
+</li>
+<li>领会<ul>
+<li>二叉树的基本运算</li>
+<li>二叉树的性质</li>
+<li>二叉树顺序存储及类C语言描述</li>
+<li>二叉树链式存储及类C语言描述</li>
+<li>二叉树的遍历算法</li>
+</ul>
+</li>
+<li>简单应用<ul>
+<li>二叉树结点树计算</li>
+<li>二叉树深度计算</li>
+<li>给出二叉树先序序列</li>
+<li>中序序列和后序序列</li>
+<li>由二叉树先序序列、中序序列和后序序列构造二叉树</li>
+</ul>
+</li>
+<li>综合应用：<ul>
+<li>设计二叉树上基于先序遍历、中序遍历和后序遍历的应用算法</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="5-3-树与森林"   >
+          <a href="#5-3-树与森林" class="heading-link"><i class="fas fa-link"></i></a>5.3 树与森林</h3>
+      <ul>
+<li>识记<ul>
+<li>树的先序遍历方法；</li>
+<li>树的后序遍历方法；</li>
+<li>树的层次遍历方法；</li>
+<li>森林的先序遍历方法；</li>
+<li>森林的中序遍历方法</li>
+</ul>
+</li>
+<li>领会<ul>
+<li>树、森林与二叉树的关系</li>
+<li>树转换成二叉树方法</li>
+<li>森林转换成二叉树方法</li>
+<li>二叉树转换成森林方法</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="5-4-判定树和哈夫曼树"   >
+          <a href="#5-4-判定树和哈夫曼树" class="heading-link"><i class="fas fa-link"></i></a>5.4 判定树和哈夫曼树</h3>
+      <ul>
+<li>识记：<ul>
+<li>判定树概念；</li>
+<li>哈夫曼树概念</li>
+<li>哈夫曼编码</li>
+</ul>
+</li>
+<li>领会<ul>
+<li>分类与判定树的关系</li>
+<li>哈夫曼构造过程</li>
+<li>哈夫曼算法</li>
+</ul>
+</li>
+<li>简单应用<ul>
+<li>由一组叶结点的权值构造一棵对应的哈夫曼树，设计哈夫曼编码</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="5-5-本章重点、难点"   >
+          <a href="#5-5-本章重点、难点" class="heading-link"><i class="fas fa-link"></i></a>5.5 本章重点、难点</h3>
+      <ul>
+<li>本章重点<ul>
+<li>树形结构的概念</li>
+<li>二叉树的定义</li>
+<li>存储结构和遍历算法</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>本章难点<ul>
+<li>二叉树的遍历算法和哈夫曼树构造算法</li>
+</ul>
+</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【数据结构】第三章 栈与队列</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E8%8B%B1%E8%AF%AD%E4%BA%8C%E3%80%91%E6%A6%82%E6%8B%AC%E6%AE%B5%E8%90%BD%E5%A4%A7%E6%84%8F%E5%92%8C%E8%A1%A5%E5%85%A8%E5%8F%A5%E5%AD%90/"><span class="paginator-prev__text">【英语二】概括段落大意和补全句子</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#学习目的与要求"><span class="toc-text">
+          学习目的与要求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#本章总的要求"><span class="toc-text">
+          本章总的要求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、树的基本概念"><span class="toc-text">
+          一、树的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-树的概念"><span class="toc-text">
+          1.1 树的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-树的定义"><span class="toc-text">
+          1.2 树的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-树的相关术语"><span class="toc-text">
+          1.3 树的相关术语</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#结点的度"><span class="toc-text">
+          结点的度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#叶子："><span class="toc-text">
+          叶子：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#树的度："><span class="toc-text">
+          树的度：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#结点的层次："><span class="toc-text">
+          结点的层次：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#树的高度"><span class="toc-text">
+          树的高度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#有序树："><span class="toc-text">
+          有序树：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#无序树："><span class="toc-text">
+          无序树：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-树的基本运算有"><span class="toc-text">
+          1.4 树的基本运算有</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、二叉树的基本概念"><span class="toc-text">
+          二、二叉树的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-二叉树的基本运算"><span class="toc-text">
+          2.1 二叉树的基本运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-二叉树的性质"><span class="toc-text">
+          2.2 二叉树的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-二叉树的存储结构"><span class="toc-text">
+          2.3 二叉树的存储结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-二叉树的顺序存储结构"><span class="toc-text">
+          2.3.1 二叉树的顺序存储结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-二叉树的链式存储结构"><span class="toc-text">
+          2.3.2 二叉树的链式存储结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉链表的类型定义如下"><span class="toc-text">
+          二叉链表的类型定义如下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三叉链表的类型定义如下"><span class="toc-text">
+          三叉链表的类型定义如下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-二叉树的遍历（考试重点）"><span class="toc-text">
+          2.4 二叉树的遍历（考试重点）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1二叉树遍历的递归实现"><span class="toc-text">
+          2.4.1二叉树遍历的递归实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#先序遍历"><span class="toc-text">
+          先序遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中序遍历"><span class="toc-text">
+          中序遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#后序遍历"><span class="toc-text">
+          后序遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#测试题"><span class="toc-text">
+          测试题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-2-三种遍历的递归算法描述"><span class="toc-text">
+          2.4.2 三种遍历的递归算法描述</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#先序"><span class="toc-text">
+          先序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中序"><span class="toc-text">
+          中序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#后序"><span class="toc-text">
+          后序</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-二叉树的层次遍历"><span class="toc-text">
+          2.4.3 二叉树的层次遍历</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、树和森林"><span class="toc-text">
+          三、树和森林</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-树的存储结构"><span class="toc-text">
+          3.1 树的存储结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-孩子链表表示法"><span class="toc-text">
+          3.1.1 孩子链表表示法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-孩子兄弟链表表示法"><span class="toc-text">
+          3.1.2 孩子兄弟链表表示法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-双亲表示法"><span class="toc-text">
+          3.1.3 双亲表示法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-树、森林与二叉树的关系"><span class="toc-text">
+          3.2 树、森林与二叉树的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-树转换为二叉树"><span class="toc-text">
+          3.2.1 树转换为二叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-森林转换为二叉树"><span class="toc-text">
+          3.2.2 森林转换为二叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-二叉树转换为森林"><span class="toc-text">
+          3.2.3 二叉树转换为森林</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-树与森林的遍历"><span class="toc-text">
+          3.2 树与森林的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-树的遍历"><span class="toc-text">
+          3.2.1 树的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#先序遍历-1"><span class="toc-text">
+          先序遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#后序遍历-1"><span class="toc-text">
+          后序遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#层序遍历"><span class="toc-text">
+          层序遍历</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-森林的遍历"><span class="toc-text">
+          3.2.2 森林的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#先序遍历森林。若森林非空，则"><span class="toc-text">
+          先序遍历森林。若森林非空，则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中序遍历森林。若森林非空，则"><span class="toc-text">
+          中序遍历森林。若森林非空，则</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、判定树与哈夫曼树"><span class="toc-text">
+          四、判定树与哈夫曼树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-判定树"><span class="toc-text">
+          4.1 判定树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-哈夫曼树与哈夫曼算法"><span class="toc-text">
+          4.2 哈夫曼树与哈夫曼算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#如何构造一棵哈夫曼树"><span class="toc-text">
+          如何构造一棵哈夫曼树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#哈夫曼编码"><span class="toc-text">
+          哈夫曼编码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、考核的知识点与考核要求"><span class="toc-text">
+          五、考核的知识点与考核要求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-树结构、森林"><span class="toc-text">
+          5.1 树结构、森林</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-二叉树"><span class="toc-text">
+          5.2 二叉树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-树与森林"><span class="toc-text">
+          5.3 树与森林</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-判定树和哈夫曼树"><span class="toc-text">
+          5.4 判定树和哈夫曼树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-本章重点、难点"><span class="toc-text">
+          5.5 本章重点、难点</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

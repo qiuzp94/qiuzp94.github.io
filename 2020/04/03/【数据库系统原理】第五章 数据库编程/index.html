@@ -1,0 +1,488 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="一、 存储过程                           1.1 存储过程的基本概念       存储过程是一组为了完成某项特定功能的SQL语句集，其实质上就是一端存储在数据库中代码，它可以由声明式的SQL语句（如CREATE、UPDATE和SELECT等语句）和过程式SQL语句(如IF…THEN…ELSE控制结构语句)组成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据库系统原理】第五章 数据库编程">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="一、 存储过程                           1.1 存储过程的基本概念       存储过程是一组为了完成某项特定功能的SQL语句集，其实质上就是一端存储在数据库中代码，它可以由声明式的SQL语句（如CREATE、UPDATE和SELECT等语句）和过程式SQL语句(如IF…THEN…ELSE控制结构语句)组成。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/03/30/7pZnGimY9uRlOV3.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/QWsO7DU5jb3q6Ad.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/2Yqf1s3XaWdy7pv.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/l3KU5hdQ4WMEbJn.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/aUfG4kdDnFP2jT6.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:12:30.536Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="数据库系统原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/30/7pZnGimY9uRlOV3.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【数据库系统原理】第五章 数据库编程</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【数据库系统原理】第五章 数据库编程</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><p><img src="https://i.loli.net/2020/03/30/7pZnGimY9uRlOV3.png" alt="数据库系统原理-第五章数据库编程-脑图-min.png"></p>
+
+        <h2 id="一、-存储过程"   >
+          <a href="#一、-存储过程" class="heading-link"><i class="fas fa-link"></i></a>一、 存储过程</h2>
+      
+        <h3 id="1-1-存储过程的基本概念"   >
+          <a href="#1-1-存储过程的基本概念" class="heading-link"><i class="fas fa-link"></i></a>1.1 存储过程的基本概念</h3>
+      <p>存储过程是一组为了完成某项特定功能的SQL语句集，其实质上就是一端存储在数据库中代码，它可以由声明式的SQL语句（如CREATE、UPDATE和SELECT等语句）和过程式SQL语句(如IF…THEN…ELSE控制结构语句)组成。</p>
+
+        <h4 id="1-1-1-使用存储过程的优点（考试简答题）"   >
+          <a href="#1-1-1-使用存储过程的优点（考试简答题）" class="heading-link"><i class="fas fa-link"></i></a>1.1.1 使用存储过程的优点（考试简答题）</h4>
+      <ol>
+<li>提高运行速度</li>
+<li>增强了SQL的功能和灵活性</li>
+<li>可以降低网络的通信量</li>
+<li>减轻了程序编写的工作量</li>
+<li>间接实现安全控制功能</li>
+</ol>
+<a id="more"></a>
+
+
+
+        <h3 id="1-2-创建存储过程"   >
+          <a href="#1-2-创建存储过程" class="heading-link"><i class="fas fa-link"></i></a>1.2 创建存储过程</h3>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">语法格式</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> sp_name</span><br><span class="line">([proc_parameter[,...]])</span><br><span class="line">    [characteristic...]routine_body[BEGIN...END]</span><br><span class="line">其中，proc_parameter的参数如下</span><br><span class="line">[<span class="keyword">IN</span> | <span class="keyword">OUT</span> | INOUT]  param_name <span class="keyword">type</span></span><br></pre></td></tr></table></div></figure>
+
+
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">characteristic特征如下:</span><br><span class="line">LANGUAGE SQL</span><br><span class="line">| [NOT] DETERMINISTIC</span><br><span class="line">| &#123;CONTAINS SQL | NO SQL | READS SQL DATA |</span><br><span class="line">MODIFIES SQL DATE&#125;</span><br><span class="line">|SQL SECURITY &#123;DEFINER | INVOKEFR</span><br><span class="line">|<span class="keyword">COMMENT</span> <span class="string">'string'</span>&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>DELIMITER 语法格式</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER $$</span><br><span class="line">修改结束符为$$</span><br></pre></td></tr></table></div></figure>
+<p>说明：<br>因为MySQL运行命令中结束符号为分号，便行行行存储过程中为了避免冲突，修改结束符号。</p>
+
+        <h3 id="1-3-存储过程体"   >
+          <a href="#1-3-存储过程体" class="heading-link"><i class="fas fa-link"></i></a>1.3 存储过程体</h3>
+      
+        <h4 id="1-3-1-局部变量"   >
+          <a href="#1-3-1-局部变量" class="heading-link"><i class="fas fa-link"></i></a>1.3.1 局部变量</h4>
+      <p> 在存储过程中可以声明局部变量，它们可以用来存储临时结构。要声明局部变量必须使用DECLATRE语句。在声明局部变量的同时也可以其赋一个初始值。</p>
+<p> DECLARE语法格式如下:<br> <code>DECLARE var_name[,...]type[DEFAULT value]</code></p>
+<p> 说明: var_name 为变量名；type为变量类型</p>
+<p> DEFAULT子句给变量指定一个默认值，如果不指定默认为NULL的话。</p>
+<blockquote>
+<p>例如：DECLARE sno CHAR(10)</p>
+</blockquote>
+
+        <h4 id="1-3-2-SET语句"   >
+          <a href="#1-3-2-SET语句" class="heading-link"><i class="fas fa-link"></i></a>1.3.2 SET语句</h4>
+      <p> 要给局部变量赋值可以使用SET语句，SET语句也是SQL本身的一部分。</p>
+<p> 语法格式为:</p>
+<p> <code>SET var_name = expr[,var_name= expr]...</code></p>
+
+        <h4 id="1-3-3-SELECT…INTO语句"   >
+          <a href="#1-3-3-SELECT…INTO语句" class="heading-link"><i class="fas fa-link"></i></a>1.3.3 SELECT…INTO语句</h4>
+      <p> 使用这个SELECT…INTO语法可以把选定的列值直接存储到变量中。因此，<code>返回的结果只能有一行</code>。</p>
+<p> 语法格式为<br> <code>SELECGT col_name[,...]INTO var_name[,...] table_expr</code></p>
+<p> 说明:col_name是列名，var_name是要赋值的变量名。<br> table_expr是SELECT语句中的FROM子句和后面的部分。</p>
+
+        <h4 id="1-3-4-流程控制语句"   >
+          <a href="#1-3-4-流程控制语句" class="heading-link"><i class="fas fa-link"></i></a>1.3.4 流程控制语句</h4>
+      
+        <h5 id="IF语句"   >
+          <a href="#IF语句" class="heading-link"><i class="fas fa-link"></i></a>IF语句</h5>
+      <p>IF-THEN-ESLE语句可根据不同的条件执行不同的操作。</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">语法格式为</span><br><span class="line">IF search_condition THEN statement_list</span><br><span class="line">[ELSEIT search_condition THEN statement_list]...</span><br><span class="line">[ELSE statement_list]</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">IF</span></span><br></pre></td></tr></table></div></figure>
+
+<p>说明:search_condition是判断的条件，statement_list中包含一个或多个SQL语句。当search_condition的条件为真时,就执行相应的SQL语句。<code>区别IF（）函数,不要混淆。</code></p>
+
+        <h5 id="CASE语句"   >
+          <a href="#CASE语句" class="heading-link"><i class="fas fa-link"></i></a>CASE语句</h5>
+      <p>说明:一个CASE语句经常可以充当一个IF-THEN-ELSE语句。</p>
+<p><img src="https://i.loli.net/2020/03/28/QWsO7DU5jb3q6Ad.png" alt="数据库系统原理-数据库编程-流程控制语句1-min.png"></p>
+<p> <img src="https://i.loli.net/2020/03/28/2Yqf1s3XaWdy7pv.png" alt="数据库系统原理-数据库编程-流程控制语句2-min.png"></p>
+
+        <h5 id="循环语句"   >
+          <a href="#循环语句" class="heading-link"><i class="fas fa-link"></i></a>循环语句</h5>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MySQL支持3条用创建循环的语句：</span><br><span class="line">WHELE、REPEAT和LOOP语句。</span><br><span class="line">在存储过程中可以定义0个、1个或多个循环语句。</span><br></pre></td></tr></table></div></figure>
+
+<p><img src="https://i.loli.net/2020/03/28/l3KU5hdQ4WMEbJn.png" alt="数据库系统原理-数据库编程-循环语句-min.png"></p>
+<p><img src="https://i.loli.net/2020/03/28/aUfG4kdDnFP2jT6.png" alt="数据库系统原理-数据库编程-循环语句1-min.png"></p>
+<p>循环语句说明：</p>
+<ol>
+<li>WHILE先判断，REPEAT后判断，WHILE条件为真进行循环,REPEAT条件为真结束循环。</li>
+<li>在LOOP循环内的语句一直重复至循环被退出，退出时通常伴随一个LEAVE语句。</li>
+<li>LEAVE语句经常和BEGIN…END或循环一起使用。</li>
+<li>LEAVE label</li>
+</ol>
+
+        <h4 id="1-3-5-游标-数据集合"   >
+          <a href="#1-3-5-游标-数据集合" class="heading-link"><i class="fas fa-link"></i></a>1.3.5 游标(数据集合)</h4>
+      <p>一条SELECT…INFO语句返回的是带有值的一行，这样可以把数据读取到存储过程中。但是常规的SELECT语句返回的是多行数据，如果要处理它需要引入游标这一概念。</p>
+<p>MySQL支持简单的游标。在MySQL 游标一定要在存储过程或函数中使用，不能单独在查询中使用。<code>名字要唯一，游标本身是执行SELECT检索出来的结果集。</code></p>
+
+        <h5 id="声明游标"   >
+          <a href="#声明游标" class="heading-link"><i class="fas fa-link"></i></a>声明游标</h5>
+      <p>语法格式</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span> cursor_name <span class="keyword">CURSOR</span> <span class="keyword">FOR</span> select_statement</span><br></pre></td></tr></table></div></figure>
+
+<p>说明:cursor_name是游标的名称，游标名称使用与表 名同样的规则。select_statement是一个SELECT语句,返回的是一行或多行的数据。</p>
+
+        <h5 id="打开游标"   >
+          <a href="#打开游标" class="heading-link"><i class="fas fa-link"></i></a>打开游标</h5>
+      <p>声明游标后，要使用游标从中提取数据，就必须先打开游标。在MySQL中，使用OPEN语句打开游标，其格式为:</p>
+<p><code>OPEN cursor_neme</code></p>
+<p>在程序中，一个游标可以打开多次。由于其他的用户或 程序本身已经更新了表，所以每次打开结果可能不同。</p>
+
+        <h5 id="读取数据"   >
+          <a href="#读取数据" class="heading-link"><i class="fas fa-link"></i></a>读取数据</h5>
+      <p>游标打开后，就可以使用FETCH…INTO语从中读取数据。</p>
+<p>语法格式<br><code>FETCH cursor_name INTO var_name[,var_name]...</code></p>
+<p>说明:FETCH…INTO语句与SELECT…INTO语句具有相同的意义，FETCH语句是将游标指向的一行数据付给一些变量，<code>子句中变量的数目必须等于声明游标 SELECT子句中列的数目。var_name是存放数据的变量名</code></p>
+
+        <h5 id="关闭游标"   >
+          <a href="#关闭游标" class="heading-link"><i class="fas fa-link"></i></a>关闭游标</h5>
+      <p>游标使用完以后,要及时关闭。关闭游标使用CLOSE语句，格式为:<br>CLOSE cursor_name<br>语句参数的含义与OPEN语句中相同。</p>
+
+        <h3 id="1-4-调用存储过程"   >
+          <a href="#1-4-调用存储过程" class="heading-link"><i class="fas fa-link"></i></a>1.4 调用存储过程</h3>
+      <p>存储过程创建完后，可以在程序、触发器或者存储过程中被调用，但是都必须使用到CALL语句。</p>
+<p>语法格式<br><code>CALL sp_name([parameter[,...]])</code></p>
+<p>说明:sp_name为存储过程的名称,如果要调用某个特定数据库的存储过程，则需要在前面加上该数据库的名称。</p>
+<p><code>parameter为调用该存储过程使用的参数，这条语句中的参数个数必须总是等于存储过程的参数个数</code></p>
+
+        <h3 id="1-5-删除存储过程"   >
+          <a href="#1-5-删除存储过程" class="heading-link"><i class="fas fa-link"></i></a>1.5 删除存储过程</h3>
+      <p>存储过程创建后需要删除使用DROP PROCEDURE语句。在此之前，<code>必须确定该存储过程没有任何依赖关系</code>,否则会导致其他与之关联的存储过程无法运行。</p>
+<p>语法格式为:<br><code>DROP PROCEDURE [IF EXISTS] sp_name</code></p>
+<p>说明:sp_name是要删除的存储过程的名称，IF EXISTS子句是MySQL的扩展，如果程序或函数不存在,它防止发生错误。</p>
+
+        <h2 id="二、存储函数"   >
+          <a href="#二、存储函数" class="heading-link"><i class="fas fa-link"></i></a>二、存储函数</h2>
+      
+        <h3 id="2-1-创建存储函数"   >
+          <a href="#2-1-创建存储函数" class="heading-link"><i class="fas fa-link"></i></a>2.1 创建存储函数</h3>
+      <p>创建存储函数使用CREATE FUNCTION语句。要查看数据库中有哪些存储函数，可以使用SHOW FUNCTION STATUS命令</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> 语法格式</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> sp_name([function_parameter[,...]])</span><br><span class="line">    <span class="keyword">RETURNS</span> <span class="keyword">type</span></span><br><span class="line">    [characteristic...] routine_body</span><br></pre></td></tr></table></div></figure>
+<p>说明:存储函数的定义格式和存储过程相差不大。</p>
+
+        <h3 id="2-2-调用存储函数"   >
+          <a href="#2-2-调用存储函数" class="heading-link"><i class="fas fa-link"></i></a>2.2 调用存储函数</h3>
+      <p>存储函数创建完后，就如同系统提供的内置函数（如VERSION（））,所以调用存储函数的方法也差不多，都是使用SELECT关键字</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语法格式为:</span><br><span class="line"><span class="keyword">SELECT</span> sp_name([function_parameter[,...]])</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="2-3-删除存储函数"   >
+          <a href="#2-3-删除存储函数" class="heading-link"><i class="fas fa-link"></i></a>2.3 删除存储函数</h3>
+      <p>删除存储函数的方法与删除存储过程的方法基本一样，使用DROP FUNCTION语句</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">FUNCTION</span> [<span class="keyword">IF</span> <span class="keyword">EXISTS</span>]sp_name</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="三、本章小结"   >
+          <a href="#三、本章小结" class="heading-link"><i class="fas fa-link"></i></a>三、本章小结</h2>
+      <p>本章结合MySQL数据库的使用，具体介绍了常用的两种数据库编程技术，即存储过程与存储函数，特别是详细介绍了在存储过程的编写过程中常用的几个构造存储过程体的语法元素。</p>
+
+        <h3 id="3-1-本章学习重点"   >
+          <a href="#3-1-本章学习重点" class="heading-link"><i class="fas fa-link"></i></a>3.1 本章学习重点</h3>
+      <ol>
+<li>存储过程的概念，创建、修改、删除、调用；</li>
+<li>存储函数的概念，创建、修改、删除、调用。</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B8%8E%E4%BF%9D%E6%8A%A4/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【数据库系统原理】第六章 数据库安全与保护</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%203.%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/"><span class="paginator-prev__text">【数据结构】 3.时间复杂度和空间复杂度</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、-存储过程"><span class="toc-text">
+          一、 存储过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-存储过程的基本概念"><span class="toc-text">
+          1.1 存储过程的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-使用存储过程的优点（考试简答题）"><span class="toc-text">
+          1.1.1 使用存储过程的优点（考试简答题）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-创建存储过程"><span class="toc-text">
+          1.2 创建存储过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-存储过程体"><span class="toc-text">
+          1.3 存储过程体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-局部变量"><span class="toc-text">
+          1.3.1 局部变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-SET语句"><span class="toc-text">
+          1.3.2 SET语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-SELECT…INTO语句"><span class="toc-text">
+          1.3.3 SELECT…INTO语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-4-流程控制语句"><span class="toc-text">
+          1.3.4 流程控制语句</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#IF语句"><span class="toc-text">
+          IF语句</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CASE语句"><span class="toc-text">
+          CASE语句</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#循环语句"><span class="toc-text">
+          循环语句</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-5-游标-数据集合"><span class="toc-text">
+          1.3.5 游标(数据集合)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#声明游标"><span class="toc-text">
+          声明游标</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#打开游标"><span class="toc-text">
+          打开游标</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#读取数据"><span class="toc-text">
+          读取数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关闭游标"><span class="toc-text">
+          关闭游标</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-调用存储过程"><span class="toc-text">
+          1.4 调用存储过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-删除存储过程"><span class="toc-text">
+          1.5 删除存储过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、存储函数"><span class="toc-text">
+          二、存储函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-创建存储函数"><span class="toc-text">
+          2.1 创建存储函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-调用存储函数"><span class="toc-text">
+          2.2 调用存储函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-删除存储函数"><span class="toc-text">
+          2.3 删除存储函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、本章小结"><span class="toc-text">
+          三、本章小结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-本章学习重点"><span class="toc-text">
+          3.1 本章学习重点</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

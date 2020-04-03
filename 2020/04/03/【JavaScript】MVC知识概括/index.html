@@ -1,400 +1,131 @@
-<!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="JavaScript," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="CRM-使用别人的东西  Copy 抄代码 Run  运行代码 Modify  修改代码  一、MAC的前提：模块化1.1 什么是MVC M:Model 模式 v:View  视图 C:Controller 控制器  1.2 问题：怎么解决代码一写就忘记？ 模块化编程：一块代码，只操作一种功能 例如：将混乱的一个js文件，按功能分为不同的js文件   MVC的前提就是代码要有模块化  二、立即执行">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="CRM-使用别人的东西  Copy 抄代码 Run  运行代码 Modify  修改代码                      一、MAC的前提：模块化                           1.1 什么是MVC        M:Model 模式 v:View  视图 C:Controller 控制器                      1.2 问题：怎么解决代码一写就忘">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【JavaScript】MVC知识概括">
 <meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90JavaScript%E3%80%91MVC%E7%9F%A5%E8%AF%86%E6%A6%82%E6%8B%AC/index.html">
 <meta property="og:site_name" content="Qiuzp的技术博客">
-<meta property="og:description" content="CRM-使用别人的东西  Copy 抄代码 Run  运行代码 Modify  修改代码  一、MAC的前提：模块化1.1 什么是MVC M:Model 模式 v:View  视图 C:Controller 控制器  1.2 问题：怎么解决代码一写就忘记？ 模块化编程：一块代码，只操作一种功能 例如：将混乱的一个js文件，按功能分为不同的js文件   MVC的前提就是代码要有模块化  二、立即执行">
+<meta property="og:description" content="CRM-使用别人的东西  Copy 抄代码 Run  运行代码 Modify  修改代码                      一、MAC的前提：模块化                           1.1 什么是MVC        M:Model 模式 v:View  视图 C:Controller 控制器                      1.2 问题：怎么解决代码一写就忘">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2020/03/05/5AKV8zYHuSM9PIv.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/10/sk4p5SmLcMiRahP.png">
 <meta property="article:published_time" content="2020-04-03T05:19:10.000Z">
-<meta property="article:modified_time" content="2020-04-03T05:30:05.583Z">
+<meta property="article:modified_time" content="2020-04-03T12:14:18.971Z">
 <meta property="article:author" content="Qiuzp">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2020/03/05/5AKV8zYHuSM9PIv.png">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/05/5AKV8zYHuSM9PIv.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【JavaScript】MVC知识概括</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90JavaScript%E3%80%91MVC%E7%9F%A5%E8%AF%86%E6%A6%82%E6%8B%AC/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
 
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://qiuzp.com/2020/04/03/【JavaScript】MVC知识概括/"/>
-
-
-
-
-
-  <title>【JavaScript】MVC知识概括 | Qiuzp的技术博客</title>
-  
-
-
-
-
-
-
-
-
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Qiuzp的技术博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qiuzp.com/2020/04/03/%E3%80%90JavaScript%E3%80%91MVC%E7%9F%A5%E8%AF%86%E6%A6%82%E6%8B%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qiuzp">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Qiuzp的技术博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">【JavaScript】MVC知识概括</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T13:19:10+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>CRM-使用别人的东西</p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【JavaScript】MVC知识概括</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><p>CRM-使用别人的东西</p>
 <ul>
 <li>Copy 抄代码</li>
 <li>Run  运行代码</li>
 <li>Modify  修改代码</li>
 </ul>
-<h2 id="一、MAC的前提：模块化"><a href="#一、MAC的前提：模块化" class="headerlink" title="一、MAC的前提：模块化"></a>一、MAC的前提：模块化</h2><h3 id="1-1-什么是MVC"><a href="#1-1-什么是MVC" class="headerlink" title="1.1 什么是MVC"></a>1.1 什么是MVC</h3><ul>
+
+        <h2 id="一、MAC的前提：模块化"   >
+          <a href="#一、MAC的前提：模块化" class="heading-link"><i class="fas fa-link"></i></a>一、MAC的前提：模块化</h2>
+      
+        <h3 id="1-1-什么是MVC"   >
+          <a href="#1-1-什么是MVC" class="heading-link"><i class="fas fa-link"></i></a>1.1 什么是MVC</h3>
+      <ul>
 <li>M:Model 模式</li>
 <li>v:View  视图</li>
 <li>C:Controller 控制器</li>
 </ul>
-<h3 id="1-2-问题：怎么解决代码一写就忘记？"><a href="#1-2-问题：怎么解决代码一写就忘记？" class="headerlink" title="1.2 问题：怎么解决代码一写就忘记？"></a>1.2 问题：怎么解决代码一写就忘记？</h3><ul>
+
+        <h3 id="1-2-问题：怎么解决代码一写就忘记？"   >
+          <a href="#1-2-问题：怎么解决代码一写就忘记？" class="heading-link"><i class="fas fa-link"></i></a>1.2 问题：怎么解决代码一写就忘记？</h3>
+      <ul>
 <li>模块化编程：一块代码，只操作一种功能<ul>
 <li>例如：将混乱的一个js文件，按功能分为不同的js文件</li>
 </ul>
 </li>
 <li>MVC的前提就是代码要有模块化</li>
 </ul>
-<h2 id="二、立即执行函数的使用"><a href="#二、立即执行函数的使用" class="headerlink" title="二、立即执行函数的使用"></a>二、立即执行函数的使用</h2><ul>
+
+        <h2 id="二、立即执行函数的使用"   >
+          <a href="#二、立即执行函数的使用" class="heading-link"><i class="fas fa-link"></i></a>二、立即执行函数的使用</h2>
+      <ul>
 <li>判断代码乱不乱—代码多就乱、代码少就不乱</li>
 <li>怎么减少代码又兼顾功能——引入MVC思想</li>
 </ul>
 <a id="more"></a>
 
-<h3 id="2-1-问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？"><a href="#2-1-问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？" class="headerlink" title="2.1 问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？"></a>2.1 问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？</h3><ul>
+
+        <h3 id="2-1-问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？"   >
+          <a href="#2-1-问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？" class="heading-link"><i class="fas fa-link"></i></a>2.1 问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？</h3>
+      <ul>
 <li>全局变量可以互相影响</li>
 <li>解决方法：不要使用全局变量，使用局部变量</li>
 </ul>
-<h4 id="2-1-在ES5，使用局部变量方法"><a href="#2-1-在ES5，使用局部变量方法" class="headerlink" title="2.1 在ES5，使用局部变量方法"></a>2.1 在ES5，使用局部变量方法</h4><p> 只要函数里面才有局部变量，于是声明一个<code>function xxx</code>，然后<code>xxx.call()</code>，这个时候<code>xxx</code>是全局变量（全局函数），所以不能给这个函数名字，所以<code>function().call()</code>,但是chrome会报错，语法错误</p>
-<h5 id="2-1-1-两个方法不报错-加个！和加个-包裹函数"><a href="#2-1-1-两个方法不报错-加个！和加个-包裹函数" class="headerlink" title="2.1.1 两个方法不报错  加个！和加个()包裹函数"></a>2.1.1 两个方法不报错  加个<code>！</code>和加个<code>()</code>包裹函数</h5><ul>
+
+        <h4 id="2-1-在ES5，使用局部变量方法"   >
+          <a href="#2-1-在ES5，使用局部变量方法" class="heading-link"><i class="fas fa-link"></i></a>2.1 在ES5，使用局部变量方法</h4>
+      <p> 只要函数里面才有局部变量，于是声明一个<code>function xxx</code>，然后<code>xxx.call()</code>，这个时候<code>xxx</code>是全局变量（全局函数），所以不能给这个函数名字，所以<code>function().call()</code>,但是chrome会报错，语法错误</p>
+
+        <h5 id="2-1-1-两个方法不报错-加个！和加个-包裹函数"   >
+          <a href="#2-1-1-两个方法不报错-加个！和加个-包裹函数" class="heading-link"><i class="fas fa-link"></i></a>2.1.1 两个方法不报错  加个！和加个()包裹函数</h5>
+      <ul>
 <li><code>！function().call()</code></li>
 <li>虽然<code>！</code>会改变匿名函数的返回值，但是这里我们不关心函数的返回值，所以没关系</li>
 <li><code>(function().call())</code></li>
 <li>但是有个bug 函数前面加个数字就会 被迫调用  不推荐使用</li>
 </ul>
-<h4 id="2-2-es5使用局部变量方法"><a href="#2-2-es5使用局部变量方法" class="headerlink" title="2.2 es5使用局部变量方法"></a>2.2 es5使用局部变量方法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//错误如下</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">//单用一个&#123;&#125;是不能使用到局部变量，因为var会变量提升</span></span><br><span class="line">    <span class="comment">//var会变量提升到当前函数或者是全局作用域最顶端上</span></span><br><span class="line">    <span class="comment">//虽然java和C++可以，但是JavaScript就是不能</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"> <span class="comment">//成功如下 方法一 </span></span><br><span class="line"> ！<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">//用一个函数函数包裹，然后call调用</span></span><br><span class="line"> &#125;.call()</span><br><span class="line"> </span><br><span class="line">  <span class="comment">//成功如下 方法二 </span></span><br><span class="line"> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123; </span><br><span class="line">  <span class="comment">//用一个函数函数包裹，然后call调用 ,有bug不推荐使用</span></span><br><span class="line"> &#125;.call())</span><br></pre></td></tr></table></figure>
+
+        <h4 id="2-2-es5使用局部变量方法"   >
+          <a href="#2-2-es5使用局部变量方法" class="heading-link"><i class="fas fa-link"></i></a>2.2 es5使用局部变量方法</h4>
+      <figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//错误如下</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">//单用一个&#123;&#125;是不能使用到局部变量，因为var会变量提升</span></span><br><span class="line">    <span class="comment">//var会变量提升到当前函数或者是全局作用域最顶端上</span></span><br><span class="line">    <span class="comment">//虽然java和C++可以，但是JavaScript就是不能</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"> <span class="comment">//成功如下 方法一 </span></span><br><span class="line"> ！<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">//用一个函数函数包裹，然后call调用</span></span><br><span class="line"> &#125;.call()</span><br><span class="line"> </span><br><span class="line">  <span class="comment">//成功如下 方法二 </span></span><br><span class="line"> (<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123; </span><br><span class="line">  <span class="comment">//用一个函数函数包裹，然后call调用 ,有bug不推荐使用</span></span><br><span class="line"> &#125;.call())</span><br></pre></td></tr></table></div></figure>
 
 
 
-<h2 id="三、闭包的使用"><a href="#三、闭包的使用" class="headerlink" title="三、闭包的使用"></a>三、闭包的使用</h2><h3 id="3-1-前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？"><a href="#3-1-前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？" class="headerlink" title="3.1 前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？"></a>3.1 前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？</h3><h3 id="3-2-一个例子"><a href="#3-2-一个例子" class="headerlink" title="3.2 一个例子"></a>3.2 一个例子</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> accessor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//变量</span></span><br><span class="line">    <span class="keyword">var</span> person =  &#123;</span><br><span class="line">        name: <span class="string">'tony'</span>,</span><br><span class="line">        age: <span class="number">17</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">    <span class="comment">//匿名函数，用了外面的变量,这person和这个匿名函数就是闭包</span></span><br><span class="line">        person.age += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> person.age</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="comment">//这是一个返回了匿名函数的函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> growUp = accessor.call()</span><br><span class="line"></span><br><span class="line">growUp()</span><br></pre></td></tr></table></figure>
+
+        <h2 id="三、闭包的使用"   >
+          <a href="#三、闭包的使用" class="heading-link"><i class="fas fa-link"></i></a>三、闭包的使用</h2>
+      
+        <h3 id="3-1-前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？"   >
+          <a href="#3-1-前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？" class="heading-link"><i class="fas fa-link"></i></a>3.1 前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？</h3>
+      
+        <h3 id="3-2-一个例子"   >
+          <a href="#3-2-一个例子" class="heading-link"><i class="fas fa-link"></i></a>3.2 一个例子</h3>
+      <figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> accessor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//变量</span></span><br><span class="line">    <span class="keyword">var</span> person =  &#123;</span><br><span class="line">        name: <span class="string">'tony'</span>,</span><br><span class="line">        age: <span class="number">17</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">    <span class="comment">//匿名函数，用了外面的变量,这person和这个匿名函数就是闭包</span></span><br><span class="line">        person.age += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> person.age</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="comment">//这是一个返回了匿名函数的函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> growUp = accessor.call()</span><br><span class="line"></span><br><span class="line">growUp()</span><br></pre></td></tr></table></div></figure>
 
 
-<h3 id="3-3-闭包是什么"><a href="#3-3-闭包是什么" class="headerlink" title="3.3 闭包是什么"></a>3.3 闭包是什么</h3><p>  一个函数，访问了外面的变量,这变量和这个函数就是闭包。</p>
+
+        <h3 id="3-3-闭包是什么"   >
+          <a href="#3-3-闭包是什么" class="heading-link"><i class="fas fa-link"></i></a>3.3 闭包是什么</h3>
+      <p>  一个函数，访问了外面的变量,这变量和这个函数就是闭包。</p>
 <p>  闭包有与立即执行函数一起使用，没有立即执行函数就没有闭包。</p>
-<h3 id="3-4-闭包的作用"><a href="#3-4-闭包的作用" class="headerlink" title="3.4 闭包的作用"></a>3.4 闭包的作用</h3><ol>
+
+        <h3 id="3-4-闭包的作用"   >
+          <a href="#3-4-闭包的作用" class="heading-link"><i class="fas fa-link"></i></a>3.4 闭包的作用</h3>
+      <ol>
 <li>闭包用来对数据进行隐藏细节</li>
 <li>进行访问控制</li>
 </ol>
-<h3 id="3-5-问题：如果没有立即执行函数，上面例子会出现什么？"><a href="#3-5-问题：如果没有立即执行函数，上面例子会出现什么？" class="headerlink" title="3.5 问题：如果没有立即执行函数，上面例子会出现什么？"></a>3.5 问题：如果没有立即执行函数，上面例子会出现什么？</h3><p>  立即执行函数是隔离作用域的，如果没有立即执行函数，这个闭包毫无意义。因为var的person变量就是全局变量，没有必要封装它。<br>量</p>
+
+        <h3 id="3-5-问题：如果没有立即执行函数，上面例子会出现什么？"   >
+          <a href="#3-5-问题：如果没有立即执行函数，上面例子会出现什么？" class="heading-link"><i class="fas fa-link"></i></a>3.5 问题：如果没有立即执行函数，上面例子会出现什么？</h3>
+      <p>  立即执行函数是隔离作用域的，如果没有立即执行函数，这个闭包毫无意义。因为var的person变量就是全局变量，没有必要封装它。<br>量</p>
 <ul>
 <li>立即执行函数使得person无法被外部访问</li>
 <li>闭包使得匿名函数可以操作person</li>
@@ -405,20 +136,41 @@
 <ul>
 <li>任何地方都可以使用window.tonyGrowUp操作person，但是不能直接访问person</li>
 </ul>
-<h2 id="四、MVC的V和C"><a href="#四、MVC的V和C" class="headerlink" title="四、MVC的V和C"></a>四、MVC的V和C</h2><h3 id="4-1-view的作用"><a href="#4-1-view的作用" class="headerlink" title="4.1 view的作用"></a>4.1 view的作用</h3><p>view作用是告诉js，页面中的哪些代码块是我这个模块对应的东西</p>
-<h3 id="4-2-Controller"><a href="#4-2-Controller" class="headerlink" title="4.2 Controller"></a>4.2 Controller</h3><p>Controller作用是控制视图(view)</p>
+
+        <h2 id="四、MVC的V和C"   >
+          <a href="#四、MVC的V和C" class="heading-link"><i class="fas fa-link"></i></a>四、MVC的V和C</h2>
+      
+        <h3 id="4-1-view的作用"   >
+          <a href="#4-1-view的作用" class="heading-link"><i class="fas fa-link"></i></a>4.1 view的作用</h3>
+      <p>view作用是告诉js，页面中的哪些代码块是我这个模块对应的东西</p>
+
+        <h3 id="4-2-Controller"   >
+          <a href="#4-2-Controller" class="heading-link"><i class="fas fa-link"></i></a>4.2 Controller</h3>
+      <p>Controller作用是控制视图(view)</p>
 <p>一个Controller事件只操作一个事件。</p>
-<h3 id="4-3-MVC的作用"><a href="#4-3-MVC的作用" class="headerlink" title="4.3 MVC的作用"></a>4.3 MVC的作用</h3><p>以前每有一个情况写一个东西，导致结构都不相同，而现在有了MVC之后，结构一致。都有一个view、controller。</p>
+
+        <h3 id="4-3-MVC的作用"   >
+          <a href="#4-3-MVC的作用" class="heading-link"><i class="fas fa-link"></i></a>4.3 MVC的作用</h3>
+      <p>以前每有一个情况写一个东西，导致结构都不相同，而现在有了MVC之后，结构一致。都有一个view、controller。</p>
 <p>controller去操作view</p>
 <p>所有的代码都一样</p>
-<h3 id="4-4-this"><a href="#4-4-this" class="headerlink" title="4.4 this"></a>4.4 this</h3><p>this只有转变成call，才能确定</p>
+
+        <h3 id="4-4-this"   >
+          <a href="#4-4-this" class="heading-link"><i class="fas fa-link"></i></a>4.4 this</h3>
+      <p>this只有转变成call，才能确定</p>
 <p>箭头函数没有this</p>
 <p>箭头函数内外，this不变</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//chrome console控制操作</span></span><br><span class="line"><span class="keyword">this</span> <span class="comment">//返回window对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">//返回undefined</span></span><br><span class="line"></span><br><span class="line">f.call(&#123;<span class="attr">name</span>:<span class="string">'tony'</span>&#125;) <span class="comment">//返回还是window对象</span></span><br><span class="line"><span class="comment">//箭头函数不存在this</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//chrome console控制操作</span></span><br><span class="line"><span class="keyword">this</span> <span class="comment">//返回window对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">//返回undefined</span></span><br><span class="line"></span><br><span class="line">f.call(&#123;<span class="attr">name</span>:<span class="string">'tony'</span>&#125;) <span class="comment">//返回还是window对象</span></span><br><span class="line"><span class="comment">//箭头函数不存在this</span></span><br></pre></td></tr></table></div></figure>
 
 <p><img src="https://i.loli.net/2020/03/05/5AKV8zYHuSM9PIv.png" alt="mvc-this01.png"></p>
-<h2 id="五、MVC的Model"><a href="#五、MVC的Model" class="headerlink" title="五、MVC的Model"></a>五、MVC的Model</h2><p>v 只负责看见的东西<br>c 负责将二者组合<br>m 跟数据相关的操作（请求，存数据）</p>
-<h2 id="六、MVC总结"><a href="#六、MVC总结" class="headerlink" title="六、MVC总结"></a>六、MVC总结</h2><p>MVC就是把代码分成三块</p>
+
+        <h2 id="五、MVC的Model"   >
+          <a href="#五、MVC的Model" class="heading-link"><i class="fas fa-link"></i></a>五、MVC的Model</h2>
+      <p>v 只负责看见的东西<br>c 负责将二者组合<br>m 跟数据相关的操作（请求，存数据）</p>
+
+        <h2 id="六、MVC总结"   >
+          <a href="#六、MVC总结" class="heading-link"><i class="fas fa-link"></i></a>六、MVC总结</h2>
+      <p>MVC就是把代码分成三块</p>
 <ul>
 <li>第一块 V(view)告诉程序，你的代码长什么样子，或者你的代码在页面的哪一块</li>
 <li>第二块 M(Model)你的数据有哪些操作，操作(初始化，获取，保存)</li>
@@ -428,715 +180,287 @@
 <p>总的来说，V就是视图，M是数据，所有相关数据的操作都应该放在model里面，Controll是控制器，它来控制其他所有的代码。</p>
 <p>MVC是一种代码组织形式。它不是任何一种框架，也不是任何一种技术。<br>它就是一种组织代码的思想。</p>
 <p><img src="https://i.loli.net/2020/03/10/sk4p5SmLcMiRahP.png" alt="mvc01-min.png"></p>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/04/03/%E3%80%90JavaScript%E3%80%91%E8%87%AA%E5%B7%B1%E5%B0%81%E8%A3%85AJXA%20/" rel="next" title="【JavaScript】自己封装AJXA">
-                <i class="fa fa-chevron-left"></i> 【JavaScript】自己封装AJXA
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/04/03/%E3%80%90HTTP%E3%80%91HTTP%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94%EF%BC%8Ccurl%E5%91%BD%E4%BB%A4%E7%9F%A5%E8%AF%86/" rel="prev" title="【HTTP】HTTP请求与响应,curl命令知识">
-                【HTTP】HTTP请求与响应,curl命令知识 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-      <div id="sidebar-dimmer"></div>
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/avatar.jpg"
-                alt="Qiuzp" />
-            
-              <p class="site-author-name" itemprop="name">Qiuzp</p>
-              <p class="site-description motion-element" itemprop="description">学习前端,热爱生活</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/%7C%7C%20archive">
-              
-                  <span class="site-state-item-count">24</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/qiuzp94" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、MAC的前提：模块化"><span class="nav-text">一、MAC的前提：模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-什么是MVC"><span class="nav-text">1.1 什么是MVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-问题：怎么解决代码一写就忘记？"><span class="nav-text">1.2 问题：怎么解决代码一写就忘记？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、立即执行函数的使用"><span class="nav-text">二、立即执行函数的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？"><span class="nav-text">2.1 问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-在ES5，使用局部变量方法"><span class="nav-text">2.1 在ES5，使用局部变量方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-1-两个方法不报错-加个！和加个-包裹函数"><span class="nav-text">2.1.1 两个方法不报错  加个！和加个()包裹函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-es5使用局部变量方法"><span class="nav-text">2.2 es5使用局部变量方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、闭包的使用"><span class="nav-text">三、闭包的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？"><span class="nav-text">3.1 前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-一个例子"><span class="nav-text">3.2 一个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-闭包是什么"><span class="nav-text">3.3 闭包是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-闭包的作用"><span class="nav-text">3.4 闭包的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-问题：如果没有立即执行函数，上面例子会出现什么？"><span class="nav-text">3.5 问题：如果没有立即执行函数，上面例子会出现什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、MVC的V和C"><span class="nav-text">四、MVC的V和C</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-view的作用"><span class="nav-text">4.1 view的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Controller"><span class="nav-text">4.2 Controller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-MVC的作用"><span class="nav-text">4.3 MVC的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-this"><span class="nav-text">4.4 this</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、MVC的Model"><span class="nav-text">五、MVC的Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、MVC总结"><span class="nav-text">六、MVC总结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Qiuzp</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/JavaScript/">JavaScript</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90HTTP%E3%80%91HTTP%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94%EF%BC%8Ccurl%E5%91%BD%E4%BB%A4%E7%9F%A5%E8%AF%86/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【HTTP】HTTP请求与响应,curl命令知识</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91%E8%87%AA%E5%B7%B1%E5%B0%81%E8%A3%85AJXA%20/"><span class="paginator-prev__text">【JavaScript】自己封装AJXA</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、MAC的前提：模块化"><span class="toc-text">
+          一、MAC的前提：模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-什么是MVC"><span class="toc-text">
+          1.1 什么是MVC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-问题：怎么解决代码一写就忘记？"><span class="toc-text">
+          1.2 问题：怎么解决代码一写就忘记？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、立即执行函数的使用"><span class="toc-text">
+          二、立即执行函数的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？"><span class="toc-text">
+          2.1 问题：一个变量用var声明会自动变成全局变量，如何解决这个问题？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-在ES5，使用局部变量方法"><span class="toc-text">
+          2.1 在ES5，使用局部变量方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1-两个方法不报错-加个！和加个-包裹函数"><span class="toc-text">
+          2.1.1 两个方法不报错  加个！和加个()包裹函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-es5使用局部变量方法"><span class="toc-text">
+          2.2 es5使用局部变量方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、闭包的使用"><span class="toc-text">
+          三、闭包的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？"><span class="toc-text">
+          3.1 前置问题：如果采用了上面的局部变量方法，若是确实要两个模块要交互的话，怎么解决？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-一个例子"><span class="toc-text">
+          3.2 一个例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-闭包是什么"><span class="toc-text">
+          3.3 闭包是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-闭包的作用"><span class="toc-text">
+          3.4 闭包的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-问题：如果没有立即执行函数，上面例子会出现什么？"><span class="toc-text">
+          3.5 问题：如果没有立即执行函数，上面例子会出现什么？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、MVC的V和C"><span class="toc-text">
+          四、MVC的V和C</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-view的作用"><span class="toc-text">
+          4.1 view的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Controller"><span class="toc-text">
+          4.2 Controller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-MVC的作用"><span class="toc-text">
+          4.3 MVC的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-this"><span class="toc-text">
+          4.4 this</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、MVC的Model"><span class="toc-text">
+          五、MVC的Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、MVC总结"><span class="toc-text">
+          六、MVC总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
   }
-</script>
 
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
                 }
 
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
                     }
                   });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
                 }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
+                return result;
               }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
             });
-          }
 
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
 
-          proceedsearch();
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
         }
       });
     }
+  });
+}
 
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
 
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
       e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
     });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
       }
     });
-  </script>
+  };
 
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
 
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
 
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

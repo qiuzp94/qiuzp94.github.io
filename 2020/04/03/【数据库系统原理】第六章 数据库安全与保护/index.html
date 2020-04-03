@@ -1,0 +1,852 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="一、 数据库完整性                           1.1 完整性约束条件的作用对象        列级约束 列级约束主要指对列的类型、取值范围、精度等约束。   元组约束 元组约束指元组中各个字段直接的相互约束，例如某个活动的开始日期小于结束日期   表级约束 表级约束指若干元组直接、关系直接的联系的约束。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据库系统原理】第六章 数据库安全与保护">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B8%8E%E4%BF%9D%E6%8A%A4/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="一、 数据库完整性                           1.1 完整性约束条件的作用对象        列级约束 列级约束主要指对列的类型、取值范围、精度等约束。   元组约束 元组约束指元组中各个字段直接的相互约束，例如某个活动的开始日期小于结束日期   表级约束 表级约束指若干元组直接、关系直接的联系的约束。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/kOul6Q8wiXJeUMv.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:12:25.551Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="数据库系统原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/02/kOul6Q8wiXJeUMv.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【数据库系统原理】第六章 数据库安全与保护</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B8%8E%E4%BF%9D%E6%8A%A4/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【数据库系统原理】第六章 数据库安全与保护</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><p><img src="https://i.loli.net/2020/04/02/kOul6Q8wiXJeUMv.png" alt="数据库系统原理-第六章数据库安全保护-脑图-min.png"></p>
+
+        <h2 id="一、-数据库完整性"   >
+          <a href="#一、-数据库完整性" class="heading-link"><i class="fas fa-link"></i></a>一、 数据库完整性</h2>
+      
+        <h3 id="1-1-完整性约束条件的作用对象"   >
+          <a href="#1-1-完整性约束条件的作用对象" class="heading-link"><i class="fas fa-link"></i></a>1.1 完整性约束条件的作用对象</h3>
+      <ul>
+<li>列级约束<ul>
+<li>列级约束主要指对列的类型、取值范围、精度等约束。</li>
+</ul>
+</li>
+<li>元组约束<ul>
+<li>元组约束指元组中各个字段直接的相互约束，<code>例如某个活动的开始日期小于结束日期</code></li>
+</ul>
+</li>
+<li>表级约束<ul>
+<li>表级约束指若干元组直接、关系直接的联系的约束。</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a> 
+
+
+        <h3 id="1-2-定义与实现完整性约束"   >
+          <a href="#1-2-定义与实现完整性约束" class="heading-link"><i class="fas fa-link"></i></a>1.2 定义与实现完整性约束</h3>
+      
+        <h4 id="1-2-1-实体完整性"   >
+          <a href="#1-2-1-实体完整性" class="heading-link"><i class="fas fa-link"></i></a>1.2.1 实体完整性</h4>
+      <p>实体完整性：保证记录不重复，其中至少有一列值不重复，用PRIMARY KEY添加约束</p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">如：列级约束StuNo CHAR(10) PRIMARY KEY</span><br><span class="line">表级约束<span class="keyword">CREATE</span> <span class="keyword">TABLE</span> db_student</span><br><span class="line">(</span><br><span class="line">    StuNo <span class="built_in">CHAR</span>(<span class="number">10</span>),</span><br><span class="line">    StuName <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span>(StuNO)</span><br><span class="line">)</span><br></pre></td></tr></table></div></figure>
+
+<p>候选键约束用关键字UNIQUE进行约束<br>MySQL中候选键与主键之间存在以下几点区别</p>
+<ul>
+<li>一个表中只能创建一个主键，但可以定义若干个候选键。</li>
+<li>定义主键约束时，系统会自动产生PRIMARY KEY索引，而定义候选键约束时，系统自动产生UNIQUE索引。</li>
+</ul>
+
+        <h4 id="1-2-2-参照完整性"   >
+          <a href="#1-2-2-参照完整性" class="heading-link"><i class="fas fa-link"></i></a>1.2.2 参照完整性</h4>
+      <p>参照完整性:主要指两个表之间的关系，<code>比如课程开设依赖于教师表，没有教师，就不应该有教师的,就不应该有教师的课。保证数据组的正确性。</code></p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法格式如下</span><br><span class="line">REDERNCES tbl_name [(index_col_name,...)]</span><br><span class="line">放于最后</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="1-2-3-自定义完整性"   >
+          <a href="#1-2-3-自定义完整性" class="heading-link"><i class="fas fa-link"></i></a>1.2.3 自定义完整性</h4>
+      
+        <h5 id="非空约束"   >
+          <a href="#非空约束" class="heading-link"><i class="fas fa-link"></i></a>非空约束</h5>
+      <p>在MySQL中，非空约束可以通过在CRETE TABLE或ALTER TABLE语句中的某个列定义后面，加上关键字“NOT NULL”作为限定词。</p>
+<p>用户自己定义的约束，比如分数0到100分，不是这个范围就保存。</p>
+
+        <h3 id="1-3-命名完整性约束"   >
+          <a href="#1-3-命名完整性约束" class="heading-link"><i class="fas fa-link"></i></a>1.3 命名完整性约束</h3>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语法格式为：</span><br><span class="line">CONSTRINT [symbol]</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="1-4-更新完整性约束"   >
+          <a href="#1-4-更新完整性约束" class="heading-link"><i class="fas fa-link"></i></a>1.4 更新完整性约束</h3>
+      
+        <h4 id="1-4-1-删除约束"   >
+          <a href="#1-4-1-删除约束" class="heading-link"><i class="fas fa-link"></i></a>1.4.1 删除约束</h4>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span>  <span class="keyword">TABLE</span> &lt;表名&gt; <span class="keyword">DROP</span> <span class="keyword">FOREIGN</span> LEY &lt;约束名&gt;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;表名&gt; <span class="keyword">DROP</span> PRIMARY <span class="keyword">KEY</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;表名&gt; <span class="keyword">DROP</span> &#123;约束名| 候选键字段名&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="1-4-2-添加约束"   >
+          <a href="#1-4-2-添加约束" class="heading-link"><i class="fas fa-link"></i></a>1.4.2 添加约束</h4>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;表名&gt; <span class="keyword">ADD</span> [<span class="keyword">CONSTRAINT</span>] &lt;约束名&gt;</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (主键字段);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;表名&gt; <span class="keyword">ADD</span> [<span class="keyword">CONSTRAINT</span>] &lt;约束名&gt;</span><br><span class="line"><span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(外键字段名) REFERNCES 被参照表</span><br><span class="line">(主键字段名)</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &lt;表名&gt; <span class="keyword">ADD</span> [<span class="keyword">CONSTRAINT</span>] &lt;约束名&gt;</span><br><span class="line"><span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> (主键字段)</span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="二、触发器"   >
+          <a href="#二、触发器" class="heading-link"><i class="fas fa-link"></i></a>二、触发器</h2>
+      <p>触发器是保护表数据的数据库对象，当指定的表发生INSERT(插入数据),UPDATE(修改数据)，DELETE（删除数据）时间被触发，进行相应的动作。</p>
+
+        <h3 id="2-1-创建触发器"   >
+          <a href="#2-1-创建触发器" class="heading-link"><i class="fas fa-link"></i></a>2.1 创建触发器</h3>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法格式</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> <span class="keyword">trigger</span> <span class="keyword">name</span> trigger_time <span class="keyword">trigger</span> <span class="keyword">event</span></span><br><span class="line">    <span class="keyword">ON</span> tbl_name <span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span> trigger_body</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="2-2-删除触发器"   >
+          <a href="#2-2-删除触发器" class="heading-link"><i class="fas fa-link"></i></a>2.2 删除触发器</h3>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语法格式:</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TRIGGER</span> [<span class="keyword">IF</span> EXIST ][schema_name]trigger_name</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="2-3-使用触发器"   >
+          <a href="#2-3-使用触发器" class="heading-link"><i class="fas fa-link"></i></a>2.3 使用触发器</h3>
+      <p>INSERT、UPDATE、DELETE都会触发。</p>
+
+        <h2 id="三、安全性与访问控制"   >
+          <a href="#三、安全性与访问控制" class="heading-link"><i class="fas fa-link"></i></a>三、安全性与访问控制</h2>
+      
+        <h3 id="3-1-用户账号管理"   >
+          <a href="#3-1-用户账号管理" class="heading-link"><i class="fas fa-link"></i></a>3.1 用户账号管理</h3>
+      
+        <h4 id="3-1-1-创建用户账号"   >
+          <a href="#3-1-1-创建用户账号" class="heading-link"><i class="fas fa-link"></i></a>3.1.1 创建用户账号</h4>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">语法格式</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="keyword">user</span> [<span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span></span><br><span class="line">[<span class="keyword">PASSWORD</span>]<span class="string">'password'</span>]</span><br><span class="line">    [,<span class="keyword">user</span>[<span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> [<span class="keyword">PASSWORD</span>]]]</span><br><span class="line">其中,<span class="keyword">user</span>的格式为:</span><br><span class="line"><span class="string">'user_name'</span>@<span class="string">'host name'</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h5 id="格式说明"   >
+          <a href="#格式说明" class="heading-link"><i class="fas fa-link"></i></a>格式说明</h5>
+      <ul>
+<li>使用自选的IDENTIFIED BY子句，可以为账号给定一个密码。</li>
+<li>特别是要在纯文本中指定密码，需忽略PASSWORD关键词。</li>
+<li>如果不想以明文发送密码，而且知道PASSWORD()函数返回给密码的混编值，则可以指定该混编值，但要加关键字PASSWORD。</li>
+</ul>
+
+        <h4 id="3-1-2-查看用户信息"   >
+          <a href="#3-1-2-查看用户信息" class="heading-link"><i class="fas fa-link"></i></a>3.1.2 查看用户信息</h4>
+      <blockquote>
+<p>SELECT user,  password from mysql.user</p>
+</blockquote>
+
+        <h4 id="3-1-3-删除用户"   >
+          <a href="#3-1-3-删除用户" class="heading-link"><i class="fas fa-link"></i></a>3.1.3 删除用户</h4>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语法格式</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> <span class="keyword">user</span> [,user_name]...</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>DROP USER 语句用于删除一个或多个MySQL账户,并取消其权限。</li>
+<li>要使用DROP USER,必须拥有mysql数据库的全局CREATE USER权限或DELETE权限</li>
+</ul>
+
+        <h4 id="3-1-4-修改用户账户"   >
+          <a href="#3-1-4-修改用户账户" class="heading-link"><i class="fas fa-link"></i></a>3.1.4 修改用户账户</h4>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法格式:</span><br><span class="line"><span class="keyword">RENAME</span> <span class="keyword">USER</span> old_user <span class="keyword">TO</span> new_user,</span><br><span class="line">    [,old_user <span class="keyword">TO</span> new_user]...</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>RENAME USER 语句用于对原有MySQL账号进行重明名。</li>
+<li>要使用RENAME USER,<code>必须拥有全局CREATE USER权限或mysql数据库URDATE权限。</code></li>
+<li>如果旧账号不存在或者新户已存在，则会出现错误。</li>
+</ul>
+
+        <h4 id="3-1-5-修改用户账户口令"   >
+          <a href="#3-1-5-修改用户账户口令" class="heading-link"><i class="fas fa-link"></i></a>3.1.5 修改用户账户口令</h4>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语法格式</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> [<span class="keyword">FOR</span> <span class="keyword">user</span>] = <span class="keyword">PASSWORD</span>(<span class="string">'newpassword'</span>)</span><br></pre></td></tr></table></div></figure>
+
+
+        <h5 id="说明"   >
+          <a href="#说明" class="heading-link"><i class="fas fa-link"></i></a>说明:</h5>
+      <ul>
+<li>如果不加FOR user,表示修改当前用户的密码。</li>
+<li>加了FOR user则是修改当前主机上的特定用户的密码user为用户名。</li>
+<li>user的值必须以‘user_name’@’host_name’的格式给定。</li>
+</ul>
+
+        <h2 id="四、账户权限管理"   >
+          <a href="#四、账户权限管理" class="heading-link"><i class="fas fa-link"></i></a>四、账户权限管理</h2>
+      
+        <h3 id="4-1-权限的授予"   >
+          <a href="#4-1-权限的授予" class="heading-link"><i class="fas fa-link"></i></a>4.1 权限的授予</h3>
+      <p>新的SQL用户不允许访问属于其他SQL用户的表，也不能立即创建自己的表，它必须被授权。可以授予的权限有以下几组。</p>
+<ol>
+<li>列权限:和表中的一个具体列相关。<code>例如，使用UPDATE语句更新表XS学号列的值和权限</code></li>
+<li>表权限:和一个具体表中的所有数据相关。<code>例如,使用SELECT语句查询表XS的所有数据的权限</code></li>
+<li>数据库权限:和一个具体的数据库中所有表相关。<code>例如：在已有的XSCJ数据库中创建新表的</code></li>
+<li>用户权限:和MySQL所有的数据库相关。<code>例如:删除已有的数据库或者创建一个新的数据库的权限</code></li>
+</ol>
+
+        <h3 id="4-2-账号权限管理"   >
+          <a href="#4-2-账号权限管理" class="heading-link"><i class="fas fa-link"></i></a>4.2 账号权限管理</h3>
+      
+        <h4 id="4-2-1-给某用户授予权限可以使用GRANT语句。使用SHOW-GRANTS语句可以查看当前账户拥有什么权限。"   >
+          <a href="#4-2-1-给某用户授予权限可以使用GRANT语句。使用SHOW-GRANTS语句可以查看当前账户拥有什么权限。" class="heading-link"><i class="fas fa-link"></i></a>4.2.1 给某用户授予权限可以使用GRANT语句。使用SHOW GRANTS语句可以查看当前账户拥有什么权限。</h4>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span>语法格式</span><br><span class="line"><span class="keyword">GRANT</span> priv_type [(column_list)]</span><br><span class="line">    [,priv_type[(column_list)]]...</span><br><span class="line"><span class="keyword">ON</span> [object_type]</span><br><span class="line">&#123;tbl_name | * | *.* | db_name. *&#125;</span><br><span class="line"><span class="keyword">TO</span> <span class="keyword">user</span> [<span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> [<span class="keyword">PASSWORD</span>]<span class="string">'password'</span>]</span><br><span class="line">    [,<span class="keyword">user</span>[<span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> [<span class="keyword">PASSWORD</span>]<span class="string">'password'</span>]]...</span><br><span class="line">    [<span class="keyword">WITH</span> <span class="keyword">with</span> <span class="keyword">option</span> [<span class="keyword">with</span> <span class="keyword">option</span>]...]</span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>priv_type为权限的名称，如SELECT、UPDATE等，给不同的对象授予权限priv_type的值也不相同。</li>
+<li>TO子句用来设定用户的密码。</li>
+<li>ON关键字后面给出的是要授予权限的数据库或表名。</li>
+</ul>
+
+        <h4 id="4-2-2-授予表权限和列权限"   >
+          <a href="#4-2-2-授予表权限和列权限" class="heading-link"><i class="fas fa-link"></i></a>4.2.2 授予表权限和列权限</h4>
+      
+        <h5 id="授予表权限时-priv-type可以是以下值："   >
+          <a href="#授予表权限时-priv-type可以是以下值：" class="heading-link"><i class="fas fa-link"></i></a>授予表权限时,priv_type可以是以下值：</h5>
+      <ol>
+<li><code>SELECT</code>:给予用户使用SELECT语句访问特定的表的权力。用户也可以在一个视图公式中包含表。然而，用户必须对视图公式中指定的每个表（或视图）都有SELECT权限。</li>
+<li><code>INSERT</code>:给予用户使用INSERT语句向一个特定的添加表中添加行的权力。</li>
+<li><code>DELETE</code>: 给予用户使用DELETE语句向一个特定表中删除行的权力。</li>
+<li><code>UPDATE</code>:给予用户使用UPDATE语句修改特定表中值的权力。</li>
+<li><code>REFERENCSE</code>:给予用户创建一个外键来参照特定的表的权力。</li>
+<li><code>CREATE</code>:给予用户使用特定的名字创建一个表的权力。</li>
+<li><code>ALTER</code>:给予用户使用ALTER TABLE 语句修改表的权力</li>
+<li><code>INDEX</code>:给予用户在表上定义索引的权力。</li>
+<li><code>DROP</code>:给予用户删除表的权力。</li>
+<li><code>ALL或ALL PRIVILEGES</code>:表示所有权限名。</li>
+</ol>
+<p>在授予表权限时,<code>ON关键字后面跟tb1_name, tb1_name为表名或视图名。</code></p>
+
+        <h5 id="授予列权限"   >
+          <a href="#授予列权限" class="heading-link"><i class="fas fa-link"></i></a>授予列权限</h5>
+      <p>只能赋予SELECT、INSERT和UPDATE,同时权限后面需加上列名列表column_list。</p>
+
+        <h4 id="4-2-3-授予数据库权限"   >
+          <a href="#4-2-3-授予数据库权限" class="heading-link"><i class="fas fa-link"></i></a>4.2.3 授予数据库权限</h4>
+      <p>表权适用于一个特定的表。MySQL还支持针对整个数数据库的权限。<code>例如：在一个特定的数据中创建表和视图图的权限。</code><br>授予数据库权限时，priv_type可以是以下值。</p>
+<ol>
+<li><code>SELECT</code>:给予用户使用SELECT语句访问特定数据库中所有表的视图的权力。</li>
+<li><code>INSERT</code>:给予要换哪个好使用INSERT语句特定数据库中</li>
+<li><code>DELETE</code>:给予用户使用DELETE语句删除特定数据库中所有表的行的权力。</li>
+<li><code>UPDATE</code>:给予用户使用UPDATE语句更新特定数据库中所有表的值的权力。</li>
+<li><code>REFERENCS</code>:给予用户创建指向特定的数据库中的表外键的权力。</li>
+<li><code>CREATE ROUTINE</code>:给予用户为特定的数据库创建存储过程和存储函数等权力。</li>
+<li><code>ALTER ROUTINE</code>:给予用户更新和删除数据库中已有的存储过程和存储函数等权力。</li>
+<li><code>EXECUTE ROUTINE</code>:给予用户调用特定数据库存储过程和存储函数的权力。</li>
+<li><code>LOCK TABLES</code>:给予用户锁定数据的已有表的权力。</li>
+<li><code>ALL 或 ALL PRIVILEGES</code>:表示以上所有权限名</li>
+</ol>
+<ul>
+<li>在GRANT语法格式中，授予数据库权限时ON关键字后面跟<code>“*”和“db_name”</code>。</li>
+<li><code>&quot;*&quot;</code>表示当前数据库中的所有表；</li>
+<li><code>“db_name.*”</code>表示某个数据库中的所有表。</li>
+</ul>
+
+        <h4 id="4-2-4-授予用户权限"   >
+          <a href="#4-2-4-授予用户权限" class="heading-link"><i class="fas fa-link"></i></a>4.2.4 授予用户权限</h4>
+      <p>最有效率的权限就是用户权限，对于需要授予数据库权限的所有语句，也可以定义在用户权限上。</p>
+<p>MySQL授予用户权限时priv_type还可以是以下值:</p>
+<ol>
+<li><code>CREATE USER</code>:给予用户创建和删除新的用户的权力。</li>
+<li><code>SHOW DATABASES</code>:给予用户使用SHOW DATABASES语句查看所有已有的数据库的定义的权力。<ul>
+<li>在GRANT语法格式中，授予用户权限时ON子句中使用。</li>
+</ul>
+</li>
+</ol>
+
+        <h3 id="4-3-权限转移与限制"   >
+          <a href="#4-3-权限转移与限制" class="heading-link"><i class="fas fa-link"></i></a>4.3 权限转移与限制</h3>
+      <p>GRANT语句的最后可以使用WITH子句。如果指定为WITH GRANT OPTION,则表示TO子句中指定的所有用户都有把子句所拥有的权限授予其他用户权利，而不管其他用户是否拥有该权限。</p>
+<p>WITH子句也可以对一个用户授予使用限制，其中 </p>
+<ul>
+<li>MAX_QUERIES_PER_HOUR count表示每小时可以查询数据库的次数；</li>
+<li>MAX_CONNECTIONS_PER_HOUR count表示每小时可以连接数据库的次数</li>
+<li>MAX_UPDATES_PER_HOUR count表示每小时可以修改数据库的次数。<code>例如，某人每小时可以查询数据多少次。</code></li>
+<li>MAX_USER_CONNECTIONS count表示同时连接MySQL的最大用户数。</li>
+</ul>
+
+        <h3 id="4-4-权限的撤销"   >
+          <a href="#4-4-权限的撤销" class="heading-link"><i class="fas fa-link"></i></a>4.4 权限的撤销</h3>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">语法格式</span><br><span class="line"><span class="keyword">REVOKE</span> priv_type [(column_list)][,priv_type[column_list]]...</span><br><span class="line">    <span class="keyword">ON</span> &#123;tbl_name | * | *.* | db_name *&#125;</span><br><span class="line">    <span class="keyword">FROM</span> <span class="keyword">user</span>[,<span class="keyword">user</span>]...</span><br></pre></td></tr></table></div></figure>
+
+
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REVOLE ALL PRIVILEGES,<span class="keyword">GRANT</span> <span class="keyword">OPTION</span></span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">user</span> [,<span class="keyword">user</span>]...</span><br><span class="line">说明:第一种格式用来回收某些特定的权限，第二种格式回收所以该用户的权限</span><br></pre></td></tr></table></div></figure>
+
+<p>注意<br><code>要使用REVOKE,用户必须拥有mysql数据库的全局CREATE USER权限或UPDATE权限.</code></p>
+
+        <h2 id="五、事务与并发控制"   >
+          <a href="#五、事务与并发控制" class="heading-link"><i class="fas fa-link"></i></a>五、事务与并发控制</h2>
+      
+        <h3 id="5-1-事务的概念"   >
+          <a href="#5-1-事务的概念" class="heading-link"><i class="fas fa-link"></i></a>5.1 事务的概念</h3>
+      <p>事务（Transaction）是用户定义的一个数据库操作序列，这些操作<code>要么全做，要么全部做</code>，是一个不可分割的工作单位。</p>
+
+        <h4 id="事务和程序是两个概念"   >
+          <a href="#事务和程序是两个概念" class="heading-link"><i class="fas fa-link"></i></a>事务和程序是两个概念</h4>
+      <ul>
+<li>在关系数据库中，一个事务可以是一条SQL语句，一组SQL语句或整个程序。</li>
+<li>一个应用程序通常包含多个事务</li>
+<li>事务是恢复和并发控制的基本单位。</li>
+</ul>
+
+        <h3 id="5-2-事务的特征"   >
+          <a href="#5-2-事务的特征" class="heading-link"><i class="fas fa-link"></i></a>5.2 事务的特征</h3>
+      
+        <h4 id="5-2-1-事务的ACID特性"   >
+          <a href="#5-2-1-事务的ACID特性" class="heading-link"><i class="fas fa-link"></i></a>5.2.1 事务的ACID特性</h4>
+      
+        <h5 id="原子性（Atomicity）"   >
+          <a href="#原子性（Atomicity）" class="heading-link"><i class="fas fa-link"></i></a>原子性（Atomicity）</h5>
+      <p>一组更新操作是原子不可分。</p>
+
+        <h5 id="一致性（Consistency）"   >
+          <a href="#一致性（Consistency）" class="heading-link"><i class="fas fa-link"></i></a>一致性（Consistency）</h5>
+      <p>事务必须满足数据库的完整性约束，数据库由一致性状态转变到另一个一致性状态</p>
+
+        <h5 id="隔离性（Isolation）"   >
+          <a href="#隔离性（Isolation）" class="heading-link"><i class="fas fa-link"></i></a>隔离性（Isolation）</h5>
+      <p>隔离性要求事务是彼此独立的、隔离的。</p>
+
+        <h5 id="持续性（Durability）"   >
+          <a href="#持续性（Durability）" class="heading-link"><i class="fas fa-link"></i></a>持续性（Durability）</h5>
+      <p>持续性也称为永久性（Permanence）,是指一个事务一旦提交，它对数据库中数据的改变就应该是永久性的。</p>
+
+        <h3 id="5-3-并发操作问题"   >
+          <a href="#5-3-并发操作问题" class="heading-link"><i class="fas fa-link"></i></a>5.3  并发操作问题</h3>
+      
+        <h4 id="5-3-1-丢失更新"   >
+          <a href="#5-3-1-丢失更新" class="heading-link"><i class="fas fa-link"></i></a>5.3.1 丢失更新</h4>
+      <p>设有两个事务T1和T2，当它们同时读入同一数据并加以修改时，事务T2的提交结果会破坏事务T1提交的结构，由此导致事务T1的修改被丢失。</p>
+
+        <h4 id="5-3-2-不可重复读"   >
+          <a href="#5-3-2-不可重复读" class="heading-link"><i class="fas fa-link"></i></a>5.3.2 不可重复读</h4>
+      <p>设有两个事务T1和T2，不可重复读是指事务T1读取数据后，事务T2执行更新操作，使事务T1无法再现前一次读取结果</p>
+
+        <h4 id="5-3-3-读”脏”数据"   >
+          <a href="#5-3-3-读”脏”数据" class="heading-link"><i class="fas fa-link"></i></a>5.3.3 读”脏”数据</h4>
+      <p>设有两个事务T1和T2，读”脏”数据是指，事务T1修改某一数据，并将其写会磁盘，事务T2读取同一数据后，事务T1由于某种原因被撤销，这时事务T1已修改过的数据恢复原值，事务T2读到的数据就与数据库中的数据不一致，则事务T2读到的数据就为”脏”数据，即不正确的数据</p>
+
+        <h4 id="5-3-4-封锁"   >
+          <a href="#5-3-4-封锁" class="heading-link"><i class="fas fa-link"></i></a>5.3.4 封锁</h4>
+      <p>封锁是最常用的并发控制技术，它的基本思想是：需要时，事务通过向系统请求对它所希望的数据对象（如数据库中的记录）加锁，以确保它不被非预期改变。</p>
+
+        <h5 id="锁"   >
+          <a href="#锁" class="heading-link"><i class="fas fa-link"></i></a>锁</h5>
+      <p>一个锁实质上就是允许或阻止一个事务对一个数据对象的存取特权。</p>
+<p>基本的封锁类型有两种:排他锁（Exclusive Lock , x锁）和共享锁（SHaredLock,S锁）</p>
+
+        <h5 id="用封锁进行并发控制"   >
+          <a href="#用封锁进行并发控制" class="heading-link"><i class="fas fa-link"></i></a>用封锁进行并发控制</h5>
+      <ol>
+<li>若事务T对数据D加了X锁，则所有别的事务对数据D的锁请求都必须等待直到事务T释放锁。</li>
+<li>若事务T对数据D加了S锁，则别的事务还可对数据D请求S锁，而对数据D的X锁请求必须等待直到事务T释放锁。</li>
+<li>事务执行数据库操作时都要先请求相应的锁，即对读请求S锁，对更新（插入、删除、修改）请求X锁。</li>
+<li>事务一直占用获得的锁直到结束（COMMIT或ROLLBACK）时释放。</li>
+</ol>
+
+        <h5 id="封锁的粒度"   >
+          <a href="#封锁的粒度" class="heading-link"><i class="fas fa-link"></i></a>封锁的粒度</h5>
+      <p>通常以粒度来描述封锁的数据单元的大小<br>DBMS可以决定不同粒度的锁。由最底层的数据元素到最高层的整个数据库，粒度越细，并发性就越大，软件复杂性和系统开销也就越大。</p>
+
+        <h5 id="封锁的级别"   >
+          <a href="#封锁的级别" class="heading-link"><i class="fas fa-link"></i></a>封锁的级别</h5>
+      <ul>
+<li><p>0级封锁<br>封锁的事务不重写其他非0级封锁事务的未提交的更新数据。这种状态实际上实用价值不大。</p>
+</li>
+<li><p>1级封锁<br>被封锁的事务部允许重写未提交的更新数据。这防止了丢失更新的发生。</p>
+</li>
+<li><p>2级封锁<br>被封锁的事务既不重写也不读未提交的更新数据。这除了1级封锁的效果外还防止了读脏数据。</p>
+</li>
+<li><p>3级封锁<br>被封锁的事务不读未提交的更新数据，不写任何（包括读操作的）未提交数据。</p>
+</li>
+</ul>
+
+        <h5 id="活锁与死锁"   >
+          <a href="#活锁与死锁" class="heading-link"><i class="fas fa-link"></i></a>活锁与死锁</h5>
+      <p>封锁带来的一个重要问题是可能引起“活锁”与“死锁”。</p>
+<p><code>活锁</code>：级别低的事务无法执行。<br>避免方法：采用先来先服务的策略<br>当多个事务请求封锁同一数据对象时，按请求封锁的先后次序对这些事务排队。该数据对象上的锁一旦释放首先批准申请队列中第一个事务获得锁。</p>
+<p><code>死锁</code>:两个以上事务循环等待被同组中另一事务锁住的数据单元的情况，称为“死锁”。</p>
+<ol>
+<li>一次性锁请求</li>
+<li>锁请求排序</li>
+<li>序列化处理</li>
+<li>资源剥夺</li>
+</ol>
+<p>对待死锁的另一种办法是不去防止，而让其发生并随时进行检测，一旦检测到系统已发生了死锁再进行解除处理。</p>
+
+        <h5 id="可串行性"   >
+          <a href="#可串行性" class="heading-link"><i class="fas fa-link"></i></a>可串行性</h5>
+      <p>一组事务的一个调度就是它们的基本操作的一种排序。<br>通常，在数据库系统中，可串行性就是并发执行的正确性准则，即当且仅当一组事务的并发执行调度是可串行化的，才认为它们是正确的。</p>
+
+        <h5 id="两端封锁法"   >
+          <a href="#两端封锁法" class="heading-link"><i class="fas fa-link"></i></a>两端封锁法</h5>
+      <p>事务划分成如下连个阶段</p>
+<ol>
+<li>发展（Growing）或加锁阶段<ul>
+<li>在此段期间，对任一数据对象进行任何操作之前，事务都要获得对该对象的一个相应的锁</li>
+</ul>
+</li>
+<li>收缩（Shrinkig）或释放锁阶段<ul>
+<li>一旦事务释放了一个锁，则标明它已进入了此结点，此后它就不能再请求任何另外的锁。</li>
+</ul>
+</li>
+</ol>
+
+        <h5 id="定理"   >
+          <a href="#定理" class="heading-link"><i class="fas fa-link"></i></a>定理</h5>
+      <p><code>遵循两段锁协议的事务的任何并发调度都是可串行化的。</code></p>
+
+        <h2 id="六、备份与恢复"   >
+          <a href="#六、备份与恢复" class="heading-link"><i class="fas fa-link"></i></a>六、备份与恢复</h2>
+      <p>数据库中数据丢失或被破坏可能是由于以下原因：</p>
+<ol>
+<li><code>计算机硬件故障</code>。由于使用不当或产品质量等原因，计算机硬件可能会出现故障，不能使用。如硬盘损坏会使得存储与其上的数据丢失。</li>
+<li><code>软件故障</code>。由于软件设计上的失误或用户使用的不当，软件系统可能会误操作数据引起数据破坏。</li>
+<li><code>病毒</code>。破坏性病毒会破坏系统软件、硬件和数据。</li>
+<li><code>误操作</code>。如用户误使用了诸如DELETE、UPDATE等。</li>
+<li><code>自然灾害</code>。如火灾、洪水或地震等，它们会造成的破坏，会毁坏计算机系统及其数据</li>
+<li><code>盗窃</code>。一些重要数据可能会遭窃</li>
+</ol>
+
+        <h3 id="6-1-使用SELECT-INTO-…-OUTFILE语句备份数据"   >
+          <a href="#6-1-使用SELECT-INTO-…-OUTFILE语句备份数据" class="heading-link"><i class="fas fa-link"></i></a>6.1 使用SELECT INTO … OUTFILE语句备份数据</h3>
+      <p>用户可以使用SELECT INTO…OUTFILE语句把表数据导出到一个文本文件中,并用LOAD DATA…INFILE语句恢复数据。<code>但是这种方法只能导出或导入数据的内容，不包括表的结构，如果表的结构文件损坏，则必须先恢复原来的表的结构</code></p>
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> INTO...OUTFILE格式</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">INTO</span> <span class="keyword">OUTFILE</span> <span class="string">'file_name'</span></span><br><span class="line">export_options</span><br><span class="line">    |  <span class="keyword">DUMPFILE</span> <span class="string">'file_name'</span></span><br><span class="line">其中,export_options为:</span><br><span class="line">[<span class="keyword">FIELDS</span></span><br><span class="line">    [<span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'string'</span>]</span><br><span class="line">    [[<span class="keyword">OPTIONALLY</span>] <span class="keyword">ENCLOSED</span> <span class="keyword">BY</span> <span class="string">'char'</span>]</span><br><span class="line">    [<span class="keyword">ESCAPED</span> <span class="keyword">BY</span> <span class="string">'char'</span>]</span><br><span class="line">]</span><br></pre></td></tr></table></div></figure>
+
+<p>说明:</p>
+<ul>
+<li><p>这个语句的作用是将表中的SELECT语句选中的行写入到一个文件中，file_name是文件的名称。</p>
+</li>
+<li><p>文件默认在服务器主机上创建，并且文件名不能是已经存在的（这可能将原文件覆盖）。</p>
+</li>
+<li><p>如果要将该文件写入到一个特定的位置，则要在文件名前加上具体的路径。</p>
+</li>
+<li><p>在文件中，数据行一一定的形式存放，空值用”\n”表示。</p>
+<p>使用OUTFILE时，可以在export_option中加入以下两个<br>自选的子句，它们的作用是决定数据行在文件中存放的格式：</p>
+<p>FIELDS子句：在FIELDS子句中有三个亚子句：</p>
+<ul>
+<li>TEMINATED BY、</li>
+<li>[OPTIONALLY] ENCLOSED BY</li>
+<li>和ESCAPED BY。</li>
+</ul>
+<p><code>如果指定了FIELDS子句，则这三个亚子句至少要指定一个。</code></p>
+</li>
+</ul>
+
+        <h4 id="说明-1"   >
+          <a href="#说明-1" class="heading-link"><i class="fas fa-link"></i></a>说明</h4>
+      <ol>
+<li><code>TERMINATED BY</code>用来指定字段值之间的符号，例如，“TERMINATED BY ‘,’” 指定了逗号作为两个字段值之间的标志。</li>
+<li><code>ENCLOSED BY</code>子句用来指定包裹文件中字符值的符号，例如，“ENCLOSED BY ‘’”表示文件中字符值放在双引号之间，若加上关键字OPTIONALLY表示所有的值都放在双引号之间。</li>
+<li><code>ESCAPED BY</code>子句用来指定转义字符，例如，“ESCAPED BY <code>‘*’” 将“*”</code>指定为转义字符，取代“\”，如空格将表示为“*N”。</li>
+<li><code>LINES子句</code>在LINES子句中使用TERMINATED BY指定一行结束的标志，如“LINES TERMINATED BY ‘？’”表示一行以“？”作为结束标志。<ul>
+<li>如果FIELDS和LINES子句都不指定。则默认声明以下子句:</li>
+<li><code>FIELDS TERMINATED BY &#39;\t&#39; ENCLOSED BY &#39;&#39; ESCAPED BY &#39;\\&#39; LINES TERMINATED BY &#39;\n&#39;</code></li>
+<li>如果使用DUMPFILE而不是使用OUTFILE,导出的文件里所有的行都彼此紧挨着放置，值和行之间没有任何标记。</li>
+</ul>
+</li>
+</ol>
+
+        <h3 id="6-2-使用LOAD-DATA…INFILE语句恢复数据"   >
+          <a href="#6-2-使用LOAD-DATA…INFILE语句恢复数据" class="heading-link"><i class="fas fa-link"></i></a>6.2 使用LOAD DATA…INFILE语句恢复数据</h3>
+      <figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LOAD</span> <span class="keyword">DATA</span> ...INFILE 格式</span><br><span class="line"><span class="keyword">LOAD</span> <span class="keyword">DATA</span> [<span class="keyword">LOW_PRIORITY</span>|<span class="keyword">CONCURRENT</span>][<span class="keyword">LOCAL</span>]<span class="keyword">INFILE</span> <span class="string">'file_name.text'</span></span><br><span class="line">    [<span class="keyword">REPLACE</span> | <span class="keyword">IGNORE</span>]</span><br><span class="line">    <span class="keyword">INTO</span> <span class="keyword">TABLE</span> tbl_name</span><br><span class="line">    [<span class="keyword">FIELDS</span></span><br><span class="line">        [<span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'string'</span>]</span><br><span class="line">        [[<span class="keyword">OPTIONALLY</span>]<span class="keyword">ENCLOSED</span> <span class="keyword">BY</span> <span class="string">'char'</span>]</span><br><span class="line">        [<span class="keyword">ESCAPED</span> <span class="keyword">BY</span> <span class="string">'char'</span>]</span><br><span class="line">    ]</span><br><span class="line">    [<span class="keyword">LINES</span></span><br><span class="line">        [<span class="keyword">STARTING</span> <span class="keyword">BY</span> <span class="string">'string'</span>]</span><br><span class="line">        [<span class="keyword">TERMINATED</span> <span class="keyword">BY</span> <span class="string">'string'</span>]</span><br><span class="line">    ]</span><br><span class="line">    [IGNRE <span class="built_in">number</span> <span class="keyword">LINES</span>]</span><br><span class="line">    [(col_name <span class="keyword">or</span> <span class="keyword">user</span> var...)]</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="说明-2"   >
+          <a href="#说明-2" class="heading-link"><i class="fas fa-link"></i></a>说明</h3>
+      
+        <h4 id="LOW-PRIORITY-CONCURRENT"   >
+          <a href="#LOW-PRIORITY-CONCURRENT" class="heading-link"><i class="fas fa-link"></i></a>LOW_PRIORITY | CONCURRENT:</h4>
+      <p>若指定LOW_PRIORITY,则延迟语句的执行。若指定CONCURRENT,则当LOAD DATA正在执行的时候，其他线程可以同时使用该表的数据.</p>
+
+        <h4 id="LOCAL"   >
+          <a href="#LOCAL" class="heading-link"><i class="fas fa-link"></i></a>LOCAL</h4>
+      <p>若指定了LOCAL,则文件会被客户主机上的客户端读取，并被发送到服务器。文件会被给予一个完整的路径名称，以指定确切的位置。</p>
+
+        <h4 id="tb-name"   >
+          <a href="#tb-name" class="heading-link"><i class="fas fa-link"></i></a>tb_name</h4>
+      <p>需要导入数据的表名，该表在数据库中必须存在，表结构必须与导入文件的数据行一直。</p>
+
+        <h4 id="PEPLACE-IGNORE"   >
+          <a href="#PEPLACE-IGNORE" class="heading-link"><i class="fas fa-link"></i></a>PEPLACE | IGNORE</h4>
+      <p>如果指定了PEPLACE,则当文件中出现与原有行相同的唯一关键字值时，输入行会替换原有行。如果指定了IGNORE,则把与原有相同的唯一关键字值的输入行跳过。</p>
+
+        <h4 id="FIELDS子句"   >
+          <a href="#FIELDS子句" class="heading-link"><i class="fas fa-link"></i></a>FIELDS子句</h4>
+      <p>此处的FIELDS子句和SELECT INTO…OUTFILE语句中类似。用于判断字段之间和数据行之间的符号。</p>
+
+        <h4 id="LINES子句"   >
+          <a href="#LINES子句" class="heading-link"><i class="fas fa-link"></i></a>LINES子句</h4>
+      <p>TERMINATED BY亚子句用来指定一行结束的标志。STARTING  BY亚子句则指定一个前缀，导入数据行时，忽略行中的该前缀之前的内容。如果某行不包括该前缀，则整个行被跳过。</p>
+
+        <h4 id="IGNORE-number-LINES"   >
+          <a href="#IGNORE-number-LINES" class="heading-link"><i class="fas fa-link"></i></a>IGNORE number LINES</h4>
+      <p>这个选项可以用于忽略文件的前几行。例如，可以使用IGNORE 1 LINES来跳过第一行。</p>
+
+        <h4 id="col-name-or-user-var"   >
+          <a href="#col-name-or-user-var" class="heading-link"><i class="fas fa-link"></i></a>col_name_or_user_var</h4>
+      <p>如果需要载入一个表的部分列或文件中字段值顺序与表中列的顺序不同，就必须制定一个列清单，其中可以包含列名或用户变量。</p>
+
+        <h2 id="七、本章小结"   >
+          <a href="#七、本章小结" class="heading-link"><i class="fas fa-link"></i></a>七、本章小结</h2>
+      <ul>
+<li>数据库的主要目标是数据集成以提供共享。</li>
+<li>由数据的集成共享引出了数据安全和数据保护问题，即保护数据不受各种可能（有意或无意）的威胁和伤害，保证数据中数据的完整性、安全性、一致性和可靠性。</li>
+<li>本章结合MySQL数据库的使用，介绍了四种常用的数据库安全与保护机制，即完整性约束（包括触发器）、访问控制，事务与并发控制以及备份与恢复。</li>
+</ul>
+
+        <h3 id="本章学习重点"   >
+          <a href="#本章学习重点" class="heading-link"><i class="fas fa-link"></i></a>本章学习重点</h3>
+      <ul>
+<li>理解完整性约束（包括触发器）、访问控制、事务与并发控制，</li>
+<li>以及备份与恢复四种数据库安全与保护机制的概念与作用，</li>
+<li>且能够在数据库（例如MySQL）中使用SQL语句实现相应的数据库保护，</li>
+<li>以保证数据库中数据的完整性、安全性、一致性和可靠性。</li>
+</ul>
+
+        <h3 id="本章学习难点"   >
+          <a href="#本章学习难点" class="heading-link"><i class="fas fa-link"></i></a>本章学习难点</h3>
+      <p>数据库（例如MySQL）中触发器的编写与使用，事务及其相关技术的理解。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【数据库系统原理】第二章 关系数据库</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BC%96%E7%A8%8B/"><span class="paginator-prev__text">【数据库系统原理】第五章 数据库编程</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、-数据库完整性"><span class="toc-text">
+          一、 数据库完整性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-完整性约束条件的作用对象"><span class="toc-text">
+          1.1 完整性约束条件的作用对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-定义与实现完整性约束"><span class="toc-text">
+          1.2 定义与实现完整性约束</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-实体完整性"><span class="toc-text">
+          1.2.1 实体完整性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-参照完整性"><span class="toc-text">
+          1.2.2 参照完整性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-自定义完整性"><span class="toc-text">
+          1.2.3 自定义完整性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#非空约束"><span class="toc-text">
+          非空约束</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-命名完整性约束"><span class="toc-text">
+          1.3 命名完整性约束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-更新完整性约束"><span class="toc-text">
+          1.4 更新完整性约束</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-删除约束"><span class="toc-text">
+          1.4.1 删除约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-添加约束"><span class="toc-text">
+          1.4.2 添加约束</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、触发器"><span class="toc-text">
+          二、触发器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-创建触发器"><span class="toc-text">
+          2.1 创建触发器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-删除触发器"><span class="toc-text">
+          2.2 删除触发器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-使用触发器"><span class="toc-text">
+          2.3 使用触发器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、安全性与访问控制"><span class="toc-text">
+          三、安全性与访问控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-用户账号管理"><span class="toc-text">
+          3.1 用户账号管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-创建用户账号"><span class="toc-text">
+          3.1.1 创建用户账号</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#格式说明"><span class="toc-text">
+          格式说明</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-查看用户信息"><span class="toc-text">
+          3.1.2 查看用户信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-删除用户"><span class="toc-text">
+          3.1.3 删除用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-4-修改用户账户"><span class="toc-text">
+          3.1.4 修改用户账户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-5-修改用户账户口令"><span class="toc-text">
+          3.1.5 修改用户账户口令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#说明"><span class="toc-text">
+          说明:</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、账户权限管理"><span class="toc-text">
+          四、账户权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-权限的授予"><span class="toc-text">
+          4.1 权限的授予</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-账号权限管理"><span class="toc-text">
+          4.2 账号权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-给某用户授予权限可以使用GRANT语句。使用SHOW-GRANTS语句可以查看当前账户拥有什么权限。"><span class="toc-text">
+          4.2.1 给某用户授予权限可以使用GRANT语句。使用SHOW GRANTS语句可以查看当前账户拥有什么权限。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-授予表权限和列权限"><span class="toc-text">
+          4.2.2 授予表权限和列权限</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#授予表权限时-priv-type可以是以下值："><span class="toc-text">
+          授予表权限时,priv_type可以是以下值：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#授予列权限"><span class="toc-text">
+          授予列权限</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-授予数据库权限"><span class="toc-text">
+          4.2.3 授予数据库权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-4-授予用户权限"><span class="toc-text">
+          4.2.4 授予用户权限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-权限转移与限制"><span class="toc-text">
+          4.3 权限转移与限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-权限的撤销"><span class="toc-text">
+          4.4 权限的撤销</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、事务与并发控制"><span class="toc-text">
+          五、事务与并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-事务的概念"><span class="toc-text">
+          5.1 事务的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#事务和程序是两个概念"><span class="toc-text">
+          事务和程序是两个概念</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-事务的特征"><span class="toc-text">
+          5.2 事务的特征</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-事务的ACID特性"><span class="toc-text">
+          5.2.1 事务的ACID特性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#原子性（Atomicity）"><span class="toc-text">
+          原子性（Atomicity）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#一致性（Consistency）"><span class="toc-text">
+          一致性（Consistency）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#隔离性（Isolation）"><span class="toc-text">
+          隔离性（Isolation）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#持续性（Durability）"><span class="toc-text">
+          持续性（Durability）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-并发操作问题"><span class="toc-text">
+          5.3  并发操作问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1-丢失更新"><span class="toc-text">
+          5.3.1 丢失更新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2-不可重复读"><span class="toc-text">
+          5.3.2 不可重复读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-3-读”脏”数据"><span class="toc-text">
+          5.3.3 读”脏”数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-4-封锁"><span class="toc-text">
+          5.3.4 封锁</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#锁"><span class="toc-text">
+          锁</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#用封锁进行并发控制"><span class="toc-text">
+          用封锁进行并发控制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#封锁的粒度"><span class="toc-text">
+          封锁的粒度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#封锁的级别"><span class="toc-text">
+          封锁的级别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#活锁与死锁"><span class="toc-text">
+          活锁与死锁</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#可串行性"><span class="toc-text">
+          可串行性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#两端封锁法"><span class="toc-text">
+          两端封锁法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#定理"><span class="toc-text">
+          定理</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、备份与恢复"><span class="toc-text">
+          六、备份与恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-使用SELECT-INTO-…-OUTFILE语句备份数据"><span class="toc-text">
+          6.1 使用SELECT INTO … OUTFILE语句备份数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#说明-1"><span class="toc-text">
+          说明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-使用LOAD-DATA…INFILE语句恢复数据"><span class="toc-text">
+          6.2 使用LOAD DATA…INFILE语句恢复数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说明-2"><span class="toc-text">
+          说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LOW-PRIORITY-CONCURRENT"><span class="toc-text">
+          LOW_PRIORITY | CONCURRENT:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LOCAL"><span class="toc-text">
+          LOCAL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tb-name"><span class="toc-text">
+          tb_name</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PEPLACE-IGNORE"><span class="toc-text">
+          PEPLACE | IGNORE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FIELDS子句"><span class="toc-text">
+          FIELDS子句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LINES子句"><span class="toc-text">
+          LINES子句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IGNORE-number-LINES"><span class="toc-text">
+          IGNORE number LINES</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#col-name-or-user-var"><span class="toc-text">
+          col_name_or_user_var</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七、本章小结"><span class="toc-text">
+          七、本章小结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#本章学习重点"><span class="toc-text">
+          本章学习重点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本章学习难点"><span class="toc-text">
+          本章学习难点</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

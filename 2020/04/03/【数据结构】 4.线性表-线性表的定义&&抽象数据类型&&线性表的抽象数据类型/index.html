@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="一、线性表的定义       具有线一样的性质的结构 线性表（List）：有零个或多个数据元素组成的有限序列。                     1.1 线性表的定义的注意点        首先线性表是一个序列，也就是说元素之间是有个先来后到。 若元素存在多个，则第一个元素无前驱，而最后一个元素无后继，其他元素都有且只有一个前驱和后继 线性表强调是有限的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据结构】4.线性表-线性表的定义&amp;&amp;抽象数据类型&amp;&amp;线性表的抽象数据类型">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%204.%E7%BA%BF%E6%80%A7%E8%A1%A8-%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89&&%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&&%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="一、线性表的定义       具有线一样的性质的结构 线性表（List）：有零个或多个数据元素组成的有限序列。                     1.1 线性表的定义的注意点        首先线性表是一个序列，也就是说元素之间是有个先来后到。 若元素存在多个，则第一个元素无前驱，而最后一个元素无后继，其他元素都有且只有一个前驱和后继 线性表强调是有限的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:43:45.043Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【数据结构】4.线性表-线性表的定义&amp;&amp;抽象数据类型&amp;&amp;线性表的抽象数据类型</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%204.%E7%BA%BF%E6%80%A7%E8%A1%A8-%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89&amp;&amp;%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;&amp;%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【数据结构】4.线性表-线性表的定义&amp;&amp;抽象数据类型&amp;&amp;线性表的抽象数据类型</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body">
+        <h2 id="一、线性表的定义"   >
+          <a href="#一、线性表的定义" class="heading-link"><i class="fas fa-link"></i></a>一、线性表的定义</h2>
+      <p>具有线一样的性质的结构</p>
+<p>线性表（List）：有零个或多个数据元素组成的有限序列。</p>
+
+        <h3 id="1-1-线性表的定义的注意点"   >
+          <a href="#1-1-线性表的定义的注意点" class="heading-link"><i class="fas fa-link"></i></a>1.1 线性表的定义的注意点</h3>
+      <ol>
+<li>首先线性表是一个序列，也就是说元素之间是有个先来后到。</li>
+<li>若元素存在多个，则第一个元素无前驱，而最后一个元素无后继，其他元素都有且只有一个前驱和后继</li>
+<li>线性表强调是有限的。</li>
+</ol>
+<a id="more"></a>
+
+
+        <h3 id="1-2-用数学语言来定义线性表"   >
+          <a href="#1-2-用数学语言来定义线性表" class="heading-link"><i class="fas fa-link"></i></a>1.2 用数学语言来定义线性表</h3>
+      <p>若将线性表记为<code>（a1,...,ai-1,ai,ai+1,...an)</code>,则表中ai-1领先ai-1领先于ai，ai领先于ai+1,称为ai-1是ai的直接前驱元素，ai+1是ai的直接后继元素。</p>
+
+        <h3 id="1-3-空表"   >
+          <a href="#1-3-空表" class="heading-link"><i class="fas fa-link"></i></a>1.3 空表</h3>
+      <p>线性表元素的个数n（n&gt;=0）定义为线性表的长度，当n=0时，称为空表。</p>
+
+        <h2 id="二、抽象数据类型"   >
+          <a href="#二、抽象数据类型" class="heading-link"><i class="fas fa-link"></i></a>二、抽象数据类型</h2>
+      
+        <h3 id="2-1-数据类型"   >
+          <a href="#2-1-数据类型" class="heading-link"><i class="fas fa-link"></i></a>2.1 数据类型</h3>
+      <p>数据类型：是指一组性质相同的值的集合及定义在此集合上的一些操作的总称。</p>
+<blockquote>
+<p>例如：编程语言上的整型，浮点型，字符型这些就是数据类型</p>
+</blockquote>
+<p>在计算机中，内存也不是无限大的，计算1+1 = 2这样的整形数字的加减乘除运算，显然不需要开辟很大的内存空间。</p>
+<p>但是要计算<code>1.2345677342+2.5667235212323</code>这样带大量小数的，就需要开辟比较大的空间才存放的下。</p>
+<p>所以要对数据类型进行分类，分出多种数据类型来适合各种不同的计算条件差异。</p>
+
+        <h4 id="2-1-1-C语言的数据类型分类"   >
+          <a href="#2-1-1-C语言的数据类型分类" class="heading-link"><i class="fas fa-link"></i></a>2.1.1 C语言的数据类型分类</h4>
+      <p>按取值的不同分</p>
+<ol>
+<li>原子类型：不可以再分解的基本类型，例如整型、浮点型、字符型等。</li>
+<li>结构类型：由若干个类型组合而成，是可以再分解的，例如整型数组是由若干整型数据组成的。</li>
+</ol>
+
+        <h3 id="2-2-抽象"   >
+          <a href="#2-2-抽象" class="heading-link"><i class="fas fa-link"></i></a>2.2 抽象</h3>
+      <ul>
+<li>抽象是指抽取出事物具有的普遍性的本质。</li>
+<li>它要求抽出问题的特征而忽略非 本质的细节。</li>
+<li>是对具体事物的一个概括。</li>
+<li>抽象是一种思考问题的方式，它隐藏了繁杂的细节。</li>
+</ul>
+<p>“抽象”的意义在于数据类型的数学抽象特性。</p>
+
+        <h3 id="2-3-抽象数据类型（ADT"   >
+          <a href="#2-3-抽象数据类型（ADT" class="heading-link"><i class="fas fa-link"></i></a>2.3 抽象数据类型（ADT)</h3>
+      <p>抽象数据类型(Abstract Data Type,ADT)是指一个数字模型及定义在该模型上的一组操作。<code>(类似我们编程语言的类)</code></p>
+<p>抽象数据类型的定义仅取决于它的一组逻辑特性，而与其在计算机内部如果表示和实现无关。</p>
+<p>抽象数据类类型不仅仅指那些已经定义并实现的数据类型，还可以是计算机编程者在设计软件程序时自己定义的数据类型。</p>
+<blockquote>
+<p>例如一个3D游戏中，要定位角色的位置。那么总会出现x,y,z三个整型数据组合在一起的坐标。就可以定义一个point的抽象数据类型，它拥有x,y,z三个整型变量，这样就可以方便的对一个角色的位置进行操作。</p>
+</blockquote>
+
+        <h4 id="2-3-2-抽象数据类型的标准格式"   >
+          <a href="#2-3-2-抽象数据类型的标准格式" class="heading-link"><i class="fas fa-link"></i></a>2.3.2 抽象数据类型的标准格式</h4>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ADT 抽象数据类型名</span><br><span class="line">Data</span><br><span class="line">    数据元素之间逻辑关系的定义</span><br><span class="line">Operation</span><br><span class="line">    操作</span><br><span class="line">endADT</span><br></pre></td></tr></table></div></figure>
+
+
+
+        <h2 id="三、线性表的抽象数据类型"   >
+          <a href="#三、线性表的抽象数据类型" class="heading-link"><i class="fas fa-link"></i></a>三、线性表的抽象数据类型</h2>
+      <p>抽象数据类型是就是数据类型和相关操作捆绑在一起。</p>
+
+        <h3 id="3-1-线性表的抽象数据类型的定义："   >
+          <a href="#3-1-线性表的抽象数据类型的定义：" class="heading-link"><i class="fas fa-link"></i></a>3.1 线性表的抽象数据类型的定义：</h3>
+      <ul>
+<li>ADT 线性表（List）</li>
+<li>Data <ul>
+<li>线性表的的数据对象集合为{a1,a2,…an},每个元素的类型均为DataType。其中，除第一个元素a1外，每一个元素有且只有一个直接前驱元素，除了最后一个元素an外，每一个元素有且只有一个直接后继元素。数据元素之间的关系是一对一的关系。</li>
+</ul>
+</li>
+<li>Operation<ul>
+<li>InitList（*L）：初始化操作，建立一个空的线性表L 。</li>
+<li>ListEmpty(L):判断线性表是否为空表，若线性表为空，返回true，否则返回false</li>
+<li>ClearList（*L）: 将线性表清空。</li>
+<li>GetElem（L，i，*e）：将线性表L中的第i个位置元素值返回给e。</li>
+<li>LocateElem（L,e）:在线性表L中查找与给定值e相等的元素，如果查找成功，返回该元素在表中序号表示成功；否则，放回0表示失败。</li>
+<li>ListInsert（*L，i，e）：在线性表L中第i个位置插入新元素e。</li>
+<li>ListDelete（<code>*L，i，*e</code>）:删除线性表L中第i个位置元素，并用e返回其值。</li>
+<li>ListLength（L）:返回线性表L的元素个数。</li>
+</ul>
+</li>
+<li>endADT</li>
+</ul>
+<blockquote>
+<p>对于不同的应用，线性表的基本操作是不同的，上述操作是最基本的，对于实际问题中涉及的关于线性表的更复杂操作，完全可以用这些基本操作的组合来实现。</p>
+</blockquote>
+
+        <h3 id="3-2-例子"   >
+          <a href="#3-2-例子" class="heading-link"><i class="fas fa-link"></i></a>3.2 例子</h3>
+      <p>问题：实现两个线性表A、B并集操作，即要使得集合A=AUB</p>
+<blockquote>
+<p>A=AUB,就是把存在集合B中但不存在集合A中的元素插入到A中即可。</p>
+</blockquote>
+<p>解题思路：我们只需要循环遍历集合B中的每个元素，判断当前元素是否存在A中，若不存在，则插入A中即可。</p>
+<p>运用到几个操作组合如下</p>
+<ul>
+<li>ListLength（L）;</li>
+<li>GetElem(L,i,*e);</li>
+<li>LocateElem(L，e)；</li>
+<li>ListInsert(*L,i,e);</li>
+</ul>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//伪代码</span></span><br><span class="line">void unionL(List *La,list Lb)'</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> La_len,Lb_len,i;</span><br><span class="line">    ElemType e;</span><br><span class="line">    La_len = ListLength(*La);</span><br><span class="line">    Lb_len = ListLength(Lb);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=Lb_len;i++)&#123; <span class="comment">//迭代</span></span><br><span class="line">        GetElem(Lb,i,&amp;e);</span><br><span class="line">        <span class="keyword">if</span>(!LocateElem(*La,e))</span><br><span class="line">        &#123;</span><br><span class="line">            ListInsert(*La,++La_len,e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E5%9B%9B%E7%AB%A0%20SQL%E4%B8%8E%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【数据库系统原理】第四章 SQL与关系数据库基本操作</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%911.%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E7%BB%AA%E8%AE%BA/"><span class="paginator-prev__text">【数据结构】1.数据结构和算法绪论</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、线性表的定义"><span class="toc-text">
+          一、线性表的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-线性表的定义的注意点"><span class="toc-text">
+          1.1 线性表的定义的注意点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-用数学语言来定义线性表"><span class="toc-text">
+          1.2 用数学语言来定义线性表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-空表"><span class="toc-text">
+          1.3 空表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、抽象数据类型"><span class="toc-text">
+          二、抽象数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-数据类型"><span class="toc-text">
+          2.1 数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-C语言的数据类型分类"><span class="toc-text">
+          2.1.1 C语言的数据类型分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-抽象"><span class="toc-text">
+          2.2 抽象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-抽象数据类型（ADT"><span class="toc-text">
+          2.3 抽象数据类型（ADT)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-抽象数据类型的标准格式"><span class="toc-text">
+          2.3.2 抽象数据类型的标准格式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、线性表的抽象数据类型"><span class="toc-text">
+          三、线性表的抽象数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-线性表的抽象数据类型的定义："><span class="toc-text">
+          3.1 线性表的抽象数据类型的定义：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-例子"><span class="toc-text">
+          3.2 例子</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

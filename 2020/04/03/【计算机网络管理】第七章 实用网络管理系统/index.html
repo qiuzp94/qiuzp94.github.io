@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="本章重难点       本章一般会出选择题、填空题、分值在5分左右。                     本章的重难点和常考知识点        网络管理系统软件（常考选择题、填空题） Cacti图形化网络管理系统(常考选择题、填空题) 使用Cacti管理网络管（常考选择题、填空题）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【计算机网络管理】第七章 实用网络管理系统">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E5%AE%9E%E7%94%A8%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="本章重难点       本章一般会出选择题、填空题、分值在5分左右。                     本章的重难点和常考知识点        网络管理系统软件（常考选择题、填空题） Cacti图形化网络管理系统(常考选择题、填空题) 使用Cacti管理网络管（常考选择题、填空题）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/Y64Oag8Tf5buj3w.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/CdG8rH1o7aXuqJj.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/iLxUGVF9Tabw3WM.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:19:22.416Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="计算机网络管理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/28/Y64Oag8Tf5buj3w.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【计算机网络管理】第七章 实用网络管理系统</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E5%AE%9E%E7%94%A8%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【计算机网络管理】第七章 实用网络管理系统</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body">
+        <h2 id="本章重难点"   >
+          <a href="#本章重难点" class="heading-link"><i class="fas fa-link"></i></a>本章重难点</h2>
+      <p>本章一般会出选择题、填空题、分值在5分左右。</p>
+
+        <h3 id="本章的重难点和常考知识点"   >
+          <a href="#本章的重难点和常考知识点" class="heading-link"><i class="fas fa-link"></i></a>本章的重难点和常考知识点</h3>
+      <ul>
+<li>网络管理系统软件（常考<code>选择题</code>、<code>填空题</code>）</li>
+<li>Cacti图形化网络管理系统(常考<code>选择题</code>、<code>填空题</code>)</li>
+<li>使用Cacti管理网络管（常考<code>选择题</code>、<code>填空题</code>）</li>
+</ul>
+<a id="more"></a>
+
+
+        <h2 id="一、网络管理系统概述"   >
+          <a href="#一、网络管理系统概述" class="heading-link"><i class="fas fa-link"></i></a>一、网络管理系统概述</h2>
+      <p>网络管理系统是实现网络功能、保障网络正常运行的软硬件组成的综合系统。</p>
+<p><img src="https://i.loli.net/2020/03/28/Y64Oag8Tf5buj3w.png" alt="网络管理-实用网络管理系统-网络管理系统概述-发展趋势1-min.png"></p>
+
+        <h2 id="二、网络管理系统软件（平台）"   >
+          <a href="#二、网络管理系统软件（平台）" class="heading-link"><i class="fas fa-link"></i></a>二、网络管理系统软件（平台）</h2>
+      
+        <h3 id="2-1-CiscoWork"   >
+          <a href="#2-1-CiscoWork" class="heading-link"><i class="fas fa-link"></i></a>2.1 CiscoWork</h3>
+      <p><img src="https://i.loli.net/2020/03/28/CdG8rH1o7aXuqJj.png" alt="网络管理-实用网络管理系统-网络管理系统软件-CisoWork1-min.png"></p>
+<p><img src="https://i.loli.net/2020/03/28/iLxUGVF9Tabw3WM.png" alt="网络管理-实用网络管理系统-网络管理系统软件-CisoWork3-min.png"></p>
+
+        <h3 id="2-2-华为Quidview"   >
+          <a href="#2-2-华为Quidview" class="heading-link"><i class="fas fa-link"></i></a>2.2 华为Quidview</h3>
+      <p>华为公司针对IP网络开发的适合于各种网络管理的网络管理软件，是iMessager系统网络管理产品之。</p>
+
+        <h4 id="特点"   >
+          <a href="#特点" class="heading-link"><i class="fas fa-link"></i></a>特点</h4>
+      <ul>
+<li>图形化管理界面</li>
+<li>操作简单</li>
+<li>运行环境与平台无关（<code>Java开发</code>）</li>
+<li>中英文显示</li>
+</ul>
+
+        <h3 id="2-3-其他网络管理系统"   >
+          <a href="#2-3-其他网络管理系统" class="heading-link"><i class="fas fa-link"></i></a>2.3 其他网络管理系统</h3>
+      <ul>
+<li>HP OpenView</li>
+<li>IBM Tivoli NetView(<code>Unix</code>)</li>
+<li>SNMPc(<code>分布式、大型</code>)</li>
+<li>Cabletron Sepctrum(<code>智能</code>)</li>
+<li>SolarWinds Orion</li>
+<li>StarView（<code>Windows</code>）</li>
+</ul>
+
+        <h2 id="三、Cacti图形化网络管理系统"   >
+          <a href="#三、Cacti图形化网络管理系统" class="heading-link"><i class="fas fa-link"></i></a>三、Cacti图形化网络管理系统</h2>
+      
+        <h3 id="3-1-Cacti-系统特点"   >
+          <a href="#3-1-Cacti-系统特点" class="heading-link"><i class="fas fa-link"></i></a>3.1 Cacti 系统特点</h3>
+      <ul>
+<li>免费开源</li>
+<li>跨平台</li>
+<li>界面友好</li>
+<li>多种数据采集方式</li>
+<li>丰富的模板</li>
+<li>可扩展性</li>
+</ul>
+
+        <h3 id="3-2-运行条件"   >
+          <a href="#3-2-运行条件" class="heading-link"><i class="fas fa-link"></i></a>3.2 运行条件</h3>
+      <ul>
+<li>Apache</li>
+<li>PHP</li>
+<li>MySQL</li>
+<li>SNMP</li>
+</ul>
+
+        <h3 id="3-3-组成部分"   >
+          <a href="#3-3-组成部分" class="heading-link"><i class="fas fa-link"></i></a>3.3 组成部分</h3>
+      <ul>
+<li>拓扑管理器<ul>
+<li>需安装Weathermap插件</li>
+</ul>
+</li>
+<li>事件管理器<ul>
+<li>日志查看工具查看系统报警日志</li>
+<li>Syslog插件扩展系统日志功能</li>
+<li>Settings插件实现邮件报警</li>
+<li>Thold插件设置设备报警阈值</li>
+</ul>
+</li>
+<li>性能管理器<ul>
+<li>可以同时监视多个网络设置或接口</li>
+</ul>
+</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/">计算机网络管理</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D%E3%80%91%E7%AC%AC5%E5%A4%A7%E5%8C%BA-increase%E4%B8%8Esuggest/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【英语单词】第5大区-increase与suggest</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%BB%93%E6%9E%84/"><span class="paginator-prev__text">【计算机网络管理】第三章 管理信息结构</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本章重难点"><span class="toc-text">
+          本章重难点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#本章的重难点和常考知识点"><span class="toc-text">
+          本章的重难点和常考知识点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、网络管理系统概述"><span class="toc-text">
+          一、网络管理系统概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、网络管理系统软件（平台）"><span class="toc-text">
+          二、网络管理系统软件（平台）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-CiscoWork"><span class="toc-text">
+          2.1 CiscoWork</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-华为Quidview"><span class="toc-text">
+          2.2 华为Quidview</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#特点"><span class="toc-text">
+          特点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-其他网络管理系统"><span class="toc-text">
+          2.3 其他网络管理系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Cacti图形化网络管理系统"><span class="toc-text">
+          三、Cacti图形化网络管理系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Cacti-系统特点"><span class="toc-text">
+          3.1 Cacti 系统特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-运行条件"><span class="toc-text">
+          3.2 运行条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-组成部分"><span class="toc-text">
+          3.3 组成部分</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

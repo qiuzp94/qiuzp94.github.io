@@ -1,0 +1,542 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="一、数据库设计概述                           1.1 数据库的生命周期        数据库的生命周期可分为两个阶段，分别是 数据库分析与设计阶段 数据库实现与操作阶段 其中，数据库分析与设计阶段包括 需求分析 概念设计 逻辑设计 物理设计四个环节；   数据库实现与操作阶段包括 数据库的实现、 操作与监督、 修改与调整三个子阶段">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据库系统原理】第三章 数据库设计">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="一、数据库设计概述                           1.1 数据库的生命周期        数据库的生命周期可分为两个阶段，分别是 数据库分析与设计阶段 数据库实现与操作阶段 其中，数据库分析与设计阶段包括 需求分析 概念设计 逻辑设计 物理设计四个环节；   数据库实现与操作阶段包括 数据库的实现、 操作与监督、 修改与调整三个子阶段">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/WUY6sSjGxBKiahA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/17/9y3bJdGj87XDVqc.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/17/b6N9i5ZCIl7Vkny.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/17/CWTKzirBpZNRcx7.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/17/se1izZjHKTxQcEw.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/17/9h4ufEkPIHCzRdZ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/17/jAlfsBpqnREg2rb.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/17/uaNvAWSJrt4mROc.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/17/IzXm9NGUaWb75yt.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:26:01.225Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="数据库系统原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/19/WUY6sSjGxBKiahA.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【数据库系统原理】第三章 数据库设计</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【数据库系统原理】第三章 数据库设计</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><p><img src="https://i.loli.net/2020/03/19/WUY6sSjGxBKiahA.png" alt="数据库系统原理-第三章-脑图-min.png"></p>
+
+        <h2 id="一、数据库设计概述"   >
+          <a href="#一、数据库设计概述" class="heading-link"><i class="fas fa-link"></i></a>一、数据库设计概述</h2>
+      
+        <h3 id="1-1-数据库的生命周期"   >
+          <a href="#1-1-数据库的生命周期" class="heading-link"><i class="fas fa-link"></i></a>1.1 数据库的生命周期</h3>
+      <ul>
+<li>数据库的生命周期可分为两个阶段，分别是</li>
+<li><code>数据库分析与设计阶段</code></li>
+<li><code>数据库实现与操作阶段</code><ul>
+<li>其中，数据库分析与设计阶段包括<ul>
+<li>需求分析</li>
+<li>概念设计</li>
+<li>逻辑设计</li>
+<li>物理设计四个环节；</li>
+</ul>
+</li>
+<li>数据库实现与操作阶段包括<ul>
+<li>数据库的实现、</li>
+<li>操作与监督、</li>
+<li>修改与调整三个子阶段</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+
+        <h3 id="1-2-数据库设计的目标"   >
+          <a href="#1-2-数据库设计的目标" class="heading-link"><i class="fas fa-link"></i></a>1.2 数据库设计的目标</h3>
+      <p>事实上，数据库设计具有两个十分重要的目标，即</p>
+<ul>
+<li><code>满足应用功能需求</code></li>
+<li><code>良好的数据库性能</code></li>
+</ul>
+
+        <h3 id="1-3-数据库设计的内容"   >
+          <a href="#1-3-数据库设计的内容" class="heading-link"><i class="fas fa-link"></i></a>1.3 数据库设计的内容</h3>
+      <p>数据库设计是从用户对数据的需求出发，研究并构造数据库的过程，其包含两个方面的内容：</p>
+<ol>
+<li>数据库<code>结构</code>设计</li>
+<li>数据库<code>行为</code>设计<code>(增删改查)</code></li>
+</ol>
+
+        <h3 id="1-4-数据库设计的方法"   >
+          <a href="#1-4-数据库设计的方法" class="heading-link"><i class="fas fa-link"></i></a>1.4 数据库设计的方法</h3>
+      <ol>
+<li>直观设计法</li>
+<li>规范设计法<ol>
+<li>新奥尔良（New Orleans）设计方法</li>
+<li>基于E-R模型的数据库设计方法</li>
+<li>基于第三范式的设计方法</li>
+</ol>
+</li>
+<li>计算机辅助设计法</li>
+</ol>
+<p><code>UNNL建模工具（Rose、visio、powerdessigne）</code></p>
+
+        <h3 id="1-5-数据库设计的过程"   >
+          <a href="#1-5-数据库设计的过程" class="heading-link"><i class="fas fa-link"></i></a>1.5 数据库设计的过程</h3>
+      <p><img src="https://i.loli.net/2020/03/17/9y3bJdGj87XDVqc.png" alt="数据库02-min.png"></p>
+
+        <h2 id="二、数据库设计的基本步骤（考试重点）"   >
+          <a href="#二、数据库设计的基本步骤（考试重点）" class="heading-link"><i class="fas fa-link"></i></a>二、数据库设计的基本步骤（考试重点）</h2>
+      
+        <h3 id="2-1-需求分析"   >
+          <a href="#2-1-需求分析" class="heading-link"><i class="fas fa-link"></i></a>2.1 需求分析</h3>
+      
+        <h4 id="2-1-1-确定数据库范围"   >
+          <a href="#2-1-1-确定数据库范围" class="heading-link"><i class="fas fa-link"></i></a>2.1.1 确定数据库范围</h4>
+      <p>数据库设计的第一项工作就是要确定数据库范围，即确定数据库应支持哪些应用功能。</p>
+
+        <h4 id="2-1-2-应用过程分析"   >
+          <a href="#2-1-2-应用过程分析" class="heading-link"><i class="fas fa-link"></i></a>2.1.2 应用过程分析</h4>
+      <p>应用过程分析是指了解并分析数据与数据处理间的关系在数据库范围确定之后，数据库设计人员应逐次地了解和分析每一部门或功能要用到哪些数据、数据使用的顺序、对数据作何处理和处理的策略以及处理的结果等。</p>
+
+        <h4 id="2-1-3-收集与分析数据"   >
+          <a href="#2-1-3-收集与分析数据" class="heading-link"><i class="fas fa-link"></i></a>2.1.3 收集与分析数据</h4>
+      
+        <h5 id="静态结果"   >
+          <a href="#静态结果" class="heading-link"><i class="fas fa-link"></i></a>静态结果</h5>
+      <p>数据的静态结构是指不施加应用操作与其上时数据的原始状况，这可通过数据分类表和数据元素表进行说明。</p>
+
+        <h5 id="动态结构"   >
+          <a href="#动态结构" class="heading-link"><i class="fas fa-link"></i></a>动态结构</h5>
+      <p>动态结构是指将应用操作施加于数据之上数据的状态，可通过任务分类表和数据操作特征表进行说明。</p>
+
+        <h5 id="数据约束"   >
+          <a href="#数据约束" class="heading-link"><i class="fas fa-link"></i></a>数据约束</h5>
+      <p>数据约束是指使用数据时的特殊要求。</p>
+
+        <h5 id="编写需求分析报告"   >
+          <a href="#编写需求分析报告" class="heading-link"><i class="fas fa-link"></i></a>编写需求分析报告</h5>
+      <p>需求分析报告通常包含如下内容</p>
+<ol>
+<li>数据库的应用功能目标<code>(功能、性能要求)</code></li>
+<li>标明不同用户视图范围<code>(学生不能有修改成绩的界面)</code></li>
+<li>应用处理过程需求说明</li>
+<li>数据字典</li>
+<li>数据量</li>
+<li>数据约束</li>
+</ol>
+
+        <h3 id="2-2-概念结构设计"   >
+          <a href="#2-2-概念结构设计" class="heading-link"><i class="fas fa-link"></i></a>2.2 概念结构设计</h3>
+      <p>概念结构设计的任务是在需求分析中产生的需求分析报告的基础上，按照特定的方法设计满足应用需求的用户信息结构，该信息结构通常称为概念模型。</p>
+<p>其中是采用<code>E-R图</code>作为概念模型的描述工具。</p>
+
+        <h3 id="2-3-逻辑结构设计"   >
+          <a href="#2-3-逻辑结构设计" class="heading-link"><i class="fas fa-link"></i></a>2.3 逻辑结构设计</h3>
+      <p> <img src="https://i.loli.net/2020/03/17/b6N9i5ZCIl7Vkny.png" alt="逻辑结构设计-min.png"></p>
+
+        <h3 id="2-4-物理设计"   >
+          <a href="#2-4-物理设计" class="heading-link"><i class="fas fa-link"></i></a>2.4 物理设计</h3>
+      <p> 物理设计是指对于一个给定的数据库逻辑结构，研究并构造物理结构的过程，其具体任务主要是确定数据库在存储设备上的存储结构及存取方法，因DBMS的不同还可能包括建立索引和聚集，以及物理块大小、缓冲区个数和大小、数据压缩的选择等。</p>
+
+        <h3 id="2-5-数据库实施"   >
+          <a href="#2-5-数据库实施" class="heading-link"><i class="fas fa-link"></i></a>2.5 数据库实施</h3>
+      <ol>
+<li>加载数据</li>
+<li>应用程序设计</li>
+<li>数据库试运行</li>
+</ol>
+
+        <h3 id="2-6-数据库运行和维护"   >
+          <a href="#2-6-数据库运行和维护" class="heading-link"><i class="fas fa-link"></i></a>2.6 数据库运行和维护</h3>
+      <p>只有经过试运行之后，确定系统无故障或暂未发现故障时，系统才能投入到生产实际中运行。</p>
+<p>数据库系统投入实际运行标志着数据库设计和应用开发的基本完成，但绝不意味着设计和应用开发工作的终止。</p>
+<p>系统维护中最困难的工作是数据库重组与重构。</p>
+
+        <h2 id="三、关系数据库设计方法"   >
+          <a href="#三、关系数据库设计方法" class="heading-link"><i class="fas fa-link"></i></a>三、关系数据库设计方法</h2>
+      
+        <h3 id="3-1-关系数据库设计过程与各级模式"   >
+          <a href="#3-1-关系数据库设计过程与各级模式" class="heading-link"><i class="fas fa-link"></i></a>3.1 关系数据库设计过程与各级模式</h3>
+      <p>   <img src="https://i.loli.net/2020/03/17/CWTKzirBpZNRcx7.png" alt="关系数据库各级模式01-min.png"></p>
+
+        <h3 id="3-2-概念结构设计方法"   >
+          <a href="#3-2-概念结构设计方法" class="heading-link"><i class="fas fa-link"></i></a>3.2 概念结构设计方法</h3>
+      
+        <h4 id="3-2-1-E-R图的表示方法"   >
+          <a href="#3-2-1-E-R图的表示方法" class="heading-link"><i class="fas fa-link"></i></a>3.2.1 E-R图的表示方法</h4>
+      <p><img src="https://i.loli.net/2020/03/17/se1izZjHKTxQcEw.png" alt="E-R图的表示方法1-min.png"> </p>
+
+        <h5 id="三个实体型之间的一对多联系"   >
+          <a href="#三个实体型之间的一对多联系" class="heading-link"><i class="fas fa-link"></i></a>三个实体型之间的一对多联系</h5>
+      <p><img src="https://i.loli.net/2020/03/17/9h4ufEkPIHCzRdZ.png" alt="两个以上的实体型之间的联系-min.png"> </p>
+
+        <h5 id="三个实体型之间的多对多联系"   >
+          <a href="#三个实体型之间的多对多联系" class="heading-link"><i class="fas fa-link"></i></a>三个实体型之间的多对多联系</h5>
+      <p><img src="https://i.loli.net/2020/03/17/jAlfsBpqnREg2rb.png" alt="三个实体型-min.png"> </p>
+
+        <h5 id="单个实体型内的联系"   >
+          <a href="#单个实体型内的联系" class="heading-link"><i class="fas fa-link"></i></a>单个实体型内的联系</h5>
+      <p><img src="https://i.loli.net/2020/03/17/uaNvAWSJrt4mROc.png" alt="单个实体型内的联系-min.png"></p>
+
+        <h4 id="3-2-2-局部信息结构设计"   >
+          <a href="#3-2-2-局部信息结构设计" class="heading-link"><i class="fas fa-link"></i></a>3.2.2 局部信息结构设计</h4>
+      <ol>
+<li>确定局部范围</li>
+<li>选择实体</li>
+<li>选择实体的关键字属性</li>
+<li>确定实体间的联系</li>
+<li>确定实体的属性</li>
+</ol>
+<p>  <img src="https://i.loli.net/2020/03/17/IzXm9NGUaWb75yt.png" alt="局部信息结构设计-min.png"></p>
+
+        <h4 id="3-2-3-全局信息结构设计"   >
+          <a href="#3-2-3-全局信息结构设计" class="heading-link"><i class="fas fa-link"></i></a>3.2.3 全局信息结构设计</h4>
+      <ul>
+<li>属性冲突</li>
+<li>命名冲突</li>
+<li>结构冲突</li>
+</ul>
+<ol>
+<li>E-R图向关系模型的转换</li>
+<li>数据模型的优化</li>
+<li>设计用户子模式</li>
+</ol>
+
+        <h2 id="四、物理设计方法"   >
+          <a href="#四、物理设计方法" class="heading-link"><i class="fas fa-link"></i></a>四、物理设计方法</h2>
+      <ul>
+<li>建立索引</li>
+<li>建立聚集</li>
+</ul>
+
+        <h2 id="五、本章小结"   >
+          <a href="#五、本章小结" class="heading-link"><i class="fas fa-link"></i></a>五、本章小结</h2>
+      <p>本章首先概述了数据库设计相关的知识，包括数据库的生命周期、数据库设计的目标、内容、方法与过程。</p>
+<p>然后具体介绍了数据库设计的几个基本步骤，即需求分析、概念结构设计、逻辑设计设计、物理结构设计、数据库实施、数据库的运行和维护。</p>
+<p>最后重点介绍关系数据的概念结构设计与逻辑结构设计过程中所涉及的关系技术与方法。</p>
+
+        <h3 id="5-1-本章学习重点"   >
+          <a href="#5-1-本章学习重点" class="heading-link"><i class="fas fa-link"></i></a>5.1 本章学习重点</h3>
+      <p>关系数据库设计的具体方法与步骤</p>
+
+        <h3 id="5-2-本章学习难点"   >
+          <a href="#5-2-本章学习难点" class="heading-link"><i class="fas fa-link"></i></a>5.2 本章学习难点</h3>
+      <p>使用E-R图进行数据库概念设计的过程，以及其向关系模型转换的方法。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【数据库系统原理】第一章 数据库系统概念</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="paginator-prev__text">【数据库系统原理】第二章 关系数据库</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、数据库设计概述"><span class="toc-text">
+          一、数据库设计概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-数据库的生命周期"><span class="toc-text">
+          1.1 数据库的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-数据库设计的目标"><span class="toc-text">
+          1.2 数据库设计的目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-数据库设计的内容"><span class="toc-text">
+          1.3 数据库设计的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-数据库设计的方法"><span class="toc-text">
+          1.4 数据库设计的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-数据库设计的过程"><span class="toc-text">
+          1.5 数据库设计的过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、数据库设计的基本步骤（考试重点）"><span class="toc-text">
+          二、数据库设计的基本步骤（考试重点）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-需求分析"><span class="toc-text">
+          2.1 需求分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-确定数据库范围"><span class="toc-text">
+          2.1.1 确定数据库范围</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-应用过程分析"><span class="toc-text">
+          2.1.2 应用过程分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-收集与分析数据"><span class="toc-text">
+          2.1.3 收集与分析数据</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#静态结果"><span class="toc-text">
+          静态结果</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#动态结构"><span class="toc-text">
+          动态结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#数据约束"><span class="toc-text">
+          数据约束</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编写需求分析报告"><span class="toc-text">
+          编写需求分析报告</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-概念结构设计"><span class="toc-text">
+          2.2 概念结构设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-逻辑结构设计"><span class="toc-text">
+          2.3 逻辑结构设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-物理设计"><span class="toc-text">
+          2.4 物理设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-数据库实施"><span class="toc-text">
+          2.5 数据库实施</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-数据库运行和维护"><span class="toc-text">
+          2.6 数据库运行和维护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、关系数据库设计方法"><span class="toc-text">
+          三、关系数据库设计方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-关系数据库设计过程与各级模式"><span class="toc-text">
+          3.1 关系数据库设计过程与各级模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-概念结构设计方法"><span class="toc-text">
+          3.2 概念结构设计方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-E-R图的表示方法"><span class="toc-text">
+          3.2.1 E-R图的表示方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#三个实体型之间的一对多联系"><span class="toc-text">
+          三个实体型之间的一对多联系</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三个实体型之间的多对多联系"><span class="toc-text">
+          三个实体型之间的多对多联系</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#单个实体型内的联系"><span class="toc-text">
+          单个实体型内的联系</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-局部信息结构设计"><span class="toc-text">
+          3.2.2 局部信息结构设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-全局信息结构设计"><span class="toc-text">
+          3.2.3 全局信息结构设计</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、物理设计方法"><span class="toc-text">
+          四、物理设计方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、本章小结"><span class="toc-text">
+          五、本章小结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-本章学习重点"><span class="toc-text">
+          5.1 本章学习重点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-本章学习难点"><span class="toc-text">
+          5.2 本章学习难点</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

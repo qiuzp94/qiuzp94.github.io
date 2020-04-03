@@ -1,0 +1,1077 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="一、关系数据库概述                           1.1 关系数据库的历史        1970 提出关系数据模型 之后 提出了关系代数和关系演算的概念 1972 提出了关系的第一、第二、第三范式 1974 提出了关系的BC范式 80年代后，关系数据库系统成为最重要、最流行的数据库系统。  典型实验系统：System R、University INGR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据库系统原理】第二章 关系数据库">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="一、关系数据库概述                           1.1 关系数据库的历史        1970 提出关系数据模型 之后 提出了关系代数和关系演算的概念 1972 提出了关系的第一、第二、第三范式 1974 提出了关系的BC范式 80年代后，关系数据库系统成为最重要、最流行的数据库系统。  典型实验系统：System R、University INGR">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/03/10/RdsBeoW5ZCNYmcO.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/10/OVmFulT6UcBSAIL.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/11/XgT24YBjEZQJucW.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:25:40.731Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="数据库系统原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/10/RdsBeoW5ZCNYmcO.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【数据库系统原理】第二章 关系数据库</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【数据库系统原理】第二章 关系数据库</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body">
+        <h2 id="一、关系数据库概述"   >
+          <a href="#一、关系数据库概述" class="heading-link"><i class="fas fa-link"></i></a>一、关系数据库概述</h2>
+      
+        <h3 id="1-1-关系数据库的历史"   >
+          <a href="#1-1-关系数据库的历史" class="heading-link"><i class="fas fa-link"></i></a>1.1 关系数据库的历史</h3>
+      <ul>
+<li>1970 提出关系数据模型</li>
+<li>之后 提出了关系代数和关系演算的概念</li>
+<li>1972 提出了关系的第一、第二、第三范式</li>
+<li>1974 提出了关系的BC范式</li>
+<li>80年代后，关系数据库系统成为最重要、最流行的数据库系统。</li>
+</ul>
+<p>典型实验系统：<br>System R、University INGRES</p>
+<p>典型商用系统<br>ORACLE、SYBASE、INFORMIX、IBM DB2</p>
+<a id="more"></a>
+
+
+        <h2 id="二、关系数据模型"   >
+          <a href="#二、关系数据模型" class="heading-link"><i class="fas fa-link"></i></a>二、关系数据模型</h2>
+      
+        <h3 id="2-1-关系数据模型的定义"   >
+          <a href="#2-1-关系数据模型的定义" class="heading-link"><i class="fas fa-link"></i></a>2.1 关系数据模型的定义</h3>
+      <p>关系模型的数据结构非常简单、只包含单一的数据结构，即关系<code>(二维表)</code>。</p>
+<p>例如一张记录学生基本信息的二维表格</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>班级</th>
+<th>性别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>001</td>
+<td>小明</td>
+<td>计算机一班</td>
+<td>男</td>
+</tr>
+<tr>
+<td>002</td>
+<td>小红</td>
+<td>计算机二班</td>
+<td>女</td>
+</tr>
+</tbody></table></div>
+
+        <h3 id="2-2-关系数据模型的基本术语"   >
+          <a href="#2-2-关系数据模型的基本术语" class="heading-link"><i class="fas fa-link"></i></a>2.2 关系数据模型的基本术语</h3>
+      <p><code>记录===行===元组</code><br><code>属性===列===字段</code></p>
+
+        <h4 id="2-2-1-表（Table）"   >
+          <a href="#2-2-1-表（Table）" class="heading-link"><i class="fas fa-link"></i></a>2.2.1 表（Table）</h4>
+      <p>表，也称为关系，是一个二维的数据结构，它由表名、构成表的各个列<code>(属性)</code>（如学号、姓名等）及若干行<code>(记录/元组)</code>数据（各个学生的具体信息）组成。</p>
+<p>每个表有一个唯一的表名，表中每一行数据描述一条具体的记录值，如一个学生的基本信息。</p>
+
+        <h4 id="2-2-2-关系（Relation）"   >
+          <a href="#2-2-2-关系（Relation）" class="heading-link"><i class="fas fa-link"></i></a>2.2.2 关系（Relation）</h4>
+      <p>一个关系逻辑上对应一张二维表，可以为每个关系取一个名称进行标识</p>
+
+        <h4 id="2-2-3-列（Column）"   >
+          <a href="#2-2-3-列（Column）" class="heading-link"><i class="fas fa-link"></i></a>2.2.3 列（Column）</h4>
+      <ul>
+<li>表中的列，也称作字段（Field）或者属于（Attitude）。</li>
+<li>表中每一列有一个名称，称为列名、字段名或属性。</li>
+<li>每一列表示实体的一个属性，具有相同的数据类型。</li>
+</ul>
+
+        <h4 id="2-2-4-属性-Attribute"   >
+          <a href="#2-2-4-属性-Attribute" class="heading-link"><i class="fas fa-link"></i></a>2.2.4 属性 (Attribute)</h4>
+      <ul>
+<li>表中的一列即为一个属性，给每一个属性起一个名称即属性名。</li>
+<li>与之同义的术语是”列”。</li>
+<li>表中属性的个数称为关系的<strong>元</strong>或度。</li>
+<li>列的值称为属性值；</li>
+<li>属性值的取值范围称为值域。</li>
+</ul>
+
+        <h4 id="2-2-5-Row"   >
+          <a href="#2-2-5-Row" class="heading-link"><i class="fas fa-link"></i></a>2.2.5 (Row)</h4>
+      <p>表中的行（Row），也称作元组（Tuple）或记录（Record）</p>
+
+        <h4 id="2-2-6（Tuple）"   >
+          <a href="#2-2-6（Tuple）" class="heading-link"><i class="fas fa-link"></i></a>2.2.6（Tuple）</h4>
+      <p>表中的一行即为一个元组。</p>
+
+        <h4 id="2-2-7-分量（Component）"   >
+          <a href="#2-2-7-分量（Component）" class="heading-link"><i class="fas fa-link"></i></a>2.2.7.分量（Component）</h4>
+      <p>元组中的一个属性值，称为分量。</p>
+
+        <h4 id="2-2-8-码或键（Key）"   >
+          <a href="#2-2-8-码或键（Key）" class="heading-link"><i class="fas fa-link"></i></a>2.2.8.码或键（Key）</h4>
+      <p>如果在一个关系中，存在这样的属性（或属性组）,使得到该关系的任何一个关系状态中的两个元组，在该属性（或属性组）上值的组合都不相同，即这些属（属性组）的值都能用来唯一的标识该关系的元组，则称此属性（或属性组）为该关系的码或键。</p>
+
+        <h4 id="2-2-9-超码或超键（Super-Key）"   >
+          <a href="#2-2-9-超码或超键（Super-Key）" class="heading-link"><i class="fas fa-link"></i></a>2.2.9 超码或超键（Super Key）</h4>
+      <p>如果在关系的一个码中移去某个属性，它仍然是这个关系的码，则称这样的码或键位该关系的超码或超键。</p>
+
+        <h4 id="2-2-10-候选码或候选键（Candidate-Key）"   >
+          <a href="#2-2-10-候选码或候选键（Candidate-Key）" class="heading-link"><i class="fas fa-link"></i></a>2.2.10 候选码或候选键（Candidate Key）</h4>
+      <p>如果在关系的一个码或键中，不能从中移去任何一个属性，否则它就不是这个关系的码或键，则称这样的码或键为关系的候选码或候选键。</p>
+
+        <h4 id="2-2-11-主码或主键（Primary-Key）"   >
+          <a href="#2-2-11-主码或主键（Primary-Key）" class="heading-link"><i class="fas fa-link"></i></a>2.2.11 主码或主键（Primary Key）</h4>
+      <p>在一个关系的若干个候选码或候选键中指定一个用来唯一标识关系的元组，则称这个被指定的候选码或候选键为该关系的主码或主键。<code>(一个表尽量保证只有一个主键和一个候选码)</code></p>
+
+        <h4 id="2-2-12-全码或全键（All-Key）"   >
+          <a href="#2-2-12-全码或全键（All-Key）" class="heading-link"><i class="fas fa-link"></i></a>2.2.12 全码或全键（All-Key）</h4>
+      <p>一个关系模式的所以属性集合是这个关系的主码或主键则称这样的主码或主键为全码或全键。</p>
+
+        <h4 id="2-2-13-主属性（Primary-Attribute）和非主属性（Nonprimary-Attribute）"   >
+          <a href="#2-2-13-主属性（Primary-Attribute）和非主属性（Nonprimary-Attribute）" class="heading-link"><i class="fas fa-link"></i></a>2.2.13 主属性（Primary Attribute）和非主属性（Nonprimary Attribute）</h4>
+      <p>关系中包含在任何一个候选码中的属性称为主属性或码属性，不包含在任何一个候选码中的属性称为飞主属性或非码属性。</p>
+
+        <h4 id="2-2-14-外码或外键（Foreign-Key）重点"   >
+          <a href="#2-2-14-外码或外键（Foreign-Key）重点" class="heading-link"><i class="fas fa-link"></i></a>2.2.14 外码或外键（Foreign Key）重点</h4>
+      <p>当关系中的某个属性（或属性组）不是这个关系的主码或候选码，而是另一关系的主码时，称该属性（或属性组）为这个关系的外码或外键。</p>
+<p><code>两个表之间</code></p>
+
+        <h4 id="2-2-15-参照关系（Referencing-Relation）和被参照关系（Referenced-Relation）"   >
+          <a href="#2-2-15-参照关系（Referencing-Relation）和被参照关系（Referenced-Relation）" class="heading-link"><i class="fas fa-link"></i></a>2.2.15 参照关系（Referencing Relation）和被参照关系（Referenced Relation）</h4>
+      <ul>
+<li>参照关系也称为从关系，被参照关系也称为主关系，它们是指以外码相关联的两个关系。</li>
+<li>以外码作为主码的关系称为被参照关系；</li>
+<li>外码所在的关系称为参照关系。</li>
+<li>被参照关系与参照关系是通过外码相联系的，这种联系通常是一对多的联系。</li>
+</ul>
+
+        <h4 id="2-2-16-域（Domain）"   >
+          <a href="#2-2-16-域（Domain）" class="heading-link"><i class="fas fa-link"></i></a>2.2.16 域（Domain）</h4>
+      <p>域表示属性的取值范围</p>
+
+        <h4 id="2-2-17-数据类型（Data-Type）"   >
+          <a href="#2-2-17-数据类型（Data-Type）" class="heading-link"><i class="fas fa-link"></i></a>2.2.17 数据类型（Data Type）</h4>
+      <ul>
+<li>表中每个列都是有相应的数据类型，它用于限制（或容许）该列中存储的数据。</li>
+<li>每个字段表示同一类信息，具有相同的数据类型。</li>
+</ul>
+
+        <h4 id="2-2-18-关系模式（Relation-Schema）"   >
+          <a href="#2-2-18-关系模式（Relation-Schema）" class="heading-link"><i class="fas fa-link"></i></a>2.2.18 关系模式（Relation Schema）</h4>
+      <ul>
+<li>同数据模型一样，数据库也有“型”（type）和“值”（value）之分。</li>
+<li>在关系数据库中，关系模式是型，关系是值，即关系模式是对关系的描述。</li>
+<li>关系模式是静态的、稳定的、而关系是动态的、随时间不断变化的。</li>
+</ul>
+<p><code>表名（_____）这就是关系模式</code></p>
+
+        <h4 id="2-2-19-关系数据库（Relation-Database）"   >
+          <a href="#2-2-19-关系数据库（Relation-Database）" class="heading-link"><i class="fas fa-link"></i></a>2.2.19 关系数据库（Relation Database）</h4>
+      <p>关系数据库是以关系模型作为数据的逻辑模型，并采用关系作为数据组织方式的一类数据组织方式的一类数组库，其数据库操作的建立在关系代数的基础上。</p>
+<p>1对1<br>1对多<br>多对多</p>
+
+        <h3 id="2-3-表（关系）的结构定义"   >
+          <a href="#2-3-表（关系）的结构定义" class="heading-link"><i class="fas fa-link"></i></a>2.3 表（关系）的结构定义</h3>
+      <p>例如：表<code>tb_student</code>的结构定义</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>含义</th>
+<th>字段名</th>
+<th>数据类型</th>
+<th>宽度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>学号</td>
+<td>studentNO</td>
+<td>字符型</td>
+<td>10</td>
+</tr>
+<tr>
+<td>姓名</td>
+<td>studentName</td>
+<td>字符型</td>
+<td>20</td>
+</tr>
+<tr>
+<td>性别</td>
+<td>sex</td>
+<td>字符型</td>
+<td>3</td>
+</tr>
+<tr>
+<td>出生日期</td>
+<td>birthday</td>
+<td>日期型</td>
+<td></td>
+</tr>
+<tr>
+<td>籍贯</td>
+<td>native</td>
+<td>字符型</td>
+<td>20</td>
+</tr>
+<tr>
+<td>民族</td>
+<td>nation</td>
+<td>字符型</td>
+<td>30</td>
+</tr>
+<tr>
+<td>班级编号</td>
+<td>classNo</td>
+<td>字符型</td>
+<td>8</td>
+</tr>
+<tr>
+<td>身份证号</td>
+<td>studentID</td>
+<td>字符型</td>
+<td>18</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="2-3-1-问题"   >
+          <a href="#2-3-1-问题" class="heading-link"><i class="fas fa-link"></i></a>2.3.1 问题</h4>
+      <p>关系模型中，候选码（可由一个或多个其值能唯一标识该关系模式中任何元组的属性组成）</p>
+
+        <h2 id="三、关系操作集合"   >
+          <a href="#三、关系操作集合" class="heading-link"><i class="fas fa-link"></i></a>三、关系操作集合</h2>
+      
+        <h3 id="3-1-基本的关系操作"   >
+          <a href="#3-1-基本的关系操作" class="heading-link"><i class="fas fa-link"></i></a>3.1 基本的关系操作</h3>
+      
+        <h4 id="3-1-1-查询（考试重点）"   >
+          <a href="#3-1-1-查询（考试重点）" class="heading-link"><i class="fas fa-link"></i></a>3.1.1 查询（考试重点）</h4>
+      <p>选择、投影、连接、除、并、交、差、笛卡尔积</p>
+
+        <h4 id="3-1-2-数据更新"   >
+          <a href="#3-1-2-数据更新" class="heading-link"><i class="fas fa-link"></i></a>3.1.2 数据更新</h4>
+      <p>插入、删除、修改<br>查询的表达能力很强，是其中最主要的部分</p>
+
+        <h4 id="3-1-3-关系操作的特点"   >
+          <a href="#3-1-3-关系操作的特点" class="heading-link"><i class="fas fa-link"></i></a>3.1.3 关系操作的特点</h4>
+      <p>集合操作方式，即操作的对象和结果都是集合</p>
+
+        <h3 id="3-2-关系数据语言的分类"   >
+          <a href="#3-2-关系数据语言的分类" class="heading-link"><i class="fas fa-link"></i></a>3.2 关系数据语言的分类</h3>
+      <ul>
+<li>关系操作的能力可以用两种方式来表示：<strong>代数方式</strong>和<strong>逻辑方式</strong><ul>
+<li>代数方式主要有<strong>关系代数</strong>，它是通过对关系的操作来表达查询要求的方式</li>
+<li>逻辑方式主要有<strong>关系演算</strong>，它是用谓词来表达查询要求的方式。</li>
+</ul>
+</li>
+<li>具有后关系代数的和关系演算双重特点的语言。典型代表是<strong>SQL</strong></li>
+</ul>
+
+        <h3 id="3-3-关系代数"   >
+          <a href="#3-3-关系代数" class="heading-link"><i class="fas fa-link"></i></a>3.3 关系代数</h3>
+      
+        <h4 id="3-3-1-集合运算符和专门的关系运算符"   >
+          <a href="#3-3-1-集合运算符和专门的关系运算符" class="heading-link"><i class="fas fa-link"></i></a>3.3.1 集合运算符和专门的关系运算符</h4>
+      <p><img src="https://i.loli.net/2020/03/10/RdsBeoW5ZCNYmcO.png" alt="dataBase01-min.png"></p>
+<p>笛卡尔积是一种特殊的运算</p>
+<p>例子<br>有个集合a={1,2,3,4}<br>有个集合b={3,4,5,6}</p>
+<p>a并b 1,2,3,4,5,6<br>a交b 3,4<br>a差b 1，2<br>b差a 5，6</p>
+<p>(笛卡尔乘积)a*b 一维变成二维的操作 在a集合中取一个元素跟b集合的各元素进行组合 {<br>1,3; 1,4; 1,5; 1,6;<br>2,3; 2,4; 2,5; 2,6;<br>3,3; 3,4; 3,5; 3,6;<br>4,3; 4,4; 4,5; 3,6;<br>}</p>
+
+        <h4 id="3-3-2-比较操作符与逻辑操作符"   >
+          <a href="#3-3-2-比较操作符与逻辑操作符" class="heading-link"><i class="fas fa-link"></i></a>3.3.2 比较操作符与逻辑操作符</h4>
+      <p><img src="https://i.loli.net/2020/03/10/OVmFulT6UcBSAIL.png" alt="database02-min.png"></p>
+
+        <h4 id="3-3-3-传统的集合运算"   >
+          <a href="#3-3-3-传统的集合运算" class="heading-link"><i class="fas fa-link"></i></a>3.3.3 传统的集合运算</h4>
+      <p>并、差、交、广义笛卡尔积<br>并（UNION）<br>交（INTERSECTION）<br>差（DIFFERENCE）<br>笛卡尔积 （CARTESIAN PRODUCT）</p>
+
+        <h4 id="3-3-4-专门的关系运算"   >
+          <a href="#3-3-4-专门的关系运算" class="heading-link"><i class="fas fa-link"></i></a>3.3.4 专门的关系运算</h4>
+      <p>选择、投影、连接、除</p>
+
+        <h5 id="选择（SELECT）"   >
+          <a href="#选择（SELECT）" class="heading-link"><i class="fas fa-link"></i></a>选择（SELECT）</h5>
+      <pre><code>SELECT 关系名 WHERE 条件</code></pre><p>其中，条件是由常数、属性名或列名、比较操作符及逻辑操作符组成的条件表达式。<br>比较操作符：<code>&gt;、&gt;=、&lt;、&lt;=、=、！=</code><br>逻辑操作符<code>^、V、¬</code></p>
+
+        <h5 id="投影-PEOJECTION"   >
+          <a href="#投影-PEOJECTION" class="heading-link"><i class="fas fa-link"></i></a>投影(PEOJECTION)</h5>
+      <p>投影操作表示为：πA(R)</p>
+<p>其中，R为被运算关系名，A为属性序列<br>PROJECTION 关系名（属性名1,属性名2,…,属性名n）</p>
+<p><code>列数变了,行数没有变===&gt;投影</code></p>
+<p>例如<br>关系名叫R</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<p>我们要A与C列叫做πA,C(R) <code>叫A与C投影在关系R上</code></p>
+
+        <h5 id="连接-JOIN"   >
+          <a href="#连接-JOIN" class="heading-link"><i class="fas fa-link"></i></a>连接(JOIN)</h5>
+      <p>连接运算表示为：</p>
+<p><img src="https://i.loli.net/2020/03/11/XgT24YBjEZQJucW.png" alt="database03-min.png"></p>
+<p>R和S代表 两个不同的关系；<br>i和j分别代表R的第i列和S的第j列属性；<br><code>Θ</code>代表比较运算符&gt;、&gt;=、&lt;、&lt;、==、 !=、</p>
+<p><strong>JOIN 关系名1 AND 关系名2 WHERE 条件</strong></p>
+<p>例子如下</p>
+<p>下表是：R关系</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4</td>
+</tr>
+</tbody></table></div>
+<p>下表是：S关系</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">B</th>
+<th align="center">C</th>
+<th align="center">D</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">5</td>
+<td align="center">9</td>
+</tr>
+</tbody></table></div>
+<p>现在要将R与S做一个连接。R的B列等于S的B列，在这里连接是一个笛卡尔乘积，是一个限定了条件的笛卡尔乘积</p>
+<p>首先，因为是笛卡尔乘积，列数会变多 由原来的变成了五列,然后选择出R与S共同的元素2那一排。得出结果</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">A</th>
+<th align="center">R.B</th>
+<th align="center">S.B</th>
+<th align="center">C</th>
+<th align="center">D</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">7</td>
+</tr>
+</tbody></table></div>
+<p>3.3.4.4 除（DIVISION）<br>除关系表示为：R÷S<br>其中R和S代表两个不同的关系。在除运算中，若被除关系为m元关系，除关系为n元关系，则运算结果为一个m-n元关系</p>
+<blockquote>
+<p>除操作是乘操作的逆运算</p>
+</blockquote>
+<p>例如</p>
+<p>s</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+</tbody></table></div>
+<p>R</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>D</th>
+<th>E</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7</td>
+<td>8</td>
+</tr>
+<tr>
+<td>9</td>
+<td>10</td>
+</tr>
+</tbody></table></div>
+<p>S*R组成下表    乘积</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">A</th>
+<th align="center">B</th>
+<th align="center">C</th>
+<th align="center">D</th>
+<th align="center">E</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">7</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">9</td>
+<td align="center">10</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">9</td>
+<td align="center">10</td>
+</tr>
+</tbody></table></div>
+<p>如果用上表除于R的话，可以得到的结果是S</p>
+
+        <h5 id="问题-关系运算中花费时间可能最长的运算是"   >
+          <a href="#问题-关系运算中花费时间可能最长的运算是" class="heading-link"><i class="fas fa-link"></i></a>问题 关系运算中花费时间可能最长的运算是</h5>
+      <p>答：笛卡尔积</p>
+<p>因为:投影、选择和除都是一个“裁剪”的意思，而笛卡尔积是增加</p>
+<p>笛卡尔积是两个表进行交叉合并的运算，随着表的规模增大，笛卡尔积运算时间越长。</p>
+
+        <h4 id="3-3-5-关系的完整性约束"   >
+          <a href="#3-3-5-关系的完整性约束" class="heading-link"><i class="fas fa-link"></i></a>3.3.5 关系的完整性约束</h4>
+      
+        <h5 id="实体完整性约束（Entity-Integrity-Constraint）—-一个表"   >
+          <a href="#实体完整性约束（Entity-Integrity-Constraint）—-一个表" class="heading-link"><i class="fas fa-link"></i></a>实体完整性约束（Entity Integrity Constraint）— 一个表</h5>
+      <p><strong>实体完整性约束是指关系的<code>主属性</code>，即主码的组成不能为空，也就是关系的主属性不能是<code>空值NULL</code></strong></p>
+
+        <h5 id="参照完整性约束（Referential-Integrity-Constraint）—表和表之间"   >
+          <a href="#参照完整性约束（Referential-Integrity-Constraint）—表和表之间" class="heading-link"><i class="fas fa-link"></i></a>参照完整性约束（Referential Integrity Constraint）—表和表之间</h5>
+      <p>现实世界中的实体之间往往存在着某钟联系</p>
+<p>教师（职工号，姓名，性别，职称，<code>系编号</code>）<br>系（<code>系编号</code>，系名，办公地点，办公电话）</p>
+
+        <h5 id="用户定义完整性约束（User-defined-Integrity-Constraint）—自己定义的"   >
+          <a href="#用户定义完整性约束（User-defined-Integrity-Constraint）—自己定义的" class="heading-link"><i class="fas fa-link"></i></a>用户定义完整性约束（User-defined Integrity Constraint）—自己定义的</h5>
+      <p>用户定义的完整性约束是针对某一应用环境的完整性约束条件，它反馈了某一个具体应用所涉及的数据应满足的要求。</p>
+
+        <h5 id="关系模型完整性约束的检验"   >
+          <a href="#关系模型完整性约束的检验" class="heading-link"><i class="fas fa-link"></i></a>关系模型完整性约束的检验</h5>
+      <ol>
+<li>执行插入操作</li>
+<li>执行删除操作</li>
+<li>执行更新操作</li>
+</ol>
+
+        <h5 id="问题"   >
+          <a href="#问题" class="heading-link"><i class="fas fa-link"></i></a>问题:</h5>
+      <p>关系模型的参照完整性要求关系中【不允许引用不存在的属性】</p>
+<ul>
+<li>A.不允许引用不存在的元组</li>
+<li>B. 允许引用不存在的元组</li>
+<li>C. 不允许引用不存在的属性</li>
+<li>D. 允许引用不存在的属性</li>
+</ul>
+<p>[解析]参照完整性主要保证表与表之间的数据正确，限制属性关系。</p>
+<p><code>例子：学校新生入学，但还没有登记相关信息，但相关表还没有登记，这是允许的，比如选了什么课，可以为空，因为无法判断元组（行）的情况，所以AB错的</code><br><code>又因为选课不能选没有的课的编号，所以D是错的</code></p>
+
+        <h2 id="四、关系数据库的规范化理论（考试重点难点）"   >
+          <a href="#四、关系数据库的规范化理论（考试重点难点）" class="heading-link"><i class="fas fa-link"></i></a>四、关系数据库的规范化理论（考试重点难点）</h2>
+      
+        <h3 id="4-1-关系模式中可能存在的冗余和异常问题"   >
+          <a href="#4-1-关系模式中可能存在的冗余和异常问题" class="heading-link"><i class="fas fa-link"></i></a>4.1 关系模式中可能存在的冗余和异常问题</h3>
+      <ol>
+<li>数据冗余</li>
+<li>更新异常</li>
+<li>插入异常</li>
+<li>删除异常</li>
+</ol>
+
+        <h4 id="4-1-1-例子"   >
+          <a href="#4-1-1-例子" class="heading-link"><i class="fas fa-link"></i></a>4.1.1 例子</h4>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">编号</th>
+<th align="center">供应商</th>
+<th align="center">产品名</th>
+<th align="center">数量</th>
+<th align="center">产地</th>
+<th align="center">价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">ATO</td>
+<td align="center">产品A</td>
+<td align="center">10</td>
+<td align="center">北京</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">ATO</td>
+<td align="center">产品B</td>
+<td align="center">10</td>
+<td align="center">北京</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">ATO</td>
+<td align="center">产品C</td>
+<td align="center">10</td>
+<td align="center">上海</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">DF</td>
+<td align="center">产品D</td>
+<td align="center">12</td>
+<td align="center">广州</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">DF</td>
+<td align="center">产品E</td>
+<td align="center">13</td>
+<td align="center">广州</td>
+<td align="center">3</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="4-1-2-例子-数据冗余"   >
+          <a href="#4-1-2-例子-数据冗余" class="heading-link"><i class="fas fa-link"></i></a>4.1.2 例子 数据冗余</h4>
+      <p>就是供应商ATO、供应商DF、产地北京、产地广州、数量10</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>供应商</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ATO</td>
+</tr>
+<tr>
+<td>ATO</td>
+</tr>
+<tr>
+<td>ATO</td>
+</tr>
+</tbody></table></div>
+
+        <h4 id="4-1-3-例子-插入异常"   >
+          <a href="#4-1-3-例子-插入异常" class="heading-link"><i class="fas fa-link"></i></a>4.1.3 例子 插入异常</h4>
+      <p>比如一个新的供应商GEA，还没有提供产品，但是产品名不允许为NULL，这这样供应商GEA信息就不能插入表中，这就是插入异常</p>
+
+        <h4 id="4-1-4-例子删除异常"   >
+          <a href="#4-1-4-例子删除异常" class="heading-link"><i class="fas fa-link"></i></a>4.1.4 例子删除异常</h4>
+      <p>假如今天不再使用ATO的产品，但是ATO还是公司的签约产品提供商，这时要删除表中ATO的行，删除后再也找不到ATO的相关信息，这也就有删除异常</p>
+
+        <h4 id="4-1-5-例子修改异常"   >
+          <a href="#4-1-5-例子修改异常" class="heading-link"><i class="fas fa-link"></i></a>4.1.5 例子修改异常</h4>
+      <p>假如ATO公司改名了，现在要修改表中ATO的名字，若ATO在表中有1000条数据，修改起来是非常麻烦的。</p>
+
+        <h4 id="4-1-6-总结"   >
+          <a href="#4-1-6-总结" class="heading-link"><i class="fas fa-link"></i></a>4.1.6 总结</h4>
+      <p>针对上面的问题，所以我们要对表制定规范化。</p>
+
+        <h3 id="4-2-函数依赖与关键字"   >
+          <a href="#4-2-函数依赖与关键字" class="heading-link"><i class="fas fa-link"></i></a>4.2 函数依赖与关键字</h3>
+      
+        <h4 id="4-2-1-定义"   >
+          <a href="#4-2-1-定义" class="heading-link"><i class="fas fa-link"></i></a>4.2.1 定义</h4>
+      <p>设R为任一给定关系，如果对于R中属性X的每一个值，R中的属性Y只有唯一值与之对应，则称X函数决定Y或称函数依赖与X，记作X-&gt;Y。其中，X称为决定因素。</p>
+<blockquote>
+<p>例如：有关学生住宿登记的关系S1中存在</p>
+<p>如下函数依赖：<br>SNO-&gt;SNAME<br>SNO-SSEX<br>SNO-SBOOM（假定一个学生仅住一个宿舍）</p>
+</blockquote>
+
+        <h4 id="4-2-2-完全函数依赖"   >
+          <a href="#4-2-2-完全函数依赖" class="heading-link"><i class="fas fa-link"></i></a>4.2.2 完全函数依赖</h4>
+      <p>设R为任一给定关系，X、Y为其属下集，若X-&gt;Y，且对X中的任何真子集X’都有x’≯Y，则称Y完全函数依赖于X。</p>
+<p><code>比如出生日期与性别决定了姓名这一列，可以说姓名依赖于出生日期与性别</code></p>
+
+        <h4 id="4-2-3-部分函数依赖"   >
+          <a href="#4-2-3-部分函数依赖" class="heading-link"><i class="fas fa-link"></i></a>4.2.3 部分函数依赖</h4>
+      <p>设R为任一给定关系，X、Y为其属性集，若X-&gt;Y,且X中存在一个真子集X’满足X’-&gt;Y,则称Y部分函数依赖于X。</p>
+<p><code>学号、身份证号 与 学生的姓名之间，姓名可以依赖于学号或者身份证号，这时我们可以称它为部分函数依赖</code></p>
+
+        <h4 id="4-2-4-传递函数依赖"   >
+          <a href="#4-2-4-传递函数依赖" class="heading-link"><i class="fas fa-link"></i></a>4.2.4 传递函数依赖</h4>
+      <p>设R为任一给定关系，X、Y、Z为其不同属性子集，若X-&gt;Y,Y≯X，Y-&gt;Z，则有X-&gt;Z，则称为Z传递函数依赖于X。</p>
+<p><code>学生学号的前两位决定了专业，但是专业不一定能决定学号，专业决定了所在的系，也就是说学号也能决定系，这也就是传递函数依赖</code></p>
+
+        <h4 id="4-2-5-关键字"   >
+          <a href="#4-2-5-关键字" class="heading-link"><i class="fas fa-link"></i></a>4.2.5 关键字</h4>
+      <p>设R为任一给定关系，U为其所含的全部属性集合，X为U的子集，若有完全函数依赖X-&gt;U,则X为R的一个候选关键字。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>年龄</th>
+<th>专业</th>
+</tr>
+</thead>
+</table></div>
+<p><code>现在把学号定为关键字，U就是等于学号、姓名、年龄、专业的集合；
+X等于学号；X-&gt;U;也就是全部属性依赖于学号,这时我们称x是候选关键字</code></p>
+
+        <h3 id="4-3-范式与关系规范化过程"   >
+          <a href="#4-3-范式与关系规范化过程" class="heading-link"><i class="fas fa-link"></i></a>4.3 范式与关系规范化过程</h3>
+      <ul>
+<li>满足最低要求的称为第一范式，简称（1NF），这是最基本的范式；</li>
+<li>在第一范式的基础上进一步满足一些新要求的称为第二范式（2NF）；</li>
+<li>以此类推，再进一步的范式是称为第三范式（3NF）及其改进形式BCNF（Boyce-Codd<br>Normal Form）;<code>(考试最高要求)</code></li>
+<li>当然，还有更进一步的高级范式第四范式（4NF）、第五范式（5NF）</li>
+</ul>
+
+        <h4 id="4-3-1-第一范式"   >
+          <a href="#4-3-1-第一范式" class="heading-link"><i class="fas fa-link"></i></a>4.3.1 第一范式</h4>
+      <p>第一范式要求行列都不能出现数据合并。简称行列不可再分。</p>
+
+        <h4 id="4-3-2-第二范式"   >
+          <a href="#4-3-2-第二范式" class="heading-link"><i class="fas fa-link"></i></a>4.3.2 第二范式</h4>
+      <p>就是把一个数据冗余的表，切割成多个数据不冗余的表，然后关联它们起来。</p>
+
+        <h4 id="4-3-3-第三范式、BCNF"   >
+          <a href="#4-3-3-第三范式、BCNF" class="heading-link"><i class="fas fa-link"></i></a>4.3.3 第三范式、BCNF</h4>
+      
+        <h4 id="4-3-4-范式与关系规范化过程"   >
+          <a href="#4-3-4-范式与关系规范化过程" class="heading-link"><i class="fas fa-link"></i></a>4.3.4 范式与关系规范化过程</h4>
+      <ul>
+<li>1NF</li>
+<li>↓消除非主属性对码的部分函数依赖</li>
+<li>2NF</li>
+<li>↓消除非主属性对码的传递函数依赖</li>
+<li>3NF</li>
+<li>↓消除主属性对码的部分和传递函数依赖<code>(保证主键的唯一性)</code></li>
+<li>BCNF</li>
+</ul>
+
+        <h4 id="4-3-5-总结"   >
+          <a href="#4-3-5-总结" class="heading-link"><i class="fas fa-link"></i></a>4.3.5 总结</h4>
+      <ul>
+<li>新建表的时候，先创建一个id列，然后让电脑控制，这样一下子就可以到达第三范式</li>
+<li>在每次关系规范化时，要尽量表不要出现多对多，表尽量不要两个关系糅合在一起。<code>比如一个表中有开课信息又有成绩信息还有选课信息，这时我们要把表切割成三个表</code></li>
+</ul>
+
+        <h3 id="4-4-关系规范化理论的应用"   >
+          <a href="#4-4-关系规范化理论的应用" class="heading-link"><i class="fas fa-link"></i></a>4.4 关系规范化理论的应用</h3>
+      <p>关系规范化理论主要应用于数据库设计中的概念设计阶段，对所产生的概念设计，可用它来分析其实划分是否适合，判断属性分配到哪个实体中更为合理。</p>
+<p>在实现设计中当将E-R图向关系模型转换时，还可以用它分析并发现概念设计中可能存在的遗漏或不当之处，特别是联系实体是否不单独转换为一独立关系而集成到与之相联的基本实体中去处理时，规范化理论是最有效的评价准则。</p>
+
+        <h2 id="五、第二章小结"   >
+          <a href="#五、第二章小结" class="heading-link"><i class="fas fa-link"></i></a>五、第二章小结</h2>
+      <p>本章首先概述了关系数据库的基本特征、产生和发展历程，然后分别介绍了关系数据模型的三个要素，即关系数据结构、关系操作集合和关系完整性约束，最后详细介绍了关系数据库的规范化理论。</p>
+
+        <h3 id="5-1-本章学习重点："   >
+          <a href="#5-1-本章学习重点：" class="heading-link"><i class="fas fa-link"></i></a>5.1 本章学习重点：</h3>
+      <ol>
+<li>关系数据库的相关概念；</li>
+<li>关系规范化理论，各个范式之间的转化关系。</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">数据库系统原理</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【数据库系统原理】第三章 数据库设计</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86%E3%80%91%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E4%B8%8E%E4%BF%9D%E6%8A%A4/"><span class="paginator-prev__text">【数据库系统原理】第六章 数据库安全与保护</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、关系数据库概述"><span class="toc-text">
+          一、关系数据库概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-关系数据库的历史"><span class="toc-text">
+          1.1 关系数据库的历史</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、关系数据模型"><span class="toc-text">
+          二、关系数据模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-关系数据模型的定义"><span class="toc-text">
+          2.1 关系数据模型的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-关系数据模型的基本术语"><span class="toc-text">
+          2.2 关系数据模型的基本术语</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-表（Table）"><span class="toc-text">
+          2.2.1 表（Table）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-关系（Relation）"><span class="toc-text">
+          2.2.2 关系（Relation）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-列（Column）"><span class="toc-text">
+          2.2.3 列（Column）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-属性-Attribute"><span class="toc-text">
+          2.2.4 属性 (Attribute)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-Row"><span class="toc-text">
+          2.2.5 (Row)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-6（Tuple）"><span class="toc-text">
+          2.2.6（Tuple）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-7-分量（Component）"><span class="toc-text">
+          2.2.7.分量（Component）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-8-码或键（Key）"><span class="toc-text">
+          2.2.8.码或键（Key）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-9-超码或超键（Super-Key）"><span class="toc-text">
+          2.2.9 超码或超键（Super Key）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-10-候选码或候选键（Candidate-Key）"><span class="toc-text">
+          2.2.10 候选码或候选键（Candidate Key）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-11-主码或主键（Primary-Key）"><span class="toc-text">
+          2.2.11 主码或主键（Primary Key）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-12-全码或全键（All-Key）"><span class="toc-text">
+          2.2.12 全码或全键（All-Key）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-13-主属性（Primary-Attribute）和非主属性（Nonprimary-Attribute）"><span class="toc-text">
+          2.2.13 主属性（Primary Attribute）和非主属性（Nonprimary Attribute）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-14-外码或外键（Foreign-Key）重点"><span class="toc-text">
+          2.2.14 外码或外键（Foreign Key）重点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-15-参照关系（Referencing-Relation）和被参照关系（Referenced-Relation）"><span class="toc-text">
+          2.2.15 参照关系（Referencing Relation）和被参照关系（Referenced Relation）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-16-域（Domain）"><span class="toc-text">
+          2.2.16 域（Domain）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-17-数据类型（Data-Type）"><span class="toc-text">
+          2.2.17 数据类型（Data Type）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-18-关系模式（Relation-Schema）"><span class="toc-text">
+          2.2.18 关系模式（Relation Schema）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-19-关系数据库（Relation-Database）"><span class="toc-text">
+          2.2.19 关系数据库（Relation Database）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-表（关系）的结构定义"><span class="toc-text">
+          2.3 表（关系）的结构定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-问题"><span class="toc-text">
+          2.3.1 问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、关系操作集合"><span class="toc-text">
+          三、关系操作集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-基本的关系操作"><span class="toc-text">
+          3.1 基本的关系操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-查询（考试重点）"><span class="toc-text">
+          3.1.1 查询（考试重点）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-数据更新"><span class="toc-text">
+          3.1.2 数据更新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-关系操作的特点"><span class="toc-text">
+          3.1.3 关系操作的特点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-关系数据语言的分类"><span class="toc-text">
+          3.2 关系数据语言的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-关系代数"><span class="toc-text">
+          3.3 关系代数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-集合运算符和专门的关系运算符"><span class="toc-text">
+          3.3.1 集合运算符和专门的关系运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-比较操作符与逻辑操作符"><span class="toc-text">
+          3.3.2 比较操作符与逻辑操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3-传统的集合运算"><span class="toc-text">
+          3.3.3 传统的集合运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4-专门的关系运算"><span class="toc-text">
+          3.3.4 专门的关系运算</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#选择（SELECT）"><span class="toc-text">
+          选择（SELECT）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#投影-PEOJECTION"><span class="toc-text">
+          投影(PEOJECTION)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#连接-JOIN"><span class="toc-text">
+          连接(JOIN)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#问题-关系运算中花费时间可能最长的运算是"><span class="toc-text">
+          问题 关系运算中花费时间可能最长的运算是</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-5-关系的完整性约束"><span class="toc-text">
+          3.3.5 关系的完整性约束</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实体完整性约束（Entity-Integrity-Constraint）—-一个表"><span class="toc-text">
+          实体完整性约束（Entity Integrity Constraint）— 一个表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#参照完整性约束（Referential-Integrity-Constraint）—表和表之间"><span class="toc-text">
+          参照完整性约束（Referential Integrity Constraint）—表和表之间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#用户定义完整性约束（User-defined-Integrity-Constraint）—自己定义的"><span class="toc-text">
+          用户定义完整性约束（User-defined Integrity Constraint）—自己定义的</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关系模型完整性约束的检验"><span class="toc-text">
+          关系模型完整性约束的检验</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#问题"><span class="toc-text">
+          问题:</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、关系数据库的规范化理论（考试重点难点）"><span class="toc-text">
+          四、关系数据库的规范化理论（考试重点难点）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-关系模式中可能存在的冗余和异常问题"><span class="toc-text">
+          4.1 关系模式中可能存在的冗余和异常问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-例子"><span class="toc-text">
+          4.1.1 例子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-例子-数据冗余"><span class="toc-text">
+          4.1.2 例子 数据冗余</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-3-例子-插入异常"><span class="toc-text">
+          4.1.3 例子 插入异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-4-例子删除异常"><span class="toc-text">
+          4.1.4 例子删除异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-5-例子修改异常"><span class="toc-text">
+          4.1.5 例子修改异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-6-总结"><span class="toc-text">
+          4.1.6 总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-函数依赖与关键字"><span class="toc-text">
+          4.2 函数依赖与关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-定义"><span class="toc-text">
+          4.2.1 定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-完全函数依赖"><span class="toc-text">
+          4.2.2 完全函数依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-部分函数依赖"><span class="toc-text">
+          4.2.3 部分函数依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-4-传递函数依赖"><span class="toc-text">
+          4.2.4 传递函数依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-5-关键字"><span class="toc-text">
+          4.2.5 关键字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-范式与关系规范化过程"><span class="toc-text">
+          4.3 范式与关系规范化过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-1-第一范式"><span class="toc-text">
+          4.3.1 第一范式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-2-第二范式"><span class="toc-text">
+          4.3.2 第二范式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-3-第三范式、BCNF"><span class="toc-text">
+          4.3.3 第三范式、BCNF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-4-范式与关系规范化过程"><span class="toc-text">
+          4.3.4 范式与关系规范化过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-5-总结"><span class="toc-text">
+          4.3.5 总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-关系规范化理论的应用"><span class="toc-text">
+          4.4 关系规范化理论的应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、第二章小结"><span class="toc-text">
+          五、第二章小结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-本章学习重点："><span class="toc-text">
+          5.1 本章学习重点：</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

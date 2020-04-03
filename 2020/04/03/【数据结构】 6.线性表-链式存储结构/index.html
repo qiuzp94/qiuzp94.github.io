@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="线性表的顺序存储结构，它最大的缺点就是插入和删除时需要移动大量元素，这显然就需要耗费时间。                     1. 问:为什么当插入和删除时，就要移动大量的元素？       原因：就在于相邻两元素的存储位置也具有邻居关系，它们在内存的位置是紧挨着的，中间没有间隙，当然就无法快速插入和删除。                     2. 线性表链式存储结构定义       线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据结构】6.线性表-链式存储结构">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%206.%E7%BA%BF%E6%80%A7%E8%A1%A8-%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="线性表的顺序存储结构，它最大的缺点就是插入和删除时需要移动大量元素，这显然就需要耗费时间。                     1. 问:为什么当插入和删除时，就要移动大量的元素？       原因：就在于相邻两元素的存储位置也具有邻居关系，它们在内存的位置是紧挨着的，中间没有间隙，当然就无法快速插入和删除。                     2. 线性表链式存储结构定义       线">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/03/11/QiUnE97Ipz3Z8KL.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:23:06.379Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/11/QiUnE97Ipz3Z8KL.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【数据结构】6.线性表-链式存储结构</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%206.%E7%BA%BF%E6%80%A7%E8%A1%A8-%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【数据结构】6.线性表-链式存储结构</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><p>线性表的顺序存储结构，它最大的缺点就是插入和删除时需要移动大量元素，这显然就需要耗费时间。</p>
+
+        <h2 id="1-问-为什么当插入和删除时，就要移动大量的元素？"   >
+          <a href="#1-问-为什么当插入和删除时，就要移动大量的元素？" class="heading-link"><i class="fas fa-link"></i></a>1. 问:为什么当插入和删除时，就要移动大量的元素？</h2>
+      <p>原因：就在于相邻两元素的存储位置也具有邻居关系，它们在内存的位置是紧挨着的，中间没有间隙，当然就无法快速插入和删除。</p>
+
+        <h2 id="2-线性表链式存储结构定义"   >
+          <a href="#2-线性表链式存储结构定义" class="heading-link"><i class="fas fa-link"></i></a>2. 线性表链式存储结构定义</h2>
+      <p>线性表的链式存储结构的特点是用一组任意的存储单元线性表的数据元素，这组存储单元可以存储内存中未被占用的任意位置。</p>
+<p>比起顺序存储结构每个数据元素只需要存储一个位置就可以了。现在链式存储结构中，除了要存储数据元素信息外，还有存储它的后继元素的存储地址（指针）。</p>
+<p>也就是说除了存储其本身的信息外，还需存储一个指示其直接后继的存储位置的信息。</p>
+<a id="more"></a>
+
+
+        <h3 id="2-1-数据域、指针域、指针或链、结点"   >
+          <a href="#2-1-数据域、指针域、指针或链、结点" class="heading-link"><i class="fas fa-link"></i></a>2.1 数据域、指针域、指针或链、结点</h3>
+      <p>把存储数据元素信息的域称为数据域，把存储直接后继位置的域称为指针域。指针域中存储的信息称为指针或链。这两部分信息组成数据元素称为存储映像，称为结点（Node）</p>
+
+        <h3 id="2-2-单链表"   >
+          <a href="#2-2-单链表" class="heading-link"><i class="fas fa-link"></i></a>2.2 单链表</h3>
+      <p>n个结点链接成一个链表，即为线性表（a1,a2,a3,…,an）的链式存储结构</p>
+<p>因为此链表的每个结点中包含一个指针域，所以叫做单链表<br><img src="https://i.loli.net/2020/03/11/QiUnE97Ipz3Z8KL.png" alt="单链表02-min.png"></p>
+<p>我们把链表中的第一个结点的存储位置叫做头指针，最后一个结点指针为空（NULL）</p>
+
+        <h4 id="2-2-1-头指针与头结点的异同"   >
+          <a href="#2-2-1-头指针与头结点的异同" class="heading-link"><i class="fas fa-link"></i></a>2.2.1 头指针与头结点的异同</h4>
+      
+        <h5 id="头指针"   >
+          <a href="#头指针" class="heading-link"><i class="fas fa-link"></i></a>头指针</h5>
+      <ul>
+<li>头指针是指链表执行第一个结点的指针，若链表头结点，则是指向头结点的指针。</li>
+<li>头指针具有标识作用，所以常用头指针冠以链表的名字（指针变量的名字）</li>
+<li>无论链表是否为空，头指针君不为空</li>
+<li>头指针是链表的必要元素。</li>
+</ul>
+
+        <h5 id="头结点"   >
+          <a href="#头结点" class="heading-link"><i class="fas fa-link"></i></a>头结点</h5>
+      <ul>
+<li>头结点是为了操作的统一和方便而设立的，放在第一个元素的结点之前，其数据域一般无意义（但也可以用来存放链表的长度）。</li>
+<li>有了头结点，对于第一元素结点前插入结点和删除第一结点起操作与其它结点的操作就统一了</li>
+</ul>
+
+        <h4 id="2-2-2-C语言中可以用结构指针来描述单链表"   >
+          <a href="#2-2-2-C语言中可以用结构指针来描述单链表" class="heading-link"><i class="fas fa-link"></i></a>2.2.2 C语言中可以用结构指针来描述单链表</h4>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ELemType data ; <span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">Next</span>;</span> <span class="comment">//指针域</span></span><br><span class="line">&#125; Node;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">LinkList</span>;</span></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">&gt; 假设p是指向线性表第i个元素的指针，则该结点ai的数据域我们，可以用p-&gt;data的值是一个数据元素，结点ai的指针域可以用 p-&gt;next 来表示，p-&gt;next 的值是一个指针。p-&gt;next指向ai+<span class="number">1</span>的指针。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### <span class="number">2.2</span><span class="number">.3</span> 问题:如果p-&gt;data = ai,那么p-&gt;next-&gt;data = ?</span><br><span class="line">答案：p-&gt; next -&gt; data = ai + <span class="number">1</span>。</span><br><span class="line"></span><br><span class="line">#### <span class="number">2.2</span><span class="number">.4</span> 单链表的读取</span><br><span class="line">获得链表第i个数据的算法思路</span><br><span class="line"><span class="number">1.</span> 声明一个结点p指向链表第一个结点，初始化j从<span class="number">1</span>开始；</span><br><span class="line"><span class="number">2.</span> 当j&lt;<span class="number">1</span> 时，就遍历链表，让p的指针向后移动，不断指向一下结点，j+<span class="number">1</span>;</span><br><span class="line"><span class="number">3.</span> 若到链表末尾p为空，则说明第i个元素不存在；</span><br><span class="line"><span class="number">4.</span> 否则查找成功，返回结点p的数据。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">``` C</span><br><span class="line"><span class="comment">//伪代码</span></span><br><span class="line"><span class="comment">// 初始条件：顺序线性表L已存在，i&lt;=i=ListLength(L)</span></span><br><span class="line"><span class="comment">// 操作条件：用e返回L中第i个数据元素的值</span></span><br><span class="line"></span><br><span class="line"><span class="function">Status <span class="title">GetELem</span> <span class="params">(LinkList L, <span class="keyword">int</span> i , ElemType  *e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">    LinkList p;</span><br><span class="line">    p = L-&gt; next;</span><br><span class="line">    j = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(p&amp;&amp;j&lt;i)</span><br><span class="line">    &#123;</span><br><span class="line">        p = p -&gt; next;</span><br><span class="line">        ++j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!p || j&gt;i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = p -&gt; data;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>也就是说，从头开始找，直到第i个元素为止。<br>由于这个算法的时间复杂度取决于i的位置，当i= 1时，则不需要遍历，而i = n时，则遍历n-1才可以。因此最坏情况的时间复杂度为O(n)。</p>
+<p>由于单链表的结构中没有定义表长，所以不能实现知道要循环多少次，因此也就不方便使用for来控制循环。</p>
+<p>其核心思想叫做“工作指针后移”，这其实也是很多算法的常用技术。</p>
+
+        <h4 id="2-2-4-单链表的插入"   >
+          <a href="#2-2-4-单链表的插入" class="heading-link"><i class="fas fa-link"></i></a>2.2.4 单链表的插入</h4>
+      <p>单链表第i个数据插入结点的算法思路</p>
+<ol>
+<li>声明一结点p指向链表头结点，初始化j从1开始；</li>
+<li>当j&lt;1时，就遍历链表，让p的指针向后移动，不断指向下一结点，j累加1；</li>
+<li>若到链表末尾p为空，则说明第i个元素不存在。</li>
+<li>否则查找成功，在系统中生成一个空结点s；</li>
+<li>将数据元素e赋值给s-&gt;data;</li>
+<li>单链表的插入的标准语句<ol>
+<li>s-&gt; next = p -&gt; next;</li>
+<li>p - next = s;  </li>
+</ol>
+</li>
+<li>返回成功。</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">\\伪代码</span><br><span class="line">\\初始条件：顺序线性表L已存在，<span class="number">1</span>&lt;=i&lt;ListLength（L）</span><br><span class="line">\\操作结果：在L中第i个位置之前插入新的数据元素e，L的长度加<span class="number">1</span></span><br><span class="line"></span><br><span class="line">Status ListInsert(LinkList *L ,<span class="keyword">int</span> i,ElemType e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">    LinkList p,s;</span><br><span class="line">    p = *L;</span><br><span class="line">    j =<span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(p &amp;&amp; j&lt;i) <span class="comment">//用于寻找第i个结点</span></span><br><span class="line">    &#123;</span><br><span class="line">        p = p -&gt; next;</span><br><span class="line">        j ++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!p || j&gt;i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    s = (LiskList)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    s -&gt; data = e;</span><br><span class="line">    s -&gt; next = p -&gt; next;</span><br><span class="line">    p -&gt; next = s;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> Ok;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+
+
+        <h4 id="2-2-5-单链表的删除"   >
+          <a href="#2-2-5-单链表的删除" class="heading-link"><i class="fas fa-link"></i></a>2.2.5 单链表的删除</h4>
+      <p> 关键步骤<br> p-&gt;next = p - next -&gt; next;<br> 也可以是：q = p - next; p-&gt;next= q -next;</p>
+<p>单链表第i个数据删除结点的算法思路：</p>
+<ol>
+<li>声明结点p指向链表第一个结点，初始化j=1；</li>
+<li>当j&lt;1时，就遍历链表，让P的指针向后移动，不断指向下一个结点，j累加1；</li>
+<li>若到链表末尾p为空，则说明第i个元素不存在；</li>
+<li>否则查找成功，将欲删除结点p-&gt;next赋值给q；</li>
+<li>单链表的删除标准语句p-&gt;next = q -&gt; next;</li>
+<li>将q结点中的数据赋值给e，作为返回；</li>
+<li>释放q结点。</li>
+</ol>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//伪代码</span></span><br><span class="line"><span class="comment">//初始条件：顺序线性表L已存在，1&lt;=i&lt;ListLength(L)</span></span><br><span class="line"><span class="comment">//操作结果:删除L的第i个数据元素，并用e返回其值，L的长度-1</span></span><br><span class="line"></span><br><span class="line"><span class="function">Status <span class="title">ListDelete</span><span class="params">(LinkList * L，<span class="keyword">int</span> i,ElemType *e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">    LinkList p , q;</span><br><span class="line">    p = *L;</span><br><span class="line">    j = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(p-&gt;next &amp;&amp; j&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p = p- next;</span><br><span class="line">        ++j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(！(p-&gt;next) || j&gt;i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    q = p-&gt; next;</span><br><span class="line">    p -&gt; next = q -&gt; next;</span><br><span class="line">    </span><br><span class="line">    *e = q-data;</span><br><span class="line">    <span class="built_in">free</span>(q);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+
+
+        <h4 id="2-2-6-单链表的总结"   >
+          <a href="#2-2-6-单链表的总结" class="heading-link"><i class="fas fa-link"></i></a>2.2.6 单链表的总结</h4>
+      <p> 无论是单链表插入还是删除算法，其实都是由两个部分组成：第一部分就是遍历查找第i个元素，第二部分就是实现插入和删除元素。</p>
+<p> 所以可以推出它们的时间复杂度都是O(n)。</p>
+<p> 如果在我们不知道第i个元素的指针位置，单链表数据结构在插入和删除操作上，与线性表的顺序存储结构是没有太大优势的。</p>
+<p> 但如果，从第i个位置开始，插入连续10个元素，对于顺序存储结构意味着，每一次插入都需要移动n-i个位置，所以每次都是O（n）</p>
+<p> 而单链表，只需要在第一次时，找到第i个位置的指针，此时为O（n），接下来只是简单地通过赋值移动指针而已，时间复杂度都是O(1）。</p>
+<p> 对于插入或删除数据越频繁的操作，单链表的效率优势就越来越明显。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%205.%E7%BA%BF%E6%80%A7%E8%A1%A8-%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【数据结构】5.线性表-顺序存储结构</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%912.%E4%BB%80%E4%B9%88%E6%98%AF%E7%AE%97%E6%B3%95/"><span class="paginator-prev__text">【数据结构】2.什么是算法</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-问-为什么当插入和删除时，就要移动大量的元素？"><span class="toc-text">
+          1. 问:为什么当插入和删除时，就要移动大量的元素？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-线性表链式存储结构定义"><span class="toc-text">
+          2. 线性表链式存储结构定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-数据域、指针域、指针或链、结点"><span class="toc-text">
+          2.1 数据域、指针域、指针或链、结点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-单链表"><span class="toc-text">
+          2.2 单链表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-头指针与头结点的异同"><span class="toc-text">
+          2.2.1 头指针与头结点的异同</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#头指针"><span class="toc-text">
+          头指针</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#头结点"><span class="toc-text">
+          头结点</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-C语言中可以用结构指针来描述单链表"><span class="toc-text">
+          2.2.2 C语言中可以用结构指针来描述单链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-单链表的插入"><span class="toc-text">
+          2.2.4 单链表的插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-单链表的删除"><span class="toc-text">
+          2.2.5 单链表的删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-6-单链表的总结"><span class="toc-text">
+          2.2.6 单链表的总结</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

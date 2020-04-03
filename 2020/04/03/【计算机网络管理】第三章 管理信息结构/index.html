@@ -1,0 +1,517 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="本章重难点       本章一般会出选择题、填空题和简单题，分值在15-20分左右                     本章的重难点和常考知识点        SNMP基本概念（常考选择题、简单题） SNMP管理信息结构（常考选择题、综合题） MIB树结构（常考选择题、填空题） MIB-2功能组（常考选择题、简单题）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【计算机网络管理】第三章 管理信息结构">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="本章重难点       本章一般会出选择题、填空题和简单题，分值在15-20分左右                     本章的重难点和常考知识点        SNMP基本概念（常考选择题、简单题） SNMP管理信息结构（常考选择题、综合题） MIB树结构（常考选择题、填空题） MIB-2功能组（常考选择题、简单题）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/gZx8U9LHNwThV4f.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/21/qiKxDjZ1tyEHmfY.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/btXmj9dnSgiRoDW.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/nPYde31T5NzMCkh.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/DCzXga58WspUulb.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/qTOMBQhsWgrf7lE.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/cVr5gQblWifAF9U.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/NJG9ejI8dXFzc2A.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:19:39.554Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="计算机网络管理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/23/gZx8U9LHNwThV4f.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【计算机网络管理】第三章 管理信息结构</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%BB%93%E6%9E%84/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【计算机网络管理】第三章 管理信息结构</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><p><img src="https://i.loli.net/2020/03/23/gZx8U9LHNwThV4f.png" alt="网络管理-第三章管理信息结构-脑图-min.png"></p>
+
+        <h2 id="本章重难点"   >
+          <a href="#本章重难点" class="heading-link"><i class="fas fa-link"></i></a>本章重难点</h2>
+      <p>本章一般会出选择题、填空题和简单题，分值在15-20分左右</p>
+
+        <h3 id="本章的重难点和常考知识点"   >
+          <a href="#本章的重难点和常考知识点" class="heading-link"><i class="fas fa-link"></i></a>本章的重难点和常考知识点</h3>
+      <ul>
+<li>SNMP基本概念（常考<code>选择题</code>、<code>简单题</code>）</li>
+<li>SNMP管理信息结构（常考<code>选择题</code>、<code>综合题</code>）</li>
+<li>MIB树结构（常考<code>选择题</code>、<code>填空题</code>）</li>
+<li>MIB-2功能组（常考<code>选择题</code>、<code>简单题</code>）</li>
+</ul>
+<a id="more"></a>
+
+
+        <h2 id="一、SNMP的基本概念"   >
+          <a href="#一、SNMP的基本概念" class="heading-link"><i class="fas fa-link"></i></a>一、SNMP的基本概念</h2>
+      
+        <h3 id="1-1-TCP-IP协议簇及管理框架"   >
+          <a href="#1-1-TCP-IP协议簇及管理框架" class="heading-link"><i class="fas fa-link"></i></a>1.1 TCP/IP协议簇及管理框架</h3>
+      <p>TCP/IP协议栈</p>
+<p><img src="https://i.loli.net/2020/03/21/qiKxDjZ1tyEHmfY.png" alt="网络管理-管理信息结构-TCPIP协议栈1-min.png"></p>
+
+        <h3 id="1-2-SNMP管理TCP-IP的运行，它由两部分组成"   >
+          <a href="#1-2-SNMP管理TCP-IP的运行，它由两部分组成" class="heading-link"><i class="fas fa-link"></i></a>1.2 SNMP管理TCP/IP的运行，它由两部分组成</h3>
+      <ul>
+<li>SNMP<ul>
+<li>管理信息库结构的定义</li>
+<li>访问管理信息库的协议规范</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="1-3-SNMP体系结构"   >
+          <a href="#1-3-SNMP体系结构" class="heading-link"><i class="fas fa-link"></i></a>1.3 SNMP体系结构</h3>
+      <p>网络管理的体系结构-协议、团体、委托代理</p>
+<p><img src="https://i.loli.net/2020/03/23/btXmj9dnSgiRoDW.png" alt="网络管理-SNMP体系结构1-min.png"></p>
+
+        <h2 id="二、SNMP的管理信息结构"   >
+          <a href="#二、SNMP的管理信息结构" class="heading-link"><i class="fas fa-link"></i></a>二、SNMP的管理信息结构</h2>
+      
+        <h3 id="2-1-标量对象和表对象"   >
+          <a href="#2-1-标量对象和表对象" class="heading-link"><i class="fas fa-link"></i></a>2.1 标量对象和表对象</h3>
+      
+        <h4 id="SMI中只存储标量数据和二维数组"   >
+          <a href="#SMI中只存储标量数据和二维数组" class="heading-link"><i class="fas fa-link"></i></a>SMI中只存储标量数据和二维数组</h4>
+      <ul>
+<li>SMI<ul>
+<li>标量对象（简单对象和列对象）</li>
+<li>表对象（二维数组对象）</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="TCP连接表"   >
+          <a href="#TCP连接表" class="heading-link"><i class="fas fa-link"></i></a>TCP连接表</h4>
+      <p><img src="https://i.loli.net/2020/03/23/nPYde31T5NzMCkh.png" alt="网络管理-SNMP的管理信息结构-TCP连接表1-min.png"></p>
+
+        <h4 id="对象实例的标识"   >
+          <a href="#对象实例的标识" class="heading-link"><i class="fas fa-link"></i></a>对象实例的标识</h4>
+      <p><img src="https://i.loli.net/2020/03/23/DCzXga58WspUulb.png" alt="网络管理-SNMP体系结构-列对象实例的标识1-min.png"></p>
+
+        <h3 id="2-2-词典顺序"   >
+          <a href="#2-2-词典顺序" class="heading-link"><i class="fas fa-link"></i></a>2.2 词典顺序</h3>
+      <ul>
+<li>对象标识符是整数序列，这种序列反映了该对象在MIB中逻辑位置，同时表示了一种词典顺序。</li>
+<li>按照一定的方式遍历MIB树，就可以排除所以对象及其实例的词典顺序。</li>
+</ul>
+<p>对象及其实列的词典顺序<br> <img src="https://i.loli.net/2020/03/23/qTOMBQhsWgrf7lE.png" alt="网络管理-管理结构-词典顺序-min.png"></p>
+
+        <h3 id="2-3-问题"   >
+          <a href="#2-3-问题" class="heading-link"><i class="fas fa-link"></i></a>2.3 问题</h3>
+      <p>在对象标识树中，SNMP操作可以访问的是（叶子节点）</p>
+<p>【解析】MIB树中的叶子节点代表了管理对象，是SNMP操作访问的对象，中间结点的作用是对管理对象进行分类，不是SNMP操作对象。</p>
+
+        <h2 id="三、MIB树结构"   >
+          <a href="#三、MIB树结构" class="heading-link"><i class="fas fa-link"></i></a>三、MIB树结构</h2>
+      <p><img src="https://i.loli.net/2020/03/23/cVr5gQblWifAF9U.png" alt="网络管理-MIB树结构1-min.png"></p>
+
+        <h3 id="3-1-MIB简介"   >
+          <a href="#3-1-MIB简介" class="heading-link"><i class="fas fa-link"></i></a>3.1 MIB简介</h3>
+      <p>层次树结构–有3个作用</p>
+<ul>
+<li>表示管理和控制关系</li>
+<li>提供结构化的信息组织形式</li>
+<li>提供了对象命名机制</li>
+</ul>
+
+        <h3 id="3-2-MIB中数据类型"   >
+          <a href="#3-2-MIB中数据类型" class="heading-link"><i class="fas fa-link"></i></a>3.2 MIB中数据类型</h3>
+      <ul>
+<li><p>MIB由一系列的对象组成。每个对象属于一定的对象类型，并且有一个具体的值。</p>
+</li>
+<li><p>SNMP的对象是用ASN.1定义的，为了保持简单性，仅用到了ASN.1的一个子集。 </p>
+<p><img src="https://i.loli.net/2020/03/23/NJG9ejI8dXFzc2A.png" alt="网络管理-MIB中数据类型1-min.png"></p>
+</li>
+</ul>
+
+        <h3 id="3-3-管理信息结构的定义"   >
+          <a href="#3-3-管理信息结构的定义" class="heading-link"><i class="fas fa-link"></i></a>3.3 管理信息结构的定义</h3>
+      <ul>
+<li><p>对象类型的宏定义</p>
+<ul>
+<li>SYNTAX:表示对象类型的抽象语法</li>
+<li>ACCESS:定义访问对象的方式</li>
+<li>STATUS:说明实现是否支持这种对象</li>
+</ul>
+</li>
+<li><p>宏实例</p>
+<ul>
+<li>用具体的值代替宏定义的变量</li>
+<li>表示实际的ASN.1类型</li>
+<li>规定了该类型可取值的集合</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="四、MIB-2功能组"   >
+          <a href="#四、MIB-2功能组" class="heading-link"><i class="fas fa-link"></i></a>四、MIB-2功能组</h2>
+      
+        <h3 id="4-1-系统组、接口组、地址转换组"   >
+          <a href="#4-1-系统组、接口组、地址转换组" class="heading-link"><i class="fas fa-link"></i></a>4.1 系统组、接口组、地址转换组</h3>
+      <ul>
+<li>系统组<ul>
+<li>包含最常用的被管对象</li>
+<li>失效管理</li>
+<li>配置管理</li>
+</ul>
+</li>
+<li>接口组<ul>
+<li>包括关于主键接口的配置信息和统计信息</li>
+<li>失效管理</li>
+<li>配置管理</li>
+<li>性能管理</li>
+<li>计费管理</li>
+</ul>
+</li>
+<li>地址转换组<ul>
+<li>每一行对应系统的一个物理接口</li>
+<li>表示网络地址到物理地址的映射</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="4-2-IP组、ICMP组"   >
+          <a href="#4-2-IP组、ICMP组" class="heading-link"><i class="fas fa-link"></i></a>4.2 IP组、ICMP组</h3>
+      <ul>
+<li>IP组<ul>
+<li>提供了与IP协议有关的信息</li>
+<li>失效管理</li>
+<li>配置管理</li>
+<li>性能管理</li>
+<li>计费管理</li>
+</ul>
+</li>
+<li>ICMP组<ul>
+<li>关于实体的ICMP信息的对象</li>
+<li>接受或发送的ICMP报文的统计数据</li>
+<li>性能管理</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="4-3-TCP组、UDP组、EGP组"   >
+          <a href="#4-3-TCP组、UDP组、EGP组" class="heading-link"><i class="fas fa-link"></i></a>4.3 TCP组、UDP组、EGP组</h3>
+      <ul>
+<li>TCP组<ul>
+<li>包含TCP系统对象和TCP连接表</li>
+<li>配置管理</li>
+<li>性能管理</li>
+<li>计费管理</li>
+</ul>
+</li>
+<li>UDP组<ul>
+<li>包含发送和接收数据报的对象</li>
+<li>包含udp Table表</li>
+<li>性能管理</li>
+<li>计费管理</li>
+</ul>
+</li>
+<li>EGP组<ul>
+<li>两个自制系统中的路由器之间交换路由信息的协议</li>
+<li>失效管理</li>
+<li>配置管理</li>
+<li>性能管理</li>
+</ul>
+</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/">计算机网络管理</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E3%80%91%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E5%AE%9E%E7%94%A8%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【计算机网络管理】第七章 实用网络管理系统</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E3%80%91%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E8%A1%A8%E7%A4%BAASN.1/"><span class="paginator-prev__text">【计算机网络管理】第二章 抽象语法表示ASN.1</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本章重难点"><span class="toc-text">
+          本章重难点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#本章的重难点和常考知识点"><span class="toc-text">
+          本章的重难点和常考知识点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、SNMP的基本概念"><span class="toc-text">
+          一、SNMP的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-TCP-IP协议簇及管理框架"><span class="toc-text">
+          1.1 TCP&#x2F;IP协议簇及管理框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-SNMP管理TCP-IP的运行，它由两部分组成"><span class="toc-text">
+          1.2 SNMP管理TCP&#x2F;IP的运行，它由两部分组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-SNMP体系结构"><span class="toc-text">
+          1.3 SNMP体系结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、SNMP的管理信息结构"><span class="toc-text">
+          二、SNMP的管理信息结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-标量对象和表对象"><span class="toc-text">
+          2.1 标量对象和表对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SMI中只存储标量数据和二维数组"><span class="toc-text">
+          SMI中只存储标量数据和二维数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP连接表"><span class="toc-text">
+          TCP连接表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对象实例的标识"><span class="toc-text">
+          对象实例的标识</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-词典顺序"><span class="toc-text">
+          2.2 词典顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-问题"><span class="toc-text">
+          2.3 问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、MIB树结构"><span class="toc-text">
+          三、MIB树结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-MIB简介"><span class="toc-text">
+          3.1 MIB简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-MIB中数据类型"><span class="toc-text">
+          3.2 MIB中数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-管理信息结构的定义"><span class="toc-text">
+          3.3 管理信息结构的定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、MIB-2功能组"><span class="toc-text">
+          四、MIB-2功能组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-系统组、接口组、地址转换组"><span class="toc-text">
+          4.1 系统组、接口组、地址转换组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-IP组、ICMP组"><span class="toc-text">
+          4.2 IP组、ICMP组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-TCP组、UDP组、EGP组"><span class="toc-text">
+          4.3 TCP组、UDP组、EGP组</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>

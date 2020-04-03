@@ -1,0 +1,736 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="学习目的与要求       图是一种有广泛应用背景的数据结构。 本章在运算实现方面着重研究图遍历这一常用运算的实现，以及最小生成树、单源最短路径和拓扑排序等典型的应用问题的求解。                     本章总的要求        理解图的概念并熟悉有关术语； 熟练掌握图的邻接矩阵表示法和邻接表表示法； 深刻理解连通图遍历与基本思想和算法；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据结构】第五章 图">
+<meta property="og:url" content="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%9B%BE/index.html">
+<meta property="og:site_name" content="Qiuzp的技术博客">
+<meta property="og:description" content="学习目的与要求       图是一种有广泛应用背景的数据结构。 本章在运算实现方面着重研究图遍历这一常用运算的实现，以及最小生成树、单源最短路径和拓扑排序等典型的应用问题的求解。                     本章总的要求        理解图的概念并熟悉有关术语； 熟练掌握图的邻接矩阵表示法和邻接表表示法； 深刻理解连通图遍历与基本思想和算法；">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/03/31/tqRKLUire6aPHbJ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/SQHjP1okya43eUM.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/p1yJ6kFm5VTGMNg.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/27/JUvYW1PwRNCdtq9.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/27/D2TfHPlQYZxOmCB.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/CysxSeT3cjznwph.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/VqFWJC4zEUG5BjH.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/MHOxjEeunqITPlQ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/uPH1Zmsi3qSpzAC.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/VhXZyDAOE4zg1Uu.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/kafD8vR5I2mBLMn.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/7KVgvfIMzrGaTp1.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/28/KWXipmqzjPMdnSs.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/30/xJu6kmzw5fU4nY7.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/30/c4RH3sbyvGM6gn2.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/30/jaNTJ5WruxyS4L2.png">
+<meta property="article:published_time" content="2020-04-03T03:57:20.000Z">
+<meta property="article:modified_time" content="2020-04-03T12:25:06.430Z">
+<meta property="article:author" content="Qiuzp">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/31/tqRKLUire6aPHbJ.png"><meta name="keywords" content="Qiuzp, Qiuzp的技术博客"><meta name="description"><title>【数据结构】第五章 图</title><link ref="canonical" href="https://qiuzp.com/2020/04/03/%E3%80%90%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%91%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%9B%BE/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【数据结构】第五章 图</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><p><img src="https://i.loli.net/2020/03/31/tqRKLUire6aPHbJ.png" alt="数据结构-第五章-图-脑图-min.png"></p>
+
+        <h2 id="学习目的与要求"   >
+          <a href="#学习目的与要求" class="heading-link"><i class="fas fa-link"></i></a>学习目的与要求</h2>
+      <p>图是一种有广泛应用背景的数据结构。</p>
+<p>本章在运算实现方面着重研究图遍历这一常用运算的实现，以及最小生成树、单源最短路径和拓扑排序等典型的应用问题的求解。</p>
+
+        <h3 id="本章总的要求"   >
+          <a href="#本章总的要求" class="heading-link"><i class="fas fa-link"></i></a>本章总的要求</h3>
+      <ul>
+<li>理解图的概念并熟悉有关术语；</li>
+<li>熟练掌握图的邻接矩阵表示法和邻接表表示法；</li>
+<li>深刻理解连通图遍历与基本思想和算法；</li>
+<li>理解最小生产树的有关概念和算法</li>
+<li>理解图的最短路径的有关概念和算法</li>
+<li>理解拓扑排序的有关概念和算法。</li>
+</ul>
+<a id="more"></a>
+
+
+
+        <h2 id="一、图的基本概念"   >
+          <a href="#一、图的基本概念" class="heading-link"><i class="fas fa-link"></i></a>一、图的基本概念</h2>
+      
+        <h3 id="1-1-图的定义和术语"   >
+          <a href="#1-1-图的定义和术语" class="heading-link"><i class="fas fa-link"></i></a>1.1 图的定义和术语</h3>
+      
+        <h4 id="有向图、无向图"   >
+          <a href="#有向图、无向图" class="heading-link"><i class="fas fa-link"></i></a>有向图、无向图</h4>
+      <ul>
+<li>图G有两个集合V和E组成，记为G=（V,E）,其中，V是顶点的<code>有穷非空</code>集合；</li>
+<li>E是边的集合，边是V中顶点的偶对。</li>
+<li>如果边是有方向的则称图为有向图，否则称为无向图。</li>
+<li>偶对<code>&lt;v,w&gt;</code>表示有向图中从顶点v到顶点w有一条边；</li>
+<li>偶对<code>&lt;v,w&gt;</code>表示无向图中顶点v到顶点w间有一条边</li>
+</ul>
+
+        <h4 id="弧、弧头、弧尾"   >
+          <a href="#弧、弧头、弧尾" class="heading-link"><i class="fas fa-link"></i></a>弧、弧头、弧尾</h4>
+      <ul>
+<li>有向图的边称为弧。</li>
+<li><code>&lt;v,w&gt;</code>表示有向图G中从v到w的一条边，v称为弧尾或始点，</li>
+<li>w称为弧头或终点。</li>
+</ul>
+
+        <h4 id="无向完全图"   >
+          <a href="#无向完全图" class="heading-link"><i class="fas fa-link"></i></a>无向完全图</h4>
+      <p>任何两点之间都有边的无向图。一个具有n个顶点的无向完全图的边数为C_n^2 = n(n -1)/2。</p>
+
+        <h4 id="有向完全图"   >
+          <a href="#有向完全图" class="heading-link"><i class="fas fa-link"></i></a>有向完全图</h4>
+      <p>任何两点之间都有弧的有向图称为有向完全图。一个具有n个顶点的有向完全图的弧树为p_n^2 = n(n -1）</p>
+
+        <h4 id="权、带权图"   >
+          <a href="#权、带权图" class="heading-link"><i class="fas fa-link"></i></a>权、带权图</h4>
+      <p>图的边附带数值，这个数值叫权。权在实际应用中可表示从一个顶点到另一个顶点的距离、代价或耗费等。每条边都带权的图称为带权图。</p>
+
+        <h4 id="顶点的度、入度、出度"   >
+          <a href="#顶点的度、入度、出度" class="heading-link"><i class="fas fa-link"></i></a>顶点的度、入度、出度</h4>
+      <ul>
+<li>无向图中顶点v的度是与该顶点相关联的边的数目。</li>
+<li>如果G是一个有向图，则把以顶点v为终点的的数目称为v的入度。把以顶点v的始点的弧的数目称为v的出度。</li>
+<li>有向图中顶点v的度为入度与出度的和。</li>
+</ul>
+
+        <h4 id="子图"   >
+          <a href="#子图" class="heading-link"><i class="fas fa-link"></i></a>子图</h4>
+      <p>设G=(V、E)是一个图，若E’是E的子集，V’是V的子集，并且E’中的边仅与V’中的顶点相关联，则图G’= （V’,E’）称为图G的子图。</p>
+<p><img src="https://i.loli.net/2020/03/26/SQHjP1okya43eUM.png" alt="数据结构-图-有无向图-min.png"><br><img src="https://i.loli.net/2020/03/26/p1yJ6kFm5VTGMNg.png" alt="数据结构-图-子图-min.png"></p>
+
+        <h4 id="路径、路径长度"   >
+          <a href="#路径、路径长度" class="heading-link"><i class="fas fa-link"></i></a>路径、路径长度</h4>
+      <p>路径上边（或弧）的数目称为路径长度</p>
+
+        <h4 id="简单路径、回路、简单回路"   >
+          <a href="#简单路径、回路、简单回路" class="heading-link"><i class="fas fa-link"></i></a>简单路径、回路、简单回路</h4>
+      <ul>
+<li>序列中顶点不重复出现的路径称为简单路径。</li>
+<li>第一个顶点与最后一个顶点相同的路径称为回路或环。</li>
+<li>除了第一个顶点和最后一个顶点外，其余顶点不重复的回路，称为简单回路或简单环。</li>
+</ul>
+
+        <h4 id="连通、连通图、连通分量"   >
+          <a href="#连通、连通图、连通分量" class="heading-link"><i class="fas fa-link"></i></a>连通、连通图、连通分量</h4>
+      <ul>
+<li><p>在无向图中，如果从顶点V到顶点V’有路径，则称V和V’是连通的。</p>
+</li>
+<li><p>如果图中的任意两个顶点V_i和V_j都是连通的，则称G为连通图。</p>
+</li>
+<li><p>图5-2中G2是一个连通图。</p>
+</li>
+<li><p>图5-5a存在多个不连通顶点。</p>
+</li>
+<li><p>例如，V_0和V_3是不连通的，所以G3是非连通图，G3有两个非连桶图，G3有连个连通分量。</p>
+</li>
+<li><p>如图5-5b所示。连通分量是无向图中的极大连通子图。</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2020/03/27/JUvYW1PwRNCdtq9.png" alt="数据结构-图-连通图-min.png"></p>
+
+        <h4 id="强连通、强连通图、强连通分量："   >
+          <a href="#强连通、强连通图、强连通分量：" class="heading-link"><i class="fas fa-link"></i></a>强连通、强连通图、强连通分量：</h4>
+      <p>对于有向图来说，如果图中任意一对顶点V_i和V_j（其中i！=j）都有顶点V_i到顶点V_j的路径，也有从V_j到V_i的路径，即两个顶点间双向连通，那么称为该有向图是强连通图。有向图的强大强连通子图称为强连通分量。</p>
+<p><img src="https://i.loli.net/2020/03/27/D2TfHPlQYZxOmCB.png" alt="数据结构-图-强连桶分量-min.png"></p>
+
+        <h4 id="生成树"   >
+          <a href="#生成树" class="heading-link"><i class="fas fa-link"></i></a>生成树</h4>
+      <ul>
+<li>一个连通图的生成树，是含有该连通图的全部顶点的一个极小连通子图。</li>
+<li>若连通图G的顶点个数为n，则G的生成树的边数为n-1。</li>
+<li>如果G的一个子图G’的边数大于n-1，则G’中一定有环。</li>
+<li>相反，如果G’的边数小于n-1，则G’一定不连通。</li>
+</ul>
+
+        <h4 id="生成森林"   >
+          <a href="#生成森林" class="heading-link"><i class="fas fa-link"></i></a>生成森林</h4>
+      <ul>
+<li>在非连通图中，由每个连通分量都可得到一个极小连通子图，即一棵生成树。</li>
+<li>那么这些连通分量的生成树就组成了一个非连通图的生成森林。</li>
+</ul>
+
+        <h3 id="1-2-图的基本运算"   >
+          <a href="#1-2-图的基本运算" class="heading-link"><i class="fas fa-link"></i></a>1.2 图的基本运算</h3>
+      <ol>
+<li>建立图CreateGraph（G,V,E):建立一个图G，其中V是G的顶点集合，E是G的边的集合。</li>
+<li>取顶点信息GetVex（G,u）:获取图G中顶点u的信息</li>
+<li>取边信息Getarc(G,u,v):获取图G中边(u，v)或&lt;u,v&gt;的信息</li>
+<li>查询第一个邻接点FirstVex（G，u）:获取图G中顶点u的第一个邻接点；</li>
+<li>查询下一个邻接点NextVex(G,u,v):已知v是u的一个邻接点，获取图G中顶点u的下一个邻接点。</li>
+<li>插入顶点InsertVex（G,v）:在图G中插入一个顶点v；</li>
+<li>删除顶点DeleteVex（G,v）:在图G中删除一个顶点v；</li>
+<li>插入边InsertArc（G,v,w）:在图G中插入一条边（v,w）或&lt;v,w&gt;;</li>
+<li>删除边DeleteArc（G,v,w）:在图G中删除一条边(v,w)或者&lt;v,w&gt;；</li>
+<li>遍历图Traverse（G,tag):遍历图G，使G中每一个顶点被访问一次且仅被访问一次，当tag=0；则遍历的方法为深度优先搜索,当tag=1,则遍历的方法为广度优先搜索。</li>
+</ol>
+
+        <h2 id="二、图的存储结构"   >
+          <a href="#二、图的存储结构" class="heading-link"><i class="fas fa-link"></i></a>二、图的存储结构</h2>
+      
+        <h3 id="2-1-邻接矩阵"   >
+          <a href="#2-1-邻接矩阵" class="heading-link"><i class="fas fa-link"></i></a>2.1 邻接矩阵</h3>
+      <p>邻接矩阵就是用矩阵来描述图中顶点之间的关联关系，在程序设计语言中我们用二维数组来表示矩阵</p>
+<p>设G=（V,E）是一个图，其中V={V_0,V_1,…V_n-1},那么G的邻接矩阵A定义为如下的n阶方阵</p>
+<p><img src="https://i.loli.net/2020/03/28/CysxSeT3cjznwph.png" alt="数据结构-图-邻接矩阵-min.png"></p>
+<p><img src="https://i.loli.net/2020/03/28/VqFWJC4zEUG5BjH.png" alt="数据结构-图-邻接矩阵1-min.png"></p>
+
+        <h4 id="类型定义如下"   >
+          <a href="#类型定义如下" class="heading-link"><i class="fas fa-link"></i></a>类型定义如下</h4>
+      <figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> vnum = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">gp</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    VertexType vexs[vnum]；<span class="comment">//顶点信息</span></span><br><span class="line">    <span class="keyword">int</span> arcs[vnum][vnum]；<span class="comment">//邻接矩阵</span></span><br><span class="line">    <span class="keyword">int</span> vexnum,arcnum; <span class="comment">//顶点树，边数</span></span><br><span class="line">&#125;Graph;</span><br></pre></td></tr></table></div></figure>
+
+<p><img src="https://i.loli.net/2020/03/28/MHOxjEeunqITPlQ.png" alt="数据结构-图-邻接矩阵-带权图-min.png"></p>
+<p><img src="https://i.loli.net/2020/03/28/uPH1Zmsi3qSpzAC.png" alt="数据结构-图-邻接矩阵2-min.png"></p>
+<ul>
+<li>a 有向带权图</li>
+<li>b 有向带权图的邻接矩阵</li>
+<li>c 无向带权图</li>
+<li>d 无向带权图的邻接矩阵</li>
+</ul>
+<p>带权图的邻接矩阵表示的类型定义做如下的修改：</p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> vnum = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAT_INT = <span class="number">32767</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">gp</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    VertexType vexs[vnum];</span><br><span class="line">    WeightType arcs[vnum][vnum];</span><br><span class="line">    <span class="keyword">int</span> vexnum,arcnum;</span><br><span class="line">&#125;WGraph;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="2-2-邻接表"   >
+          <a href="#2-2-邻接表" class="heading-link"><i class="fas fa-link"></i></a>2.2 邻接表</h3>
+      <ul>
+<li>邻接表示顺序存储与链式存储相结合的存储方法。</li>
+<li>在邻接表中，对图中每个顶点简历一个单链表。</li>
+<li>每一个单链表设一个表头结点，为了便于随机访问，将所以单链表的头结点组成一个一维数组。</li>
+<li>单链表中每一个结点称为表结点，包括两个域:邻接点（adjvex）和链域（nexttarc）,在带权图的表结点中增加一个权值域，用于存储边的权值（weight）</li>
+</ul>
+<p><img src="https://i.loli.net/2020/03/28/VhXZyDAOE4zg1Uu.png" alt="数据结构-图-邻接表-表头和表结点形式-min.png"></p>
+<p><img src="https://i.loli.net/2020/03/28/kafD8vR5I2mBLMn.png" alt="数据结构-图-邻接表-无向图G2-min.png"></p>
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> vnum 20</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">arcnode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> adjvex; <span class="comment">//下一条边的顶点编号</span></span><br><span class="line">    WeightType weight <span class="comment">//带权图的权值域，若是非带权图，可不用该与</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">arcnode</span> *<span class="title">nextarc</span>;</span>指向下一条边的指针</span><br><span class="line">&#125;ArcNode</span><br></pre></td></tr></table></div></figure>
+
+
+
+<figure class="highlight c"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">vexnode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> vertex; <span class="comment">//顶点编号</span></span><br><span class="line">    ArcNode *firstarc;<span class="comment">//指向第一条边的指针</span></span><br><span class="line">&#125;AdjList[vnum];</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">gp</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    AdjList adjlist;</span><br><span class="line">    <span class="keyword">int</span> vexnum;arcnum; <span class="comment">//顶点和边的个数</span></span><br><span class="line">&#125;Graph;</span><br></pre></td></tr></table></div></figure>
+
+<p>如果一个无向图有n个顶点，e条边，那么它的邻接表需要n个头结点和2e个表结点。显然，在边稀疏（e&lt;&lt;n(n-1)/2）的情况下，用邻接表表示比用邻接矩阵介绍存储空间。</p>
+<p>在邻接表上如何求顶点的度？无向图中顶点v_i的度恰为第i个单链表中的结点数。对有向图，第i个单链表中的结点个数只是顶点V_i的出度。为了求入度，必须遍历整个邻接表。在所有单链表中其邻接点域的值为i的结点的格式是顶点V_i的入度。</p>
+<p> 对于有向图，有时需要建立一个逆邻接表，即对每个顶点V_i建立一个以V_i为弧头的邻接点的链表。这同邻接表正好相反。对于逆邻接表可以很容易求出V_i的入度。</p>
+<p>  <img src="https://i.loli.net/2020/03/28/7KVgvfIMzrGaTp1.png" alt="数据结构-图-邻接表-逆邻接表-min.png"></p>
+
+        <h2 id="三、图的遍历"   >
+          <a href="#三、图的遍历" class="heading-link"><i class="fas fa-link"></i></a>三、图的遍历</h2>
+      
+        <h3 id="3-1-连通图的深度优先搜索"   >
+          <a href="#3-1-连通图的深度优先搜索" class="heading-link"><i class="fas fa-link"></i></a>3.1 连通图的深度优先搜索</h3>
+      <p>连通图深度优先搜索的基本思想<br>假定以图中某个顶点V_i为出发点，首先访问出发点V_i,然后任选一个V_i的未访问过的邻接点V_j,以V_j为新的出发点继续进行深度优先搜索，依此类推，直至图中所有顶点都被访问过。显然，图的深度优先搜索可以看出一个递归过程。</p>
+<p><img src="https://i.loli.net/2020/03/28/KWXipmqzjPMdnSs.png" alt="数据结构-图-图的遍历-min.png"></p>
+<p>需要注意两点</p>
+<ul>
+<li>搜索到达某个顶点事（图中仍有顶点未被访问)，如果这个顶点的所以邻接点都被访问过，那么搜索就要回到前一个被访问的顶点，再从该顶点的下一未被访问的邻接点开始深度优先搜索</li>
+<li>深度搜索的顶点的访问序列不是唯一的<ul>
+<li>以邻接表为存储结构，深度优先搜索算法的时间复杂度是O(n+e),其中n为图的顶点数，e为图的边数。采用邻接矩阵作为存储结构，深度优先搜索算法的时间复杂度是O(n^2),其中n为图的顶点树。</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="3-2-连通图的广度优先搜索"   >
+          <a href="#3-2-连通图的广度优先搜索" class="heading-link"><i class="fas fa-link"></i></a>3.2 连通图的广度优先搜索</h3>
+      <p>连通图广度优先搜索的基本思想：</p>
+<ul>
+<li>从图中某个顶点V_i出发，在访问了V_i之后依次访问V_i的所有邻接点，</li>
+<li>然后依次从这些邻接点出发按广度优先搜索方法遍历图的其他顶点</li>
+<li>重复着一过程，直至所有顶点都被访问到。</li>
+<li>广度优先搜索遍历类似于树的按层次遍历的过程。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/03/30/xJu6kmzw5fU4nY7.png" alt="数据结构-图-广度优先搜索-min.png"></p>
+
+        <h2 id="四、图的应用"   >
+          <a href="#四、图的应用" class="heading-link"><i class="fas fa-link"></i></a>四、图的应用</h2>
+      
+        <h3 id="4-1-最小生成树"   >
+          <a href="#4-1-最小生成树" class="heading-link"><i class="fas fa-link"></i></a>4.1 最小生成树</h3>
+      
+        <h4 id="4-1-1-最小生产树的概念"   >
+          <a href="#4-1-1-最小生产树的概念" class="heading-link"><i class="fas fa-link"></i></a>4.1.1 最小生产树的概念</h4>
+      <p>连通图的一次遍历所经过边的集合及图中所有顶点的集合就构成该图的一棵生成树。</p>
+<p>连通图的变量序列不是唯一的所以能得到不同的生成树。</p>
+
+        <h4 id="4-1-2-构造最小生成树的Prim算法"   >
+          <a href="#4-1-2-构造最小生成树的Prim算法" class="heading-link"><i class="fas fa-link"></i></a>4.1.2 构造最小生成树的Prim算法</h4>
+      <p>Prim算法的基本思想如下。假设G=(V,E)是一个带权图，生成的最小生成树为MinT = （V,T），其中V为顶点的集合，T为边的集合。求T的步骤如下：</p>
+<ol>
+<li><p>初始化：U={u_0},T={}。其中U为一个新设置的顶点的集合，初始U中只含有顶点u_0,这里假设在构造最小生成树时，从顶点u_0出发；</p>
+</li>
+<li><p>对于所有u属于U，v属于V-U(其中u,v表示顶点)的边（u,v）中，找一条权最小的边（u’,v’）,将这条边加入到集合T中，将顶点V’加入到集合U中;</p>
+</li>
+<li><p>如果U=V，则算法结束;否则重复第（2）、（3）步。最后得到最小生成树MinT = &lt;V,T&gt;,其中T为最小生成树的集合。</p>
+<p><img src="https://i.loli.net/2020/03/30/c4RH3sbyvGM6gn2.png" alt="数据结构-图-Prim算法求最小生成树-min.png"></p>
+</li>
+</ol>
+
+        <h4 id="4-1-3-构造最小生成树的克鲁斯卡尔算法"   >
+          <a href="#4-1-3-构造最小生成树的克鲁斯卡尔算法" class="heading-link"><i class="fas fa-link"></i></a>4.1.3 构造最小生成树的克鲁斯卡尔算法</h4>
+      <p>克鲁斯卡尔（Kruskal）算法是另一种构造最小生成树的方法，这里给出该算法的思想。</p>
+<ol>
+<li>设G=（V,E）,令最小生成树初始状态为只有n个顶点而无边的非连通图T=（V,{}）,每个顶点自成一个连通分量</li>
+<li>在E中选取代价最小的边，若该边依附的顶点落在T中不同的连通分量上，则将此边加入到T中，否则，舍去此边，选取下一条代价最小的边；</li>
+<li>依次类推，重复2，直至T中所有顶点都在同意连通分量上为止。</li>
+</ol>
+<p><img src="https://i.loli.net/2020/03/30/jaNTJ5WruxyS4L2.png" alt="数据结构-图-用Kruskal求最小生成树-min.png"></p>
+
+        <h4 id="4-1-4-单源最短路径"   >
+          <a href="#4-1-4-单源最短路径" class="heading-link"><i class="fas fa-link"></i></a>4.1.4 单源最短路径</h4>
+      <p>单源最短路径：给定一个带权有向图G=（V,E),其中每条边的权是非负实数。另外，给定V中的一个顶点，称为源。要计算从源到其他各顶点的最短路径长度。这里的长度是指路径上各边权值之和。</p>
+
+        <h5 id="Dijkstra算法"   >
+          <a href="#Dijkstra算法" class="heading-link"><i class="fas fa-link"></i></a>Dijkstra算法</h5>
+      <p>Dijkstra算法（迪杰斯特拉）求单源最短路径问题的基本思想:</p>
+<ul>
+<li>设置顶点集合S,开始时S中只含有源点V。</li>
+<li>设u是G的某一个顶点，把从1源点v到u且中间只经过S中顶点的路径称为从源到u的特殊路径，</li>
+<li>并用数据dist记录当前从源点v到其他每个顶点所对应的最短特殊路径长度，</li>
+<li>dist[u]的初值设置为弧&lt;v,u&gt;的权值，若弧&lt;v,u&gt;不存在，则dist[u]的初值设置为∞，或用MAX_INT表示。</li>
+</ul>
+<p>Dijkstra算法每次从V-S中取出具有最短特殊路径长度的顶点u，将u添加到S中，如果dist[u]+g.arcs[u][j]&lt;dist[j],则对数组dist做必要的修改，即将dist[j]的值改为dist[u]+g.arcs[u][j].这里g.arcs[u][j]表示图中弧&lt;u,j&gt;的权值。<br>当S包含了所以V中顶点，dist就记录了从源到所有其他顶点的最短路径长度，即dist[u]表示最终从源点v到顶点u的最短路径长度。</p>
+
+        <h3 id="4-2-拓扑排序"   >
+          <a href="#4-2-拓扑排序" class="heading-link"><i class="fas fa-link"></i></a>4.2 拓扑排序</h3>
+      <p>在工程实践中，一个工程项目往往由若干个字项目组成，这些子项目间往往有两中关系：</p>
+<ol>
+<li>先后关系</li>
+<li>子项目间五关系。</li>
+</ol>
+<p>这类问题都可以用有向图来进行描述，我们把这些子项目、零部件、课程看成是一个个顶点，把那些有前后关系的顶点用一条有向边连接。<br>现在要从这些有向图上分别找出一个施工流程图、产品生产流程图、课程学习流程图、以便顺利进行施工、产品生产和课程学习，解决这些问题可以采用拓扑排序的方法。</p>
+
+        <h4 id="4-2-1-AOV网"   >
+          <a href="#4-2-1-AOV网" class="heading-link"><i class="fas fa-link"></i></a>4.2.1 AOV网</h4>
+      <p>以图中的顶点来表示活动，有向图表示活动之间的优先关系，这种用顶点表示活动的有向图称为AOV网。AOV网中的弧表示了活动之际存在着的制约关系。</p>
+
+        <h4 id="4-2-2-拓扑排序"   >
+          <a href="#4-2-2-拓扑排序" class="heading-link"><i class="fas fa-link"></i></a>4.2.2 拓扑排序</h4>
+      <p>找一个有向图的一个拓扑序列的过程称之。完成拓扑排序的前提条件是AOV网中不允许出现回路。</p>
+<p>下面给出有向图拓扑排序算法的基本步骤：</p>
+<ol>
+<li>图中选择一个入度为0的顶点，输出该顶点</li>
+<li>从图中删除该顶点及其相关联的弧，调整被删弧的弧头结点的入度（入度减1）</li>
+<li>重复执行1、2直到所有入度为0的顶点均被输出，拓扑排序完成，或者图中再也没有入度为0的顶点。</li>
+</ol>
+<p>任何一个无环有向图，其全部顶点可以拍出一个拓扑序列。</p>
+<p>拓扑排序算法的时间复杂度为O（n+e）,n是图的顶点个数,e是图的弧的数目。</p>
+
+        <h2 id="五、考核的知识点与考核要求"   >
+          <a href="#五、考核的知识点与考核要求" class="heading-link"><i class="fas fa-link"></i></a>五、考核的知识点与考核要求</h2>
+      
+        <h3 id="5-1-图的逻辑结构、图的存储结构"   >
+          <a href="#5-1-图的逻辑结构、图的存储结构" class="heading-link"><i class="fas fa-link"></i></a>5.1 图的逻辑结构、图的存储结构</h3>
+      <ul>
+<li>识记<ul>
+<li>图的应用背景</li>
+<li>图的概念</li>
+<li>图的逻辑结构</li>
+<li>有向图</li>
+<li>无向图</li>
+<li>子图</li>
+<li>图的连通性</li>
+<li>边（弧）的权值</li>
+<li>带权图</li>
+<li>生成树</li>
+<li>图的存储结构</li>
+</ul>
+</li>
+<li>邻会<ul>
+<li>图的基本运算</li>
+<li>图的邻接矩阵存储方式及类C语言描述</li>
+<li>图的邻接表和逆邻接表存储方式及类C语言描述</li>
+</ul>
+</li>
+<li>简单应用<ul>
+<li>建立图邻接矩阵算法</li>
+<li>建立图邻接表算法</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="5-2-图的遍历"   >
+          <a href="#5-2-图的遍历" class="heading-link"><i class="fas fa-link"></i></a>5.2 图的遍历</h3>
+      <ul>
+<li>识记<ul>
+<li>图的遍历</li>
+<li>图的深度优先搜索</li>
+<li>图的广度优先搜索</li>
+</ul>
+</li>
+<li>邻会<ul>
+<li>图的深度优先搜索算法</li>
+<li>图的广度优先搜索算法</li>
+</ul>
+</li>
+<li>简单应用<ul>
+<li>求图的深度优先遍历的顶点序列</li>
+<li>求图的广度优先遍历的顶点序列</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="5-3-图的应用"   >
+          <a href="#5-3-图的应用" class="heading-link"><i class="fas fa-link"></i></a>5.3 图的应用</h3>
+      <ul>
+<li>识记<ul>
+<li>最小生成树</li>
+<li>单源最短路径</li>
+<li>AOV网</li>
+<li>拓扑排序</li>
+</ul>
+</li>
+<li>领会<ul>
+<li>求最小生成树的Prim算法</li>
+<li>求最小生成树的Kruskal算法思想</li>
+<li>求单源最短路径Dijkstra算法思想</li>
+<li>拓扑排序算法</li>
+</ul>
+</li>
+<li>简单应用<ul>
+<li>求最小生成树</li>
+<li>求从一源点到其他各顶点的最短路径</li>
+<li>求给定有向图的顶点的拓扑序列</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="5-4-本章重点、难点"   >
+          <a href="#5-4-本章重点、难点" class="heading-link"><i class="fas fa-link"></i></a>5.4 本章重点、难点</h3>
+      
+        <h4 id="本章重点"   >
+          <a href="#本章重点" class="heading-link"><i class="fas fa-link"></i></a>本章重点</h4>
+      <ul>
+<li>图的邻接矩阵和邻接表两种存储结构，</li>
+<li>图的深度优先和广度优先搜索算法</li>
+</ul>
+
+        <h4 id="本章难点"   >
+          <a href="#本章难点" class="heading-link"><i class="fas fa-link"></i></a>本章难点</h4>
+      <ul>
+<li>求最小生成树的Prim算法</li>
+<li>求单源最短路径算法</li>
+<li>求拓扑排序算法</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://qiuzp.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/04/03/%E3%80%90%E8%8B%B1%E8%AF%AD%E4%BA%8C%E3%80%91%E6%A6%82%E6%8B%AC%E6%AE%B5%E8%90%BD%E5%A4%A7%E6%84%8F%E5%92%8C%E8%A1%A5%E5%85%A8%E5%8F%A5%E5%AD%90/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【英语二】概括段落大意和补全句子</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/03/%E3%80%90%E8%8B%B1%E8%AF%AD%E4%BA%8C%E3%80%91%E9%98%85%E8%AF%BB%E5%88%A4%E6%96%AD/"><span class="paginator-prev__text">【英语二】阅读判断</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="gitalk-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#学习目的与要求"><span class="toc-text">
+          学习目的与要求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#本章总的要求"><span class="toc-text">
+          本章总的要求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、图的基本概念"><span class="toc-text">
+          一、图的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-图的定义和术语"><span class="toc-text">
+          1.1 图的定义和术语</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#有向图、无向图"><span class="toc-text">
+          有向图、无向图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#弧、弧头、弧尾"><span class="toc-text">
+          弧、弧头、弧尾</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#无向完全图"><span class="toc-text">
+          无向完全图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#有向完全图"><span class="toc-text">
+          有向完全图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#权、带权图"><span class="toc-text">
+          权、带权图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#顶点的度、入度、出度"><span class="toc-text">
+          顶点的度、入度、出度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#子图"><span class="toc-text">
+          子图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#路径、路径长度"><span class="toc-text">
+          路径、路径长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#简单路径、回路、简单回路"><span class="toc-text">
+          简单路径、回路、简单回路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#连通、连通图、连通分量"><span class="toc-text">
+          连通、连通图、连通分量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#强连通、强连通图、强连通分量："><span class="toc-text">
+          强连通、强连通图、强连通分量：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成树"><span class="toc-text">
+          生成树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成森林"><span class="toc-text">
+          生成森林</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-图的基本运算"><span class="toc-text">
+          1.2 图的基本运算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、图的存储结构"><span class="toc-text">
+          二、图的存储结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-邻接矩阵"><span class="toc-text">
+          2.1 邻接矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类型定义如下"><span class="toc-text">
+          类型定义如下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-邻接表"><span class="toc-text">
+          2.2 邻接表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、图的遍历"><span class="toc-text">
+          三、图的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-连通图的深度优先搜索"><span class="toc-text">
+          3.1 连通图的深度优先搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-连通图的广度优先搜索"><span class="toc-text">
+          3.2 连通图的广度优先搜索</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、图的应用"><span class="toc-text">
+          四、图的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-最小生成树"><span class="toc-text">
+          4.1 最小生成树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-最小生产树的概念"><span class="toc-text">
+          4.1.1 最小生产树的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-构造最小生成树的Prim算法"><span class="toc-text">
+          4.1.2 构造最小生成树的Prim算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-3-构造最小生成树的克鲁斯卡尔算法"><span class="toc-text">
+          4.1.3 构造最小生成树的克鲁斯卡尔算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-4-单源最短路径"><span class="toc-text">
+          4.1.4 单源最短路径</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Dijkstra算法"><span class="toc-text">
+          Dijkstra算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-拓扑排序"><span class="toc-text">
+          4.2 拓扑排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-AOV网"><span class="toc-text">
+          4.2.1 AOV网</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-拓扑排序"><span class="toc-text">
+          4.2.2 拓扑排序</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、考核的知识点与考核要求"><span class="toc-text">
+          五、考核的知识点与考核要求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-图的逻辑结构、图的存储结构"><span class="toc-text">
+          5.1 图的逻辑结构、图的存储结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-图的遍历"><span class="toc-text">
+          5.2 图的遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-图的应用"><span class="toc-text">
+          5.3 图的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-本章重点、难点"><span class="toc-text">
+          5.4 本章重点、难点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#本章重点"><span class="toc-text">
+          本章重点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本章难点"><span class="toc-text">
+          本章难点</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/favicon-144x144.png" alt="avatar"></div><p class="sidebar-ov-author__text">因为简书被封，所以将之前的写的博客搬到这。</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/qiuzp94" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://segmentfault.com/u/qiuzp" target="_blank" rel="noopener" data-popover="思否" data-popover-pos="up"><span class="sidebar-ov-social-item__icon">sf</span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">57</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Qiuzp</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.2.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.xml';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-md5@latest/src/md5.min.js"></script><script>function loadGitalk () {
+  if (!document.getElementById('gitalk-container')) {
+    return;
+  }
+
+  var gitalk = new Gitalk({
+    id: md5(window.location.pathname.slice(1)),
+    clientID: '30a36b2cd2a68d44d572',
+    clientSecret: '30d1069e45056ad7d7c29d502725b59ff470ac4d',
+    repo: 'git@github.com:qiuzp94/qiuzp94.github.io.git',
+    owner: 'qiuzp94',
+    admin: ['qiuzp94'],
+    distractionFreeMode: 'false',
+    language: 'zh-CN'
+  });
+  gitalk.render('gitalk-container');
+}
+
+if (false) {
+  loadGitalk();
+} else {
+  window.addEventListener('DOMContentLoaded', loadGitalk, false);
+}</script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script></body></html>
