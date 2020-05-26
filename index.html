@@ -27,51 +27,14 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Qiuzp blog's</div><div class="header-banner-info__subtitle"></div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/05/26/%E3%80%90HTTP%E3%80%91HTTP%E9%AB%98%E7%BA%A7/">【HTTP】HTTP高级</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-05-26</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h2 id="Cookie-和-Session-的区别"   >
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Qiuzp blog's</div><div class="header-banner-info__subtitle"></div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home" id="content"><section class="postlist"><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/05/26/%E3%80%90HTTP%E3%80%91HTTP%E9%AB%98%E7%BA%A7/">【HTTP】HTTP高级</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-05-26</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="Cookie-和-Session-的区别"   >
           <a href="#Cookie-和-Session-的区别" class="heading-link"><i class="fas fa-link"></i></a>Cookie 和 Session 的区别</h2>
       <ol>
 <li>存储位置上:Cookie以文本文件格式存储在浏览器中，而session存储在服务端它存储了限制数据量。它只允许4kb它没有在cookie中保存多个变量。</li>
 <li>存储量上:cookie的存储限制了数据量，只允许4KB，而session是无限量的</li>
 <li>安全上: 我们可以轻松访问cookie值但是我们无法轻松访问会话值，因此它更安全</li>
 <li>生命周期上:设置cookie时间可以使cookie过期。但是使用session-destory（），我们将会销毁会话。</li>
-</ol>
-
-        <h2 id="Cookie-和-LocalStorage的区别"   >
-          <a href="#Cookie-和-LocalStorage的区别" class="heading-link"><i class="fas fa-link"></i></a>Cookie 和 LocalStorage的区别</h2>
-      <p>1.生命周期上:Cookie可以自己设置默认到浏览器关闭，而LocalStorage 除非自行删除或清除缓存，否则一直存在。<br>2.存储量上:cookie的存储限制了数据量，只允许4KB，而LocalStorage是5MB<br>3.与服务器通信上:Cookie在http头中，而LocalStorage在客户端上<br>4.易用性上:Cookie蹩脚的接口，一般要自己去封装，而LocalStorage接口可以直接使用。</p>
-
-        <h2 id="SessionStorage-和-LocalStorage-的区别"   >
-          <a href="#SessionStorage-和-LocalStorage-的区别" class="heading-link"><i class="fas fa-link"></i></a>SessionStorage 和 LocalStorage 的区别</h2>
-      <p>1.生命周期上:SessionStorage在浏览器关闭，而LocalStorage 除非自行删除或清除缓存，否则一直存在。<br>2.与服务器通信上:SessionStorage不参与服务器通信，而LocalStorage在客户端上</p>
-
-        <h2 id="Cookie-如何设置过期时间？"   >
-          <a href="#Cookie-如何设置过期时间？" class="heading-link"><i class="fas fa-link"></i></a>Cookie 如何设置过期时间？</h2>
-      <p>cookie具有两个属性可以规定cookie的过期时间。</p>
-<p>（1）.通过Expires属性设置过期时间：<br>（2）.通过Max-Age属性设置过期时间：</p>
-
-        <h2 id="如何删除-Cookie？"   >
-          <a href="#如何删除-Cookie？" class="heading-link"><i class="fas fa-link"></i></a>如何删除 Cookie？</h2>
-      <p>如果在浏览器上删除Cookie，可以直接在浏览器的设置选项来进行操作。</p>
-<p>如果是使用JS来清楚Cookie的话可以通过API</p>
-<p>设置cookie的时间为过期时间 即可</p>
-<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">delCookie</span>(<span class="params">name</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> exp = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">    exp.setTime(exp.getTime() - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">var</span> cval=getCookie(name);</span><br><span class="line">    <span class="keyword">if</span>(cval!=<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="built_in">document</span>.cookie= name + <span class="string">"="</span>+cval+<span class="string">";expires="</span>+exp.toGMTString();</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
-
-
-
-        <h2 id="Cache-Control-max-age-1000-缓存-与-ETag-的「缓存」有什么区别？"   >
-          <a href="#Cache-Control-max-age-1000-缓存-与-ETag-的「缓存」有什么区别？" class="heading-link"><i class="fas fa-link"></i></a>Cache-Control: max-age=1000 缓存 与 ETag 的「缓存」有什么区别？</h2>
-      <p>Cache-Control: max-age=1000 缓存，是1000秒内不返回请求<br>ETag 的「缓存」，是返回请求响应体为空</p>
-<p>两种最主要的区别就是Cache-Control缓存存储的有效周期内不会发请求相同URL的资源不会发请求，但是使用ETag浏览器还是会发请求。</p>
-
-        <h3 id="参考资料"   >
-          <a href="#参考资料" class="heading-link"><i class="fas fa-link"></i></a>参考资料</h3>
-      <ol>
-<li><span class="exturl"><a class="exturl__link"   href="https://zixuephp.net/article-56.html"  target="_blank" rel="noopener">js对cookie 设置、获取和删除</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-<li><span class="exturl"><a class="exturl__link"   href="https://www.dazhuanlan.com/2019/09/26/5d8c09faba2ce/?__cf_chl_jschl_tk__=42b2e7703bd3733e4103aeba4b8b94158f8f9fec-1590475142-0-ARv_XjvUCvqZtfNlIa1XTesDavIEJUXaeG5jbjkMmZOpcpOr2K5484NmTgRhfbTU15LvIN6ya84UCN-GEjWW9Km4PhHRfBiB9DElQJpZUNuB7Jv_IPTSJ9O0kWGgQl1-35Zudy00B0EhO4sG8LlLzpbG_KQiGt02lgdlNh29mMb3W0lydn3anfHEhcUL3xmvCbNBa2LLTDugWc1InjC2NVnXEAIXzG10n9xWyToKml3eCWh31Y3PEbLNH5Og3H4kEpfRH_BEFLabjUCb0ym9iX3P0Tuql3YGr3yN6RQAwk9e8wPDwV63uf21W40lmoaMGw"  target="_blank" rel="noopener">Cookie</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
-</ol>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/05/26/%E3%80%90JavaScript%E3%80%91Session%E3%80%81LocalStorage%E3%80%81Cache-Control/">【JavaScript】Session、LocalStorage、Cache-Control</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-05-26</span></span></div></header><div class="post-body"><div class="post-excerpt">
-        <h2 id="一、课程简介"   >
+</ol></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/05/26/%E3%80%90HTTP%E3%80%91HTTP%E9%AB%98%E7%BA%A7/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/05/26/%E3%80%90JavaScript%E3%80%91Session%E3%80%81LocalStorage%E3%80%81Cache-Control/">【JavaScript】Session、LocalStorage、Cache-Control</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-05-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-05-26</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="一、课程简介"   >
           <a href="#一、课程简介" class="heading-link"><i class="fas fa-link"></i></a>一、课程简介</h2>
       
         <h3 id="1-1-注意"   >
@@ -115,131 +78,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></he
 <li>每个域名 localStorage 最大存储量为 5Mb 左右（每个浏览器不一样）</li>
 <li>常用场景：记录有没有提示过用户（没有用的信息，不能记录密码）</li>
 <li>LocalStorage 永久有效，除非用户清理缓存</li>
-</ol>
-
-        <h4 id="1-3-4-SessionStorage（会话存储）"   >
-          <a href="#1-3-4-SessionStorage（会话存储）" class="heading-link"><i class="fas fa-link"></i></a>1.3.4 SessionStorage（会话存储）</h4>
-      <ol>
-<li>SessionStorage 跟 HTTP 无关</li>
-<li>HTTP 不会带上 SessionStorage 的值</li>
-<li>只有相同域名的页面才能互相读取 SessionStorage（没有同源那么严格）</li>
-<li>每个域名 SessionStorage 最大存储量为 5Mb 左右（每个浏览器不一样）</li>
-<li>SessionStorage 在用户关闭页面（会话结束）后就失效。</li>
-</ol>
-
-        <h3 id="1-4-Session-可以用-LocalStorage-查询参数实现"   >
-          <a href="#1-4-Session-可以用-LocalStorage-查询参数实现" class="heading-link"><i class="fas fa-link"></i></a>1.4 Session 可以用 LocalStorage + 查询参数实现</h3>
-      <p>这是超纲内容。</p>
-
-        <h3 id="1-5-Cache-Control-是什么"   >
-          <a href="#1-5-Cache-Control-是什么" class="heading-link"><i class="fas fa-link"></i></a>1.5 Cache-Control 是什么</h3>
-      
-        <h3 id="1-6-Expire-是什么"   >
-          <a href="#1-6-Expire-是什么" class="heading-link"><i class="fas fa-link"></i></a>1.6 Expire 是什么</h3>
-      
-        <h3 id="1-7-MD5-是什么"   >
-          <a href="#1-7-MD5-是什么" class="heading-link"><i class="fas fa-link"></i></a>1.7 MD5 是什么</h3>
-      
-        <h3 id="1-8-ETag-是什么"   >
-          <a href="#1-8-ETag-是什么" class="heading-link"><i class="fas fa-link"></i></a>1.8 ETag 是什么</h3>
-      
-        <h3 id="1-9-缓存与-304-的区别"   >
-          <a href="#1-9-缓存与-304-的区别" class="heading-link"><i class="fas fa-link"></i></a>1.9 缓存与 304 的区别</h3>
-      <ul>
-<li>缓存没有请求。</li>
-<li>304 有请求，有响应，但是响应没有第四部分。</li>
-</ul>
-
-        <h2 id="二、-使用Session保存信息"   >
-          <a href="#二、-使用Session保存信息" class="heading-link"><i class="fas fa-link"></i></a>二、 使用Session保存信息</h2>
-      
-        <h3 id="2-1-回忆Cookie课程内容"   >
-          <a href="#2-1-回忆Cookie课程内容" class="heading-link"><i class="fas fa-link"></i></a>2.1 回忆Cookie课程内容</h3>
-      <ul>
-<li>服务器通过set-Cookie这个请求头给予请求方一个字符串  </li>
-<li>每次请求相同域名的时候带上Cookie</li>
-</ul>
-
-        <h4 id="例子"   >
-          <a href="#例子" class="heading-link"><i class="fas fa-link"></i></a>例子</h4>
-      <ul>
-<li>当用户登录成功， 用户就会获取到一个Cookie，假设Cookie内容为字符串<code>sigh_in_email:1@baidu.com</code></li>
-<li>用户在访问首页的时候，这个请求里面就包含了上面这个字符串<code>Cookie:sigh_in_email:1@baidu.com</code></li>
-<li>服务器读取该用户的Cookie。把该用户的信息的渲染到HTML中返回页面。</li>
-<li>如果服务器读取该用户的Cookie发现Cookie为空。则返回所有第一次访问/陌生人的页面。</li>
-</ul>
-
-        <h3 id="2-2-Cookie的问题"   >
-          <a href="#2-2-Cookie的问题" class="heading-link"><i class="fas fa-link"></i></a>2.2 Cookie的问题</h3>
-      <p>因为Cookie可以被用户篡改，这是Cookie上的大问题，如果Cookie采用明文展示给用户，用户可以随便改。</p>
-
-        <h3 id="2-3-如何解决Cookie篡改问题"   >
-          <a href="#2-3-如何解决Cookie篡改问题" class="heading-link"><i class="fas fa-link"></i></a>2.3 如何解决Cookie篡改问题</h3>
-      <p>怎么解决Cookie篡改问题，只要让用户猜不到就行。</p>
-
-        <h4 id="2-3-1-举个例子"   >
-          <a href="#2-3-1-举个例子" class="heading-link"><i class="fas fa-link"></i></a>2.3.1 举个例子</h4>
-      <ul>
-<li>比如声明一个空数组session,</li>
-<li>在用户登录的时候，如果发现用户曾经注册过，用户账号密码正确时，</li>
-<li>就给用户一个<code>Set-Cookie ,sign_in_email=${email}</code>，这就是问题所在。</li>
-<li>因为服务器直接把email暴露给了用户，所以我们不要这样写。</li>
-<li>而是要创建一个sessionId，seeionId是随机数,</li>
-<li>我们不直接把email存储到Cookie里面，而是存储在seeion里面</li>
-<li>就是说这个用户登录的email就是服务器找到的对应的email。</li>
-<li>然后我们只给它一个sessionId</li>
-</ul>
-<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\\关键代码如下</span><br><span class="line"><span class="keyword">let</span> session = &#123;&#125;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">let</span> sessionId = <span class="built_in">Math</span>.random()*<span class="number">100000</span> </span><br><span class="line">sessions[sessionId] = &#123;<span class="attr">sign_in_email</span>:email&#125;</span><br><span class="line">response.setHeader(<span class="string">'Set-Cookie'</span>,<span class="string">`sessionId=<span class="subst">$&#123;sessionId&#125;</span>`</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></div></figure>
-
-        <h5 id="效果如下"   >
-          <a href="#效果如下" class="heading-link"><i class="fas fa-link"></i></a>效果如下</h5>
-      <p><img src="https://i.loli.net/2020/04/01/S3WuZyObgimCzXk.png" alt="sessionId-效果-min.png"></p>
-
-        <h5 id="这样设置的意义"   >
-          <a href="#这样设置的意义" class="heading-link"><i class="fas fa-link"></i></a>这样设置的意义</h5>
-      <p>本来用户就是不应该看Cookie内容，现在用户修改Cookie内容也不怕。</p>
-
-        <h5 id="怎么利用sessionId"   >
-          <a href="#怎么利用sessionId" class="heading-link"><i class="fas fa-link"></i></a>怎么利用sessionId</h5>
-      <ul>
-<li><p>在用户访问首页的时候，服务器去读取一下sessionId里面对应的hash值是什么。</p>
-</li>
-<li><p>这样我们就知道这个用户sessionId是多少，而email在session里面找。sessionId是随机数</p>
-</li>
-<li><p>通过sessionId找到hash里面的对象，然后找hash里面的email。这样我们就知道当前用户的email是什么。</p>
-<p><code>注意：</code><br>只要服务器一关闭，那么这个应用所有的内存就会被释放。内存一释放。session这个hash就为空。就会找不到。 一般来说，服务器是不关闭的，或者在关闭之前，把session存储到一个地方。</p>
-</li>
-</ul>
-<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//关键代码如下</span></span><br><span class="line"><span class="keyword">let</span> mySession = sessions[hash.sessionId]</span><br><span class="line"><span class="keyword">let</span> email</span><br><span class="line">    <span class="keyword">if</span>(mySession)&#123;</span><br><span class="line">        email = mySession.sign_in_email</span><br><span class="line">    &#125;</span><br><span class="line"><span class="string">``</span><span class="string">`  </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 2.4 什么是session</span></span><br><span class="line"><span class="string">#### 什么是session普通理解</span></span><br><span class="line"><span class="string">一个服务器给每个用户分配了一小块内存，这小块内存就是用户的隐私数据，用户只保存这个内存的key，而这个key是一个随机数。一定要随机数，因为随机数无法猜测。 这就是session。</span></span><br><span class="line"><span class="string">#### 什么是session面试回答</span></span><br><span class="line"><span class="string">* 服务器通过cookie给用户一个sessionId,</span></span><br><span class="line"><span class="string">* 然后sessionId对应服务器里面的一小块内存，</span></span><br><span class="line"><span class="string">* 每次用户访问服务器的时候，服务器通过sessionId去读取对应的session，然后知道用户的隐私信息</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 2.5 session能否窜改</span></span><br><span class="line"><span class="string">不能， 因为sessionId的值是一个随机数。无法猜测。随机数是安全很重要的一部分。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 2.6 Cookie的特点（`</span>背诵级<span class="string">`）</span></span><br><span class="line"><span class="string">1. 服务器通过Set-Cookie头给客户端一串字符串</span></span><br><span class="line"><span class="string">2. 客户端每次访问相同域名的网页时，必须带上这段字符串</span></span><br><span class="line"><span class="string">3. 客户端要在一段时间内保存这个Cookie</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 2.7 什么是Session</span></span><br><span class="line"><span class="string">1. 将 SessionID（随机数）通过 Cookie 发给客户端</span></span><br><span class="line"><span class="string">2. 客户端访问服务器时，服务器读取 SessionID</span></span><br><span class="line"><span class="string">3. 服务器有一块内存（哈希表）保存了所有 session</span></span><br><span class="line"><span class="string">4. 通过 SessionID 我们可以得到对应用户的隐私信息，如 id、email</span></span><br><span class="line"><span class="string">5. 这块内存（哈希表）就是服务器上的所有 session</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 三、localStorage简介</span></span><br><span class="line"><span class="string">面试官最喜欢为localStorage与Cookie的区别</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Cookie的本质是HTTP的一个内容</span></span><br><span class="line"><span class="string">1. 服务器通过Set-Cookie头给客户端一串字符串</span></span><br><span class="line"><span class="string">2. 客户端每次访问相同域名的网页时，必须带上这段字符串</span></span><br><span class="line"><span class="string">3. 客户端要在一段时间内保存这个Cookie</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 3.1 localStorage是什么?</span></span><br><span class="line"><span class="string">localStorage是HTML5技术提供的一个API。</span></span><br><span class="line"><span class="string">`</span><span class="built_in">window</span>.localstorage<span class="string">`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">![前端-window-localstorage-min.png](https://i.loli.net/2020/04/02/mKZInLlrFPvz2pu.png)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#### `</span><span class="built_in">window</span>.localStorage<span class="string">`的API</span></span><br><span class="line"><span class="string">`</span><span class="built_in">window</span>.localStorage<span class="string">`的API有</span></span><br><span class="line"><span class="string">* getItem //常用，返回一个函数</span></span><br><span class="line"><span class="string">* setItem //常用，返回一个函数</span></span><br><span class="line"><span class="string">* removeItem  //常用，返回一个函数</span></span><br><span class="line"><span class="string">* length</span></span><br><span class="line"><span class="string">* clear //一般不使用</span></span><br><span class="line"><span class="string">* key</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">使用`</span><span class="built_in">console</span>.dir(<span class="built_in">window</span>.localStorage)<span class="string">`可以查看里面API内容</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">![前端-控制查看localStorage-min.png](https://i.loli.net/2020/04/02/NI9Cg4aoE8JSqUp.png)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 3.2 localStorage的实质</span></span><br><span class="line"><span class="string">localStorage实质上是一个hash表，localStorage是浏览器上的hash表。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 3.3 如何使用localStorage</span></span><br><span class="line"><span class="string">![前端-使用localStorange1-min.png](https://i.loli.net/2020/04/02/qA2yuiteBWPzHTd.png)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">![前端-使用localStorange2-min.png](https://i.loli.net/2020/04/02/KXvT2LYti54c8IR.png)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">localStorage只能存储string,其他类型就会转换为string</span></span><br><span class="line"><span class="string">![前端-localStorage存储测试-min.png](https://i.loli.net/2020/04/02/MYipuyUO8SwvBXL.png)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">![前端-localStorage存储测试结果-min.png](https://i.loli.net/2020/04/02/Qcl6tNS7j1ZqHno.png)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">为什么？因为任何一个对象toString都会变成`</span>[object <span class="built_in">Object</span>]<span class="string">`，所以不管存储任意对象，当字符串存储都会变成`</span>[object <span class="built_in">Object</span>]<span class="string">`。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">![前端-loaclStorage存储测试结果原理-min.png](https://i.loli.net/2020/04/02/C9XIyBms7AtgNRk.png)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">#### 使用JSON存储对象</span></span><br><span class="line"><span class="string">如何解决该问题？使用JSON存储</span></span><br><span class="line"><span class="string">`</span>localStorage.setItem(<span class="string">'jsonString'</span>,<span class="built_in">JSON</span>.stringify(&#123;<span class="attr">name</span>:<span class="string">'obj'</span>&#125;))<span class="string">`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">![前端-localStorage-JSON存储对象-min.png](https://i.loli.net/2020/04/02/84jBXgwdn5RvSHN.png)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">JSON.stringify就会将该对象变成JSON字符串</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="built_in">JSON</span>.stringify(&#123;<span class="attr">name</span>:<span class="string">'obj'</span>&#125;)<span class="comment">//返回"&#123;"name":"obj"&#125;"`</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 如何读取数据</span><br><span class="line">![前端-localStorage-读取数据-min.png](https:<span class="comment">//i.loli.net/2020/04/02/CImfrAljWde3yws.png)</span></span><br><span class="line"></span><br><span class="line">getItem、setItem、clear它们都是操作当前页面的hash</span><br><span class="line"></span><br><span class="line">session的缺点是耗内存</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 四、localStorage用法</span><br><span class="line"></span><br><span class="line"><span class="string">``</span><span class="string">` javascript</span></span><br><span class="line"><span class="string">let a = localStorage.getItem('a')</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">if(!a)&#123;</span></span><br><span class="line"><span class="string">    a = 0</span></span><br><span class="line"><span class="string">&#125;else&#123;</span></span><br><span class="line"><span class="string">    a = parseInt(a,10)+1</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">console.log('a')</span></span><br><span class="line"><span class="string">console.log(a)</span></span><br><span class="line"><span class="string">localStorage.setItem('a',a)</span></span><br></pre></td></tr></table></div></figure>
-
-
-        <h2 id="五、不基于Cookie的Session"   >
-          <a href="#五、不基于Cookie的Session" class="heading-link"><i class="fas fa-link"></i></a>五、不基于Cookie的Session</h2>
-      <p>前端永远不要读/写cookie</p>
-
-        <h2 id="六、缓存控制Cache-Control"   >
-          <a href="#六、缓存控制Cache-Control" class="heading-link"><i class="fas fa-link"></i></a>六、缓存控制Cache-Control</h2>
-      <p>HTTP缓存</p>
-<p>Cache-Control===Web性能优化</p>
-<p><code>Cache-Control:max-age=30</code><br><code>response.setHeader(&#39;Cache-Control&#39;,&#39;max-age=30&#39;)</code></p>
-
-        <h2 id="七、如何更新缓存"   >
-          <a href="#七、如何更新缓存" class="heading-link"><i class="fas fa-link"></i></a>七、如何更新缓存</h2>
-      
-        <h2 id="八、Expires"   >
-          <a href="#八、Expires" class="heading-link"><i class="fas fa-link"></i></a>八、Expires</h2>
-      <p>Expires 响应头包含日期/时间， 即在此时候之后，响应过期。</p>
-<p>无效的日期，比如 0, 代表着过去的日期，即该资源已经过期。</p>
-<p>如果在Cache-Control响应头设置了 “max-age” 或者 “s-max-age” 指令，那么 Expires 头会被忽略。</p>
-<p>语法：Expires: <http-date></p>
-<p><span class="exturl"><a class="exturl__link"   href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Expires"  target="_blank" rel="noopener">Expires</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-
-        <h2 id="九、ETag"   >
-          <a href="#九、ETag" class="heading-link"><i class="fas fa-link"></i></a>九、ETag</h2>
-      <p>ETagHTTP响应头是资源的特定版本的标识符。这可以让缓存更高效，并节省带宽，因为如果内容没有改变，Web服务器不需要发送完整的响应。</p>
-<p>语法<br><code>ETag: W/&quot;&lt;etag_value&gt;&quot;</code><br><code>ETag: &quot;&lt;etag_value&gt;&quot;</code></p>
-<p><span class="exturl"><a class="exturl__link"   href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/ETag"  target="_blank" rel="noopener">ETag</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-</div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91JavaScript%E6%93%8D%E4%BD%9C%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/">【JavaScript】JavaScript操作请求与响应</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="一、请求的组成部分"   >
+</ol></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/05/26/%E3%80%90JavaScript%E3%80%91Session%E3%80%81LocalStorage%E3%80%81Cache-Control/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/04/03/%E3%80%90JavaScript%E3%80%91JavaScript%E6%93%8D%E4%BD%9C%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/">【JavaScript】JavaScript操作请求与响应</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="一、请求的组成部分"   >
           <a href="#一、请求的组成部分" class="heading-link"><i class="fas fa-link"></i></a>一、请求的组成部分</h2>
       <ul>
 <li>第一部分 GET /xxx HTTP/1.1</li>
@@ -341,12 +180,18 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></he
 <blockquote>
 <p>leancloud 领先的 BaaS 提供商,提供数据存储、文件存储、云引擎、容器、即时通讯、消息推送、短信、游戏云等多项服务,为移动开发提供强有力的后端支持</p>
 </blockquote>
-<p><span class="exturl"><a class="exturl__link"   href="https://www.leancloud.cn/"  target="_blank" rel="noopener">LeanCloud官网</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/04/03/%E3%80%90%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E3%80%91%E7%AE%80%E5%8E%86%E9%A1%B9%E7%9B%AE%E6%B7%BB%E5%8A%A0LeanCloud%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/04/03/%20%E3%80%90JavaScript%E3%80%91Promise/">【JavaScript】Promise</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="一、前置问题：用函数有什么问题？—回调问题"   >
-          <a href="#一、前置问题：用函数有什么问题？—回调问题" class="heading-link"><i class="fas fa-link"></i></a>一、前置问题：用函数有什么问题？—回调问题</h2>
-      <p>如果不查阅文档，不知道回调的是什么，成功传到哪里，失败传到哪里。</p>
-<p>因为每一个人封装函数的风格，不一致，导致要查看多个文档才能更好调有其他人的库。<br>没有规范，那么在JavaScript中有没有一个规范来定义形式咧？</p>
-<p>有，这个规范就是Promise</p>
-<p>Promise只是一个确定形式的规范。</p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/04/03/%20%E3%80%90JavaScript%E3%80%91Promise/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/04/03/CSS%E7%9F%A5%E8%AF%86%E5%BD%92%E7%BA%B3/">CSS知识归纳</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="一、文档流"   >
+<p><span class="exturl"><a class="exturl__link"   href="https://www.leancloud.cn/"  target="_blank" rel="noopener">LeanCloud官网</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/04/03/%E3%80%90%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E3%80%91%E7%AE%80%E5%8E%86%E9%A1%B9%E7%9B%AE%E6%B7%BB%E5%8A%A0LeanCloud%E7%95%99%E8%A8%80%E5%8A%9F%E8%83%BD/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/04/03/Cookie%E4%B8%8E%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C/">Cookie与登录注册</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="一、啥是Cookie"   >
+          <a href="#一、啥是Cookie" class="heading-link"><i class="fas fa-link"></i></a>一、啥是Cookie</h2>
+      <p>Cookie，又称为“小甜饼”。类型为“小型文本文件”，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。由网景公司的前雇员卢·蒙特利在1993年3月发明。</p>
+<p>每个 Cookie 的大小一般不能超过4KB。浏览器每次向服务器发出请求，就会自动附上这段信息。</p>
+
+        <h2 id="二、-Cookie-的特点"   >
+          <a href="#二、-Cookie-的特点" class="heading-link"><i class="fas fa-link"></i></a>二、 Cookie 的特点</h2>
+      <ol>
+<li>服务器通过 Set-Cookie 响应头设置 Cookie</li>
+<li>浏览器得到 Cookie 之后，每次请求都要带上 Cookie</li>
+<li>服务器读取 Cookie 就知道登录用户的信息（email）</li>
+</ol></div><div class="post-readmore"><a class="post-readmore__link" href="/2020/04/03/Cookie%E4%B8%8E%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C/"><span class="post-readmore__text">Read More</span><span class="post-readmore__icon"><i class="fas fa-long-arrow-alt-right"></i></span></a></div></div></article><article class="postlist-item post"><header class="post-header"><h1 class="post-title"><a class="post-title__link" href="/2020/04/03/CSS%E7%9F%A5%E8%AF%86%E5%BD%92%E7%BA%B3/">CSS知识归纳</a></h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-04-03</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-04-03</span></span></div></header><div class="post-body"><div class="post-excerpt"><h2 id="一、文档流"   >
           <a href="#一、文档流" class="heading-link"><i class="fas fa-link"></i></a>一、文档流</h2>
       
         <h3 id="1-1-文档流定义"   >
